@@ -1,0 +1,93 @@
+# ============================================================
+#  ALL personal content for this site lives in THIS file.
+#  Images: put files in assets/images/ and write only the file name here.
+#  Optional fields/sections: leave empty ( [] or "" ) and the site hides them.
+#  Example data below is fictional — replace everything.
+# ============================================================
+
+name: "Tanvir Rahman"              # required
+short_name: "Tanvir"               # used in greetings / header
+role: "CSE student & web developer"  # required, one line
+now: "Third-year CSE student at Daffodil International University, building small web tools for local businesses."  # required, one sentence
+photo: "profile.jpg"               # required, file in assets/images/ (square or 4:5, min 800px)
+photo_alt: "Portrait of Tanvir Rahman"
+location: "Savar, Dhaka, Bangladesh"
+cv: "/files/cv.pdf"                # PDF in static/files/ or a full URL; "" hides the button
+
+facts:                             # 3–4 short facts for the home page
+  - "CSE, Daffodil International University"
+  - "Based in Dhaka"
+  - "Open to internships"
+
+bio: |                             # required; first paragraph is shown on Home
+  I'm a Computer Science student who likes turning messy real-world problems into simple software. Most of my work is small web apps for people I know: shops, clubs and classmates.
+
+  Outside class I'm learning system design and contributing to our university's programming club. I want to work as a backend engineer after graduation.
+
+education:                         # newest first
+  - degree: "B.Sc. in Computer Science and Engineering"
+    institution: "Daffodil International University"
+    start: "2024"
+    end: "Present"                 # or a year
+    detail: "CGPA 3.70 / 4.00 so far. Coursework: data structures, databases, networking."
+  - degree: "Higher Secondary Certificate (Science)"
+    institution: "Savar Cantonment Public School & College"
+    start: "2021"
+    end: "2023"
+    detail: "GPA 5.00"
+
+experience:                        # newest first; [] hides the section
+  - title: "Web development intern"
+    org: "Example Tech Ltd."
+    start: "Jun 2026"
+    end: "Aug 2026"
+    detail: "Built an internal stock dashboard with Laravel and MySQL used by 12 staff."
+
+skills:                            # groups; first 2 groups appear on Home
+  - group: "Languages"
+    items: ["C", "C++", "Python", "JavaScript"]
+  - group: "Web"
+    items: ["HTML", "CSS", "React", "Laravel"]
+  - group: "Tools"
+    items: ["Git", "Linux", "Figma", "MySQL"]
+
+projects:
+  - title: "Campus Lost & Found"
+    summary: "A small web app where students post and claim lost items on campus."
+    image: "project-lostfound.jpg"   # optional, file in assets/images/
+    tech: ["Laravel", "MySQL", "Tailwind"]
+    live: "https://example.com"      # optional
+    code: "https://github.com/example/lost-found"  # optional
+    featured: true
+  - title: "Bus Time Bot"
+    summary: "A Telegram bot that tells DIU students when the next university bus leaves."
+    image: ""
+    tech: ["Python", "Telegram API"]
+    live: ""
+    code: "https://github.com/example/bus-bot"
+    featured: true
+
+achievements:                      # [] hides the section
+  - year: "2025"
+    title: "Top 10, DIU Intra-University Programming Contest"
+    issuer: "DIU CPC"
+
+languages: ["Bangla (native)", "English (fluent)"]
+
+hobbies:                           # [] hides the section
+  - title: "Travelling"
+    text: "I try to visit one new district every semester and keep a photo journal."
+    image: ""                       # optional
+
+contact:
+  email: "tanvir@example.com"      # required
+  phone: "+880 1XXX-XXXXXX"        # "" hides it
+  note: "I reply within a day. Happy to talk about internships and small projects."
+
+socials:                           # any of: github, linkedin, facebook, x, instagram, youtube, website, behance, dribbble, medium
+  - name: "github"
+    url: "https://github.com/example"
+  - name: "linkedin"
+    url: "https://www.linkedin.com/in/example"
+  - name: "facebook"
+    url: "https://facebook.com/example"
