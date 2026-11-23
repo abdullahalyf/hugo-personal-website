@@ -1,0 +1,44 @@
+{{- /* Called once per build (from the base template) to fail loudly when the
+     profile data is incomplete. Optional sections may be empty — only the
+     required fields below are enforced.
+*/ -}}
+{{- $p := hugo.Data.profile -}}
+{{- $required := slice
+      (dict "key" "name"     "label" "name")
+      (dict "key" "role"     "label" "role")
+      (dict "key" "now"      "label" "now")
+      (dict "key" "photo"    "label" "photo")
+      (dict "key" "bio"      "label" "bio")
+-}}
+{{- range $required -}}
+  {{- $value := index $p .key -}}
+  {{- if not $value -}}
+    {{- errorf "profile.yaml: %q is required but empty (or missing). Add it under the top level of data/profile.yaml." .label -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $p.contact -}}
+  {{- errorf "profile.yaml: %q section is required but missing. Add a contact block with at least an email." "contact" -}}
+{{- end -}}
+{{- if not $p.contact.email -}}
+  {{- errorf "profile.yaml: %q is required but empty. Add an email address under contact." "contact.email" -}}
+{{- end -}}
+{{- /* Every referenced image must exist in assets/images/. */ -}}
+{{- if $p.photo -}}
+  {{- if not (resources.Get (printf "images/%s" $p.photo)) -}}
+    {{- errorf "profile.yaml: photo %q was not found in assets/images/. Add the file or fix the name." $p.photo -}}
+  {{- end -}}
+{{- end -}}
+{{- range $p.projects -}}
+  {{- with .image -}}
+    {{- if not (resources.Get (printf "images/%s" .)) -}}
+      {{- errorf "profile.yaml: project %q references image %q which was not found in assets/images/." $.Title . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- range $p.hobbies -}}
+  {{- with .image -}}
+    {{- if not (resources.Get (printf "images/%s" .)) -}}
+      {{- errorf "profile.yaml: hobby %q references image %q which was not found in assets/images/." $.Title . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

@@ -1,0 +1,23 @@
+{{ define "main" }}
+{{- $p := hugo.Data.profile -}}
+<section class="page-head">
+  <div class="container">
+    <h1 class="page-head__title">{{ .Title }}</h1>
+    {{- with .Params.description }}<p class="page-head__lead">{{ . }}</p>{{ end }}
+  </div>
+</section>
+
+{{- with $p.projects }}
+<section class="section section--projects">
+  <div class="container">
+    <div class="project-grid">
+      {{- range $i, $proj := . }}
+      {{ partial "project.html" (dict "item" $proj "index" $i "mode" "grid") }}
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}
+
+{{ partial "skills.html" (dict "groups" $p.skills "title" "Skills") }}
+{{ end }}

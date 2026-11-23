@@ -1,0 +1,59 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 5 0 R /F2 6 0 R /F3 7 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 1604 >>
+stream
+0.055 0.455 0.565 rg 6 0 0 6 56 760 re fBT /F2 22 Tf 1 0 0 1 76 762 Tm ("Tanvir Rahman"              # required) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 76 742 Tm ("CSE student & web developer"  # required, one line) Tj ET
+BT /F1 9.5 Tf 1 0 0 1 76 726 Tm ("Third-year CSE student at Daffodil International University, building small web tools for local businesses."  # required, one sentence) Tj ET
+0.055 0.455 0.565 RG 1 w 56 712 m 539 712 l SBT /F2 13 Tf 1 0 0 1 56 688 Tm (Profile) Tj ET
+BT /F1 10 Tf 1 0 0 1 56 670 Tm (| # required; first paragraph is shown on Home) Tj ET
+BT /F2 13 Tf 1 0 0 1 56 640.5 Tm (Education) Tj ET
+BT /F1 10 Tf 1 0 0 1 56 622.5 Tm (B.Sc. in Computer Science and Engineering) Tj ET
+BT /F1 10 Tf 1 0 0 1 56 609.0 Tm (Daffodil International University, 2024 - Present) Tj ET
+BT /F1 10 Tf 1 0 0 1 56 595.5 Tm (Higher Secondary Certificate \(Science\)) Tj ET
+BT /F1 10 Tf 1 0 0 1 56 582.0 Tm (Savar Cantonment Public School & College, 2021 - 2023) Tj ET
+BT /F2 13 Tf 1 0 0 1 56 552.5 Tm (Experience) Tj ET
+BT /F1 10 Tf 1 0 0 1 56 534.5 Tm (Web development intern, Example Tech Ltd.) Tj ET
+BT /F1 10 Tf 1 0 0 1 56 521.0 Tm (Jun 2026 - Aug 2026) Tj ET
+BT /F2 13 Tf 1 0 0 1 56 491.5 Tm (Skills) Tj ET
+BT /F1 10 Tf 1 0 0 1 56 473.5 Tm (#, , g, r, o, u, p, s, ;, , f, i, r, s, t, , 2, , g, r, o, u, p, s, , a, p, p, e, a, r, , o,) Tj ET
+BT /F1 10 Tf 1 0 0 1 56 460.0 Tm (n, , H, o, m, e) Tj ET
+BT /F2 13 Tf 1 0 0 1 56 430.5 Tm (Contact) Tj ET
+BT /F1 10 Tf 1 0 0 1 56 412.5 Tm (Savar, Dhaka, Bangladesh) Tj ET
+BT /F3 8.5 Tf 1 0 0 1 56 56 Tm (Placeholder CV - replace with a real document.) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000267 00000 n 
+0000001923 00000 n 
+0000001993 00000 n 
+0000002068 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+2146
+%%EOF

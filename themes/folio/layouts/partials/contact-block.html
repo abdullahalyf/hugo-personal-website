@@ -1,0 +1,40 @@
+{{- /* Contact block: email, phone, location, socials, CV.
+     Usage: partial "contact-block.html" $p */ -}}
+{{- $p := . -}}
+<section class="section section--contact">
+  <div class="container">
+    <h2 class="section__title">Contact</h2>
+    <ul class="contact-list">
+      {{- with $p.contact.email }}
+      <li class="contact-list__item">
+        {{ partial "icon.html" (dict "name" "mail" "class" "contact-list__icon") }}
+        <a href="mailto:{{ . }}">{{ . }}</a>
+      </li>
+      {{- end }}
+      {{- with $p.contact.phone }}
+      <li class="contact-list__item">
+        {{ partial "icon.html" (dict "name" "phone" "class" "contact-list__icon") }}
+        <a href="tel:{{ replaceRE "[^0-9+]" "" . }}">{{ . }}</a>
+      </li>
+      {{- end }}
+      {{- with $p.location }}
+      <li class="contact-list__item">
+        {{ partial "icon.html" (dict "name" "location" "class" "contact-list__icon") }}
+        <span>{{ . }}</span>
+      </li>
+      {{- end }}
+    </ul>
+    {{- with $p.contact.note }}
+    <p class="contact-note">{{ . }}</p>
+    {{- end }}
+    {{ partial "socials.html" $p.socials }}
+    {{- if $p.cv }}
+    <p class="contact-actions">
+      <a class="btn btn--primary" href="{{ $p.cv }}" download>
+        {{ partial "icon.html" (dict "name" "download" "class" "btn__icon") }}
+        <span>Download CV</span>
+      </a>
+    </p>
+    {{- end }}
+  </div>
+</section>

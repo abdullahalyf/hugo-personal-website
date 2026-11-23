@@ -1,0 +1,26 @@
+{{- $p := . -}}
+{{- $sameAs := slice -}}
+{{- range $p.socials -}}
+  {{- $sameAs = $sameAs | append .url -}}
+{{- end -}}
+{{- /* The image must be the published, processed photo, not the raw asset path. */ -}}
+{{- $image := "" -}}
+{{- with $p.photo -}}
+  {{- with resources.Get (printf "images/%s" .) -}}
+    {{- $image = (.Resize "512x512 webp q85").Permalink -}}
+  {{- end -}}
+{{- end -}}
+{{- $json := dict
+  "@context" "https://schema.org"
+  "@type" "Person"
+  "name" $p.name
+  "jobTitle" $p.role
+  "description" (trim (printf "%s" $p.bio) "\n ")
+  "url" site.BaseURL
+-}}
+{{- with $image }}{{ $json = merge $json (dict "image" .) }}{{ end -}}
+{{- with $p.location }}{{ $json = merge $json (dict "address" (dict "@type" "PostalAddress" "addressLocality" .)) }}{{ end -}}
+{{- with $p.contact }}{{ with .email }}{{ $json = merge $json (dict "email" .) }}{{ end }}{{ end -}}
+{{- if $sameAs }}{{ $json = merge $json (dict "sameAs" $sameAs) }}{{ end -}}
+{{- with $p.cv }}{{ $json = merge $json (dict "hasCredential" (. | relURL)) }}{{ end -}}
+<script type="application/ld+json">{{ $json | jsonify (dict "indent" "  ") | safeJS }}</script>

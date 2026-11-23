@@ -1,0 +1,69 @@
+{{ define "main" }}
+{{- $p := hugo.Data.profile -}}
+{{ partial "hero.html" $p }}
+
+{{- /* Facts row — a plain inline list, no separators. */}}
+{{- with $p.facts }}
+<section class="section section--facts">
+  <div class="container">
+    <ul class="facts">
+      {{- range . }}<li class="facts__item">{{ . }}</li>{{ end }}
+    </ul>
+  </div>
+</section>
+{{- end }}
+
+{{- /* Short about: first paragraph of the bio. */}}
+{{- $bio := $p.bio | default "" -}}
+{{- $first := index (split $bio "\n\n") 0 -}}
+{{- with $first }}
+<section class="section section--about">
+  <div class="container prose-narrow">
+    <p class="about-lead">{{ . | markdownify }}</p>
+    <p><a class="link" href="{{ "/about/" | relURL }}"><span>More about me</span></a></p>
+  </div>
+</section>
+{{- end }}
+
+{{- /* Featured projects: alternating image-left/right rows, max 3. */}}
+{{- $featured := where $p.projects "featured" true -}}
+{{- if $featured }}
+{{- $featured = first 3 $featured }}
+<section class="section section--projects">
+  <div class="container">
+    <h2 class="section__title">Selected projects</h2>
+    <div class="project-list">
+      {{- range $i, $proj := $featured }}
+      {{ partial "project.html" (dict "item" $proj "index" $i "mode" "featured") }}
+      {{- end }}
+    </div>
+    <p class="section__more"><a class="link" href="{{ "/projects/" | relURL }}"><span>All projects</span></a></p>
+  </div>
+</section>
+{{- end }}
+
+{{ partial "skills.html" (dict "groups" $p.skills "limit" 2 "title" "Skills") }}
+
+{{- /* Latest blog posts — hidden entirely when there are none. */}}
+{{- $posts := where site.RegularPages "Section" "blog" -}}
+{{- if $posts }}
+{{- $posts = first 2 $posts }}
+<section class="section section--writing">
+  <div class="container">
+    <h2 class="section__title">Writing</h2>
+    <ul class="post-list">
+      {{- range $posts }}
+      <li class="post-list__item">
+        <p class="post-list__meta">{{ .Date.Format "2 January 2006" }}</p>
+        <h3 class="post-list__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        {{- with .Params.summary }}<p class="post-list__summary">{{ . }}</p>{{ end }}
+      </li>
+      {{- end }}
+    </ul>
+    <p class="section__more"><a class="link" href="{{ "/blog/" | relURL }}"><span>All posts</span></a></p>
+  </div>
+</section>
+{{- end }}
+
+{{ partial "contact-block.html" $p }}
+{{ end }}

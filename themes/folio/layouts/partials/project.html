@@ -1,0 +1,45 @@
+{{- /* Project item. Usage: partial "project.html" (dict "item" $proj "index" $i "mode" "featured"|"grid") */ -}}
+{{- $item := .item -}}
+{{- $mode := .mode | default "grid" -}}
+{{- $reverse := and (eq $mode "featured") (eq (mod (.index | default 0) 2) 1) -}}
+<article class="project {{ if eq $mode "featured" }}project--featured{{ if $reverse }} project--reverse{{ end }}{{ else }}project--card{{ end }}">
+  {{- with $item.image }}
+  <div class="project__media">
+    {{ partial "img.html" (dict
+        "src" .
+        "alt" (printf "%s preview" $item.title)
+        "class" "project__img"
+        "width" 1600
+        "height" 1000
+        "sizes" "(max-width: 720px) 100vw, 560px"
+      ) }}
+  </div>
+  {{- end }}
+  <div class="project__body">
+    <h3 class="project__title">{{ $item.title }}</h3>
+    {{- with $item.summary }}
+    <p class="project__summary">{{ . }}</p>
+    {{- end }}
+    {{- with $item.tech }}
+    <ul class="project__tech">
+      {{- range . }}<li class="pill">{{ . }}</li>{{ end }}
+    </ul>
+    {{- end }}
+    {{- if or $item.live $item.code }}
+    <p class="project__links">
+      {{- with $item.live }}
+      <a class="link" href="{{ . }}" rel="noopener noreferrer">
+        {{ partial "icon.html" (dict "name" "external" "class" "link__icon") }}
+        <span>Live</span>
+      </a>
+      {{- end }}
+      {{- with $item.code }}
+      <a class="link" href="{{ . }}" rel="noopener noreferrer">
+        {{ partial "icon.html" (dict "name" "code" "class" "link__icon") }}
+        <span>Code</span>
+      </a>
+      {{- end }}
+    </p>
+    {{- end }}
+  </div>
+</article>

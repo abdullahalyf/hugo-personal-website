@@ -1,0 +1,27 @@
+{{- $p := hugo.Data.profile -}}
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href="{{ "/" | relURL }}">{{ $p.name }}</a>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="site-nav__list">
+        {{- range site.Menus.main }}
+        {{- $active := or (eq $.RelPermalink .URL) (and (ne .URL "/") (hasPrefix $.RelPermalink .URL)) }}
+        <li>
+          <a href="{{ .URL | relURL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+        </li>
+        {{- end }}
+      </ul>
+    </nav>
+    <div class="site-header__actions">
+      <button class="theme-toggle" id="theme-toggle" type="button"
+              aria-pressed="false" aria-label="Switch to dark theme">
+        {{ partial "icon.html" (dict "name" "sun" "class" "icon-sun") }}
+        {{ partial "icon.html" (dict "name" "moon" "class" "icon-moon") }}
+      </button>
+      <button class="menu-toggle" id="menu-toggle" type="button"
+              aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        {{ partial "icon.html" (dict "name" "menu") }}
+      </button>
+    </div>
+  </div>
+</header>

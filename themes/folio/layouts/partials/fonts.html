@@ -1,0 +1,16 @@
+{{- /* Font stack per style.
+     Usage: partial "fonts.html" "harbor"  ->  slice of dicts with .url and .family
+*/ -}}
+{{- $style := . -}}
+{{- $fonts := dict
+  "harbor"    (slice (dict "url" "https://fonts.bunny.net/css?family=manrope:400,600,800&display=swap" "family" "Manrope"))
+  "grove"     (slice (dict "url" "https://fonts.bunny.net/css?family=fraunces:600&family=work-sans:400,600&display=swap" "family" "Work Sans"))
+  "orchid"    (slice (dict "url" "https://fonts.bunny.net/css?family=space-grotesk:700&family=figtree:400,600&display=swap" "family" "Figtree"))
+  "graphite"  (slice (dict "url" "https://fonts.bunny.net/css?family=ibm-plex-serif:600&family=ibm-plex-sans:400,600&display=swap" "family" "IBM Plex Sans"))
+  "saffron"   (slice (dict "url" "https://fonts.bunny.net/css?family=sora:700&family=source-sans-3:400,600&display=swap" "family" "Source Sans 3"))
+-}}
+{{- $out := slice -}}
+{{- range (index $fonts $style | default (index $fonts "harbor")) -}}
+  {{- $out = $out | append (dict "url" .url "family" .family) -}}
+{{- end -}}
+{{- return $out -}}

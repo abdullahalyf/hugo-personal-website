@@ -1,0 +1,47 @@
+{{- /* Image helper.
+     Usage: partial "img.html" (dict
+                "src"    "profile.jpg"
+                "alt"    "Portrait of ..."
+                "class"  "hero__photo"
+                "width"  1200
+                "height" 1500
+                "sizes"  "(max-width: 720px) 100vw, 480px"
+                "loading" "lazy"
+                "priority" false
+              )
+     Returns a rendered <img> with WebP sources, a srcset of two widths and
+     explicit width/height so the browser reserves the right box.
+*/ -}}
+{{- $src := .src -}}
+{{- $alt := .alt | default "" -}}
+{{- $class := .class | default "" -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $priority := .priority | default false -}}
+{{- $width := .width | default 1200 -}}
+{{- $height := .height | default 1500 -}}
+{{- $sizes := .sizes | default "100vw" -}}
+{{- $resource := resources.Get (printf "images/%s" $src) -}}
+{{- if not $resource -}}
+  {{- errorf "image not found in assets/images: %s" $src -}}
+{{- end -}}
+{{- /* Two rendered widths; never upscale past the source width. */ -}}
+{{- $w1 := 480 -}}
+{{- $w2 := 960 -}}
+{{- if lt $resource.Width 480 -}}
+  {{- $w1 = $resource.Width -}}
+{{- end -}}
+{{- if lt $resource.Width 960 -}}
+  {{- $w2 = $resource.Width -}}
+{{- end -}}
+{{- $src1 := $resource.Resize (printf "%dx webp q82" $w1) -}}
+{{- $src2 := $resource.Resize (printf "%dx webp q82" $w2) -}}
+{{- $ratio := div (float $resource.Height) (float $resource.Width) -}}
+{{- $h := int (math.Round (mul (float $width) $ratio)) -}}
+<img src="{{ $src1.RelPermalink }}"
+     srcset="{{ $src1.RelPermalink }} {{ $w1 }}w, {{ $src2.RelPermalink }} {{ $w2 }}w"
+     sizes="{{ $sizes }}"
+     width="{{ $width }}" height="{{ $h }}"
+     alt="{{ $alt }}"
+     class="{{ $class }}"
+     loading="{{ if $priority }}eager{{ else }}lazy{{ end }}"
+     {{ if $priority }}fetchpriority="high" decoding="async"{{ else }}decoding="async"{{ end }}>

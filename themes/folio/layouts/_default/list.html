@@ -1,0 +1,26 @@
+{{ define "main" }}
+<section class="page-head">
+  <div class="container">
+    <h1 class="page-head__title">{{ .Title }}</h1>
+    {{- with .Params.description }}<p class="page-head__lead">{{ . }}</p>{{ end }}
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    {{- $pages := .Pages.ByDate.Reverse }}
+    {{- if $pages }}
+    <ul class="post-list post-list--full">
+      {{- range $pages }}
+      <li class="post-list__item">
+        <p class="post-list__meta">{{ .Date.Format "2 January 2006" }} · {{ .ReadingTime }} min read</p>
+        <h2 class="post-list__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        {{- with .Params.summary }}<p class="post-list__summary">{{ . }}</p>{{ end }}
+      </li>
+      {{- end }}
+    </ul>
+    {{- else }}
+    <p class="empty-note">No posts yet.</p>
+    {{- end }}
+  </div>
+</section>
+{{ end }}
