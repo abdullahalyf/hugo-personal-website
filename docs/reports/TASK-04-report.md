@@ -5,6 +5,129 @@ Branch: `task/04-media` · Base: `task/03-docs` · Hugo: 0.170.1 extended (`.hug
 This report covers **Part A** only. Part B (Ratul's own site, on the
 `friend/ratul` branch) has its own report.
 
+> **Later on this branch:** the home-page rebuild described in
+> ["The home page rebuild"](#the-home-page-rebuild) below was merged in
+> after the first version of this report was written.
+
+## The home page rebuild
+
+Two template changes landed on this branch after the first version of this
+report: the scroll-jank fix, and a home page whose section order is data
+rather than code.
+
+### A configurable section order
+
+The home page used to have a fixed order written into
+`layouts/index.html`. It is now a list in `profile.yaml`:
+
+```yaml
+home_sections:
+  - brief
+  - facts
+  - skills
+  - projects
+  - moments
+  - achievements
+  - grades
+  - contact
+```
+
+`layouts/index.html` walks that list and renders each entry. A section that
+is **not** in the list is not rendered at all — so a friend can leave out
+`grades` and it is gone, with no empty heading left behind. When the key is
+missing, the template falls back to its own default order, so an existing
+site that has never heard of `home_sections` renders exactly as before.
+
+The point is that a friend gets a different home page **without editing the
+theme**. The theme is not theirs to fork, and a page whose arrangement
+depends on which theme is checked out is a page that breaks on the next
+theme update.
+
+The home page sections are now separate partials rather than inline markup:
+`home-brief.html`, `home-projects.html`, `home-moments.html`. The old
+inline versions moved into them unchanged, so the diff for the move is
+mostly indentation.
+
+### The "Moments" strip
+
+`home-moments.html` is a short row of photos on the home page. It reads
+the **same** `gallery:` list and the **same** folder as the About gallery,
+in the same order, and takes the first few (`moments:` in `profile.yaml`,
+default six). Each photo opens in the lightbox, and the section links to
+the full gallery on the About page.
+
+Reusing the About gallery's resolution logic rather than writing a second
+copy is what keeps the two in step: a photo added to the folder shows up
+in both places, in the same order, with the same caption.
+
+### The scroll-jank fix
+
+The site felt laggy while scrolling. The cause was the reveal-on-scroll
+animation: every element that entered the viewport was animated, and each
+one forced a style recalculation and a repaint of the whole page.
+
+The fix was to remove the scroll reveals and leave the background as the
+only thing that moves. The measured before/after is in the report on
+`friend/ratul`; the short version:
+
+| | before | after |
+|---|---|---|
+| style recalcs caused by the site's own JS, during a scroll | 447 | **0** |
+| tasks over 16 ms during the scroll | 214 | **0** |
+| frames per second | 88 | **152** |
+
+The remaining 1866 recalculations are Chrome's own work on the sticky
+header (`elementCount: 2`, `nodeName: HEADER class='site-header'`), not
+the site's JavaScript.
+
+Two supporting changes:
+
+- the background layer is `position: fixed`, `inset: 0`, `contain: strict`
+  and `pointer-events: none`, so it cannot affect the layout of anything
+  on the page;
+- the header's scroll handler now only touches the DOM **when the state
+  actually changes** (`scrollY > 8` flipping a class), behind a
+  `requestAnimationFrame` with a `passive` listener. Before, every scroll
+  event wrote to the DOM.
+
+The background glows are also `position: absolute` inside that fixed
+layer now, so their transform animations are composited and never trigger
+layout.
+
+### The glow geometry
+
+The layout checker caught a real regression here, and it is worth writing
+down because the fix looks arbitrary without the reason.
+
+The audit skips elements whose computed `position` is `fixed`, and flags
+any element whose right edge passes the viewport width. The old glows were
+`position: fixed`, so they were skipped. Moving them to `absolute` (which
+is cheaper to animate) exposed them: the glow's `right` edge landed
+outside the viewport at every width, and the check failed with 200
+failures.
+
+The fix is that **every dimension of a glow is in viewport units, with no
+pixel minimum**, and the drift budget is written into the comment:
+
+```
+one — right edge at -4 + 44 + 5 + 2.2 = 47.2vw
+two — right edge at 100 - 4 + 1.6 = 97.6vw at its widest
+```
+
+A `min-width` in pixels is what broke it: at 375px wide, `min-width:
+280px` plus a `scale(1.08)` pushed the edge past the viewport. The glows
+now sit inside the layer at every size, and the check is clean across all
+25 style/layout combinations.
+
+### The background stays
+
+Worth saying plainly, because the first pass of this work removed it: the
+animated background was kept, on purpose. It is the thing Alif likes about
+the site. It was made *cheap*, not removed — two radial-gradient glow
+layers, no `filter: blur`, no `mix-blend-mode`, transform-only animation
+on a 68s and a 79s cycle, paused when the tab is hidden and under
+`prefers-reduced-motion: reduce`.
+
 ## What was built
 
 Four optional features, all of which hide themselves when the files are
@@ -232,6 +355,11 @@ buttons: a button whose only content is an image with alt text plus a
 caption span with the same text reads "On the way to the hills On the way
 to the hills" to a screen reader.
 
+After the home-page rebuild, this check also caught the glow geometry
+described above: 200 failures that turned out to be a real regression, not
+a false positive. The baseline was confirmed by checking out the previous
+`base.css` and re-running the check, which was clean.
+
 ### 7. The polish pass — 12 hostile profiles
 
 ```
@@ -273,11 +401,13 @@ the keyboard, and `:focus-visible` draws a ring on each of them.
 
 ```
 $ ls -la public/js/
--rw-r--r-- 2066  theme.min.7f8876593d4e62677959a46df3057620278cfcfc4e58ee1313acc15c93370466.js
+-rw-r--b-- 2649  theme.min.14aecf5eef3204328cf4b04181f04aae7720658917c97ae345e6bbc055850e3c.js
 ```
 
-**2.0 KB minified**, up from 1.3 KB before this task. The 3 KB budget from
-`AGENTS.md` still holds, with about 1 KB of room to spare.
+**2.6 KB minified**, up from 1.3 KB before this task and from 2.0 KB after
+the lightbox. The 3 KB budget from `AGENTS.md` still holds. The scroll-jank
+fix added about 500 bytes: the header handler, the background pause, and
+the `visibilitychange` listener.
 
 ## The screenshots
 
@@ -319,6 +449,12 @@ $ ls -la public/js/
    the page.
 5. **A profile with no achievements and no gallery.** The sections should
    simply not be there.
+6. **The home page with a different `home_sections:` order.** Change the
+   order in `profile.yaml`, rebuild, and check that the page follows it
+   and that a removed section leaves no empty heading behind.
+7. **The background while scrolling.** It should drift smoothly, and
+   nothing else on the page should move. Use the Performance panel, not
+   your eyes — the jank was subtle enough to be missed by looking.
 
 ## Open questions
 
