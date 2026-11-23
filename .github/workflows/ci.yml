@@ -45,7 +45,8 @@ jobs:
           # lychee checks links; --offline keeps it to internal hrefs only so the
           # build never depends on third-party sites being up.
           wget -q -O lychee.tgz https://github.com/lycheeverse/lychee/releases/download/v0.15.1/lychee-v0.15.1-x86_64-unknown-linux-gnu.tar.gz
-          tar -xzf lychee.tgz ./lychee
+          # The tarball holds one file, named lychee, at the archive root.
+          tar -xzf lychee.tgz
           chmod +x ./lychee
           ./lychee --offline --no-progress --include-fragments './public/**/*.html'
 
