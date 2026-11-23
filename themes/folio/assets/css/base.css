@@ -98,6 +98,26 @@ body {
   animation: bg-drift-b 79s ease-in-out infinite alternate;
 }
 
+/* Faint dot grid. One tile is 28px and the layer moves exactly one tile
+   per loop, so the loop is seamless. Only transform animates. */
+.page-bg::before {
+  content: "";
+  position: absolute;
+  inset: -28px;
+  background-image: radial-gradient(circle, var(--ink) 1px, transparent 1.4px);
+  background-size: 28px 28px;
+  opacity: 0.09;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 75%);
+  will-change: transform;
+  animation: bg-dots 90s linear infinite;
+}
+
+@keyframes bg-dots {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(28px, 28px, 0); }
+}
+
 /* Glow one drifts right and grows to 1.12. */
 @keyframes bg-drift-a {
   from { transform: translate3d(0, 0, 0) scale(1); }
@@ -1700,7 +1720,9 @@ button { font: inherit; color: inherit; }
   flex-wrap: wrap;
   gap: var(--space-2) var(--space-5);
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 }
 
 .site-footer__copy,
@@ -1714,6 +1736,7 @@ button { font: inherit; color: inherit; }
   display: flex;
   gap: var(--space-4);
   align-items: center;
+  justify-content: center;
 }
 
 /* --- 404 ------------------------------------------------------------------ */
