@@ -1,8 +1,14 @@
-# DRY RUN — fictional filled intake form (Nusrat Jahan)
+# DRY RUN — the fictional intake form used to test `docs/FRIEND-SITE.md`
 
-This file exists only on the `temp/dryrun-friend` branch and is deleted with
-that branch. It stands in for the filled-in `docs/INTAKE-FORM.md` that a
+This is the input for the dry run that was done when `docs/FRIEND-SITE.md`
+was written. It stands in for the filled-in `docs/INTAKE-FORM.md` that a
 friend would hand to the agent.
+
+**Nusrat Jahan is not a real person.** The name, the email address and the
+project titles are made up. The answers are written the way a real friend
+would write them — in Bangla, in shorthand, and with gaps.
+
+The run is described in [`TASK-03-report.md`](TASK-03-report.md).
 
 Answers in Bangla/English, as written.
 

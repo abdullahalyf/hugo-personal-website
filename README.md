@@ -84,6 +84,21 @@ Keep the file names exactly the same — the site looks the files up by name.
 `.jpg`, `.jpeg`, `.png` and `.webp` all work. Anything you leave out is
 simply not shown; nothing breaks.
 
+**Delete the demo files you do not need.** The template ships with a demo
+person in it, and the photo names are positional — `project-1.jpg` is always
+the first project. So if you have two projects, delete `project-3.jpg` and
+`project-4.jpg`; if you have no hobbies, delete `hobby-1.jpg` and
+`hobby-2.jpg`; if you have no CV, delete `cv.pdf`, or the button will open
+somebody else's CV.
+
+The demo's blog posts live in `content/blog/`. Delete them there if you are
+not writing your own — the Blog link disappears from the navigation by
+itself. To check that nothing of the demo is left after a build:
+
+```bash
+grep -ril "tanvir" public/
+```
+
 ### 4. Pick a style
 
 In `hugo.toml`:
@@ -141,6 +156,24 @@ these means one thing:
 Anything that is *not* in this list is optional. Leave it empty and the
 section hides itself: no projects, no achievements, no hobbies, no phone
 number, no CV button, no social links.
+
+### The demo person's name is still on my site
+
+The template ships with a demo person in it. Their name must not survive
+anywhere — not in a page title, not in a meta description, not in the RSS
+feed. After a build:
+
+```bash
+grep -ril "tanvir" public/
+```
+
+Anything listed is a leftover. The usual causes are a `description:` in
+`content/*.md` that still names them, a `params.description` in
+`hugo.toml`, and the demo blog posts in `content/blog/`.
+
+You should not need to touch any of those: the page descriptions take
+`{name}` and `{role}`, and the site fills them in from
+`personal/profile.yaml`.
 
 ### The build fails with "personal/photos/profile.jpg is missing"
 
