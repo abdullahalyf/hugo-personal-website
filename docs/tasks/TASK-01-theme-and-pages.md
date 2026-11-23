@@ -1,12 +1,12 @@
 # TASK-01 — Own Hugo theme, all pages, `harbor` style, dark mode, CI + Vercel
 
 Builder: Puku (local, Windows). Branch: `task/01-theme`. Report: `docs/reports/TASK-01-report.md`.
-First read `AGENTS.md`, `docs/DESIGN.md`, `data/profile.yaml`. They are binding.
+First read `AGENTS.md`, `docs/DESIGN.md`, `personal/profile.yaml`. They are binding.
 Use your frontend-design / verification skills if you have them; no AI-slop patterns
 (see DESIGN.md §1).
 
 ## Goal
-A complete, professional personal site rendered 100% from `data/profile.yaml`, in the
+A complete, professional personal site rendered 100% from `personal/profile.yaml`, in the
 `harbor` style, light + dark, ready to deploy on Vercel. The other 4 styles come in
 TASK-02, but build the CSS architecture for them now (tokens + per-style file).
 
@@ -21,9 +21,20 @@ TASK-02, but build the CSS architecture for them now (tokens + per-style file).
      (front matter only, layouts pull data), `content/blog/_index.md`,
      `content/blog/hello-world.md` (one real-looking example post, ~250 words, with a
      heading, list, quote, image and code block so prose styles are visible).
-   - `assets/images/profile.jpg` + `project-lostfound.jpg`: generate neutral placeholder
-     images (solid tone + initials / simple shape, NOT stock photos of people).
-   - `static/files/cv.pdf`: a 1-page placeholder PDF.
+   - **`personal/` folder = the only thing a friend replaces** (see `personal/README.md`).
+     In `hugo.toml` add `[[module.mounts]]`: `personal/profile.yaml` → `data/profile.yaml`,
+     `personal/photos` → `assets/photos`, `personal/cv.pdf` → `static/cv.pdf`
+     (plus the default mounts for content/static/assets/layouts so nothing else breaks).
+   - Demo files with the FIXED names: `personal/photos/profile.jpg`, `project-1.jpg`,
+     `project-2.jpg`, `hobby-1.jpg`, `personal/cv.pdf` (1-page). Placeholders must look
+     intentional: solid style-neutral tone + initials or a simple shape, NOT stock photos
+     of people. Keep each image < 150 KB.
+   - Image lookup by fixed base name, any extension:
+     `resources.GetMatch "photos/project-1.*"` (`.jpg .jpeg .png .webp`). Project N ↔
+     Nth item in `projects`, hobby N ↔ Nth item in `hobbies`. Missing file → no image,
+     no error. CV button shows if `cv_url` is set or `personal/cv.pdf` exists, else hidden.
+   - Replacement test: overwrite `profile.jpg` with a `.png` of the same base name
+     (delete the .jpg) → build still works and shows the new photo.
 2. **Theme `themes/folio/`**
    - `layouts/_default/baseof.html` (skip-link, header, main, footer), `index.html`,
      `about` / `projects` / `contact` single layouts, `blog` list + single, `404.html`.
@@ -35,7 +46,8 @@ TASK-02, but build the CSS architecture for them now (tokens + per-style file).
      `img.html` (processing helper → WebP, srcset 2 sizes, width/height).
    - **Validation partial** `validate.html` called once per build: `errorf` with a clear
      message if a required field (`name, role, now, photo, bio, contact.email`) is
-     missing, or `photo`/project image file doesn't exist in `assets/images/`.
+     missing, or no `personal/photos/profile.*` file exists. Message must say which file
+     to add, e.g. "Add your photo as personal/photos/profile.jpg".
    - CSS in `assets/css/`: `base.css` (reset, tokens usage, layout, components),
      `styles/harbor.css` (tokens light+dark). Pipe: concat base + chosen style →
      minify → fingerprint. No Tailwind, no SCSS required.
@@ -55,7 +67,7 @@ TASK-02, but build the CSS architecture for them now (tokens + per-style file).
   Save screenshots to `docs/reports/screens/task01-*.png` (home + about, mobile + desktop,
   light + dark = 8 files max, compressed).
 - Empty test: temporarily set `experience: []`, `achievements: []`, `hobbies: []`,
-  `socials: []`, `cv: ""` → build still passes, sections disappear, no empty headings.
+  `socials: []`, delete `personal/cv.pdf` and `project-2.*` → build still passes, sections disappear, no empty headings.
   Revert after.
 - Remove `name` → build fails with your clear error. Revert.
 - Lighthouse mobile (Chrome DevTools or `npx lighthouse` if available) on home: list scores.

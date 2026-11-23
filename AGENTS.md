@@ -2,14 +2,15 @@
 
 ## What this repo is
 A reusable **Hugo personal-website template**. One person = one fork. All personal
-content lives in **`data/profile.yaml`** (plus images in `assets/images/`). The theme is
+content lives in the **`personal/`** folder: `profile.yaml` + photos and CV with **fixed file
+names** (see `personal/README.md`). Hugo mounts it (`[[module.mounts]]`). The theme is
 our own, lightweight, inside `themes/folio/` — no third-party theme, no CSS framework,
 no npm/Node dependency.
 
 ## Read before you start
 1. Your task file: `docs/tasks/TASK-NN-*.md` (the one you were told to run).
 2. `docs/DESIGN.md` — the design system. It is binding. Do not invent new colors/fonts.
-3. `data/profile.yaml` — the content schema. Do not rename or remove keys; you may only
+3. `personal/profile.yaml` — the content schema. Do not rename or remove keys; you may only
    add optional keys if the task says so.
 
 ## Hard rules
@@ -20,7 +21,7 @@ no npm/Node dependency.
   mode toggle + mobile menu, < 3 KB minified. Site must work with JS disabled
   (dark mode then follows the OS).
 - No copy, names or links hard-coded in templates. Everything comes from
-  `data/profile.yaml` or `hugo.toml` params. Templates must not break when an optional
+  `personal/profile.yaml` or `hugo.toml` params. Templates must not break when an optional
   section is empty — they simply hide it.
 - Images go through Hugo image processing (`resources.Get` → `.Resize`/`.Fill` → WebP,
   with `width`/`height` attributes and `loading="lazy"` except the hero photo).

@@ -8,7 +8,7 @@ made.
 ## 1. Principles
 1. **The name is the hero.** Each style gives the person's name a strong, confident type
    treatment next to (or over) their photo, plus one plain "now" sentence
-   (`now:` in profile.yaml). No stat counters, no gradient blobs, no typing effects.
+   (`now:` in personal/profile.yaml). No stat counters, no gradient blobs, no typing effects.
 2. **One bold thing per style, everything else quiet.** Bold = hero. Sections below are
    calm, well spaced, left-aligned text.
 3. **Structure must mean something.** Timelines only for education/experience (real
