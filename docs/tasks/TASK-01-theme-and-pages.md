@@ -76,3 +76,41 @@ TASK-02, but build the CSS architecture for them now (tokens + per-style file).
 
 ## Done when
 PR `task/01-theme` → `main` is open, CI green, report written. Do not merge.
+
+## Demo content — complete A to Z (added by orchestrator)
+The repo must ship as a **finished-looking demo site**. A friend only replaces files in
+`personal/` (same names) and the blog posts; no agent work needed later. So every section
+is filled, every image exists, every page looks real.
+
+1. **`personal/profile.yaml`** — expand the fictional demo person so EVERY section is
+   used: 2 education, 2 experience, 4 skill groups, 4 projects (2 featured, all with
+   images), 3 achievements, 3 languages, 2 hobbies (with images), 5 socials, phone, CV.
+   Specific, believable, plain English. No buzzwords, no "passionate about".
+2. **Demo images — must NOT look AI-generated or cheap** (no glossy 3D blobs, no
+   purple gradients, no fake hands/faces, no AI art):
+   - `profile.jpg`: a clean, neutral illustrated portrait placeholder (flat, two-tone,
+     head-and-shoulders silhouette on a soft background), 1000×1250, made by you as
+     SVG → JPG. No real person's face.
+   - `project-1..4.jpg`: **real screenshots** of small, believable mock app UIs that you
+     build as throwaway HTML (dashboard, mobile app list, landing page, bot chat) and
+     capture at 1600×1000 with a headless browser. Keep the throwaway HTML in
+     `tools/mockups/` so they can be regenerated.
+   - `hobby-1..2.jpg`: free-licence photos (Unsplash/Pexels, landscape/travel/objects,
+     no identifiable people) — record source URL + photographer in `personal/CREDITS.md`.
+     If you can't download, make a tasteful flat illustration instead.
+   - Blog cover images: same rules (screenshot, illustration or free-licence photo).
+   - All images compressed (< 200 KB each), correct aspect ratio, no text baked in.
+3. **`personal/cv.pdf`** — a real-looking 1-page CV of the demo person (clean
+   typography, matches profile.yaml), generated from HTML → PDF. Keep source in
+   `tools/cv/`.
+4. **Blog** — 3 demo posts in `content/blog/` (300–600 words each), written like a real
+   CSE student would: e.g. "What I learned building my first Laravel app",
+   "My semester study system", "A trip to Sajek Valley". Each with front matter
+   (title, date, summary, cover image, tags), headings, a list, one image, and one code
+   block or quote. Human, specific, no filler intros ("In today's fast-paced world…").
+   Add `content/blog/README.md` (not rendered) explaining how to add/delete a post.
+5. **Every page** must look complete with the demo: no lorem ipsum, no "TODO", no empty
+   areas, no broken image.
+
+Check: screenshot every page (light + dark, mobile + desktop) and look at them yourself;
+fix anything that looks templated or empty before writing the report.
