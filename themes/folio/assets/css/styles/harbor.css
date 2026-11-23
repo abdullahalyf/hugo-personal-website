@@ -7,6 +7,16 @@
    ========================================================================== */
 
 :root {
+
+/* The background wash behind the page: three very low-opacity
+   radial gradients in this style's own tones, plus a faint dot
+   grid. The opacities are low enough that no word ever sits on
+   a different shade, so every contrast ratio is unchanged. */
+  --bg-glow-a: rgba(14, 116, 144, 0.10);
+  --bg-glow-b: rgba(92, 200, 221, 0.09);
+  --bg-glow-c: rgba(30, 58, 95, 0.05);
+  --bg-dot: rgba(11, 92, 115, 0.05);
+
   --bg: #F6F8FB;
   --surface: #FFFFFF;
   --ink: #142033;
@@ -22,6 +32,16 @@
 }
 
 [data-theme="dark"] {
+
+/* The background wash behind the page: three very low-opacity
+   radial gradients in this style's own tones, plus a faint dot
+   grid. The opacities are low enough that no word ever sits on
+   a different shade, so every contrast ratio is unchanged. */
+  --bg-glow-a: rgba(92, 200, 221, 0.13);
+  --bg-glow-b: rgba(14, 116, 144, 0.11);
+  --bg-glow-c: rgba(127, 214, 232, 0.05);
+  --bg-dot: rgba(140, 190, 220, 0.06);
+
   --bg: #0F1724;
   --surface: #172234;
   --ink: #E6ECF5;

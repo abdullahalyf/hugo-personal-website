@@ -19,6 +19,13 @@
   {{ partial "head.html" . }}
 </head>
 <body class="layout--{{ $layout }}">
+  {{- /* The background wash. It is a fixed layer behind the page and
+         carries no text, so it is hidden from screen readers. */}}
+  <div class="page-bg" aria-hidden="true">
+    <span class="page-bg__glow page-bg__glow--one"></span>
+    <span class="page-bg__glow page-bg__glow--two"></span>
+    <span class="page-bg__glow page-bg__glow--three"></span>
+  </div>
   <a class="skip-link" href="#main">Skip to content</a>
   {{ partial "header.html" . }}
   <main id="main">

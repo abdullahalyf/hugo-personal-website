@@ -18,6 +18,11 @@
 </section>
 {{- end }}
 
+{{- /* Optional semester results, as bars. The same block the home page
+     uses; here it sits under the bio, where a reader who wants the
+     detail will be looking. */}}
+{{ partial "grades.html" $p }}
+
 {{ partial "timeline.html" (dict "items" $p.education "kind" "education") }}
 {{ partial "timeline.html" (dict "items" $p.experience "kind" "experience") }}
 

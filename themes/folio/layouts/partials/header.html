@@ -1,7 +1,20 @@
 {{- $p := hugo.Data.profile -}}
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="site-header__brand" href="{{ "/" | relURL }}">{{ $p.name }}</a>
+    {{- /* The brand avatar is optional: a site with no avatar file just shows
+           the name, with no empty space left behind. It sits next to the
+           name, so it is decorative and is hidden from screen readers. */}}
+    <a class="site-header__brand" href="{{ "/" | relURL }}">
+      {{- with resources.GetMatch "photos/avatar.*" }}
+        {{- $a := .Resize "96x webp q85" }}
+        <span class="site-header__avatar-wrap" aria-hidden="true">
+          <img class="site-header__avatar" src="{{ $a.RelPermalink }}"
+               width="{{ $a.Width }}" height="{{ $a.Height }}"
+               alt="" loading="lazy" decoding="async">
+        </span>
+      {{- end }}
+      <span class="site-header__name">{{ $p.name }}</span>
+    </a>
     <nav class="site-nav" id="site-nav" aria-label="Main">
       <ul class="site-nav__list">
         {{- range site.Menus.main }}

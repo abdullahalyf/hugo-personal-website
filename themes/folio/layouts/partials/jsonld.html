@@ -3,10 +3,15 @@
 {{- range $p.socials -}}
   {{- $sameAs = $sameAs | append .url -}}
 {{- end -}}
-{{- /* The image must be the published, processed photo, not the raw asset path. */ -}}
+{{- /* The image must be the published, processed photo, not the raw asset path.
+       The small avatar photo is preferred here: schema.org's image is a badge. */ -}}
 {{- $image := "" -}}
-{{- with resources.GetMatch "photos/profile.*" -}}
-  {{- $image = (.Resize "512x512 webp q85").Permalink -}}
+{{- with resources.GetMatch "photos/avatar.*" -}}
+  {{- $image = (.Fill "512x512 Center webp q85").Permalink -}}
+{{- else -}}
+  {{- with resources.GetMatch "photos/profile.*" -}}
+    {{- $image = (.Fill "512x512 Center webp q85").Permalink -}}
+  {{- end -}}
 {{- end -}}
 {{- $json := dict
   "@context" "https://schema.org"

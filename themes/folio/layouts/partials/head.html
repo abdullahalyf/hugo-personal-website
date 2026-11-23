@@ -13,10 +13,16 @@
 <link rel="canonical" href="{{ .Permalink }}">
 
 {{- /* Open Graph. Social crawlers do not reliably support WebP, so the OG
-       image is a JPEG derived from the processed photo. */}}
+       image is a JPEG derived from the processed photo. The small avatar
+       photo is preferred here when the site has one: a share card is a
+       badge, not a portrait. */}}
 {{- $ogImage := "" -}}
-{{- with resources.GetMatch "photos/profile.*" -}}
+{{- with resources.GetMatch "photos/avatar.*" -}}
   {{- $ogImage = (.Fill "1200x630 Center jpg q85").Permalink -}}
+{{- else -}}
+  {{- with resources.GetMatch "photos/profile.*" -}}
+    {{- $ogImage = (.Fill "1200x630 Center jpg q85").Permalink -}}
+  {{- end -}}
 {{- end -}}
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:site_name" content="{{ $p.name }}">
@@ -67,11 +73,16 @@
 {{- end }}
 {{- end }}
 
-{{- /* CSS: base + chosen style, minified and fingerprinted. */}}
-{{- $css := slice
+{{- /* CSS: base + chosen style + the site owner's own overrides, minified
+       and fingerprinted. The override file is optional: a fork that does
+       not have one simply gets the stock style. */}}
+{{- $parts := slice
       (resources.Get "css/base.css")
-      (resources.Get (printf "css/styles/%s.css" $style))
-    | resources.Concat "css/site.css" | minify | fingerprint }}
+      (resources.Get (printf "css/styles/%s.css" $style)) -}}
+{{- with resources.Get "css/override.css" -}}
+  {{- $parts = $parts | append . -}}
+{{- end -}}
+{{- $css := $parts | resources.Concat "css/site.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 
 {{- /* JSON-LD Person */}}

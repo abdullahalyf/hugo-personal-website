@@ -14,6 +14,8 @@ html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  /* The background layer is fixed behind the page, so it must not scroll. */
+  background: var(--bg);
 }
 
 body {
@@ -25,6 +27,140 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   transition: background-color 150ms ease, color 150ms ease;
+  /* The page sits above the background layer. */
+  position: relative;
+  isolation: isolate;
+}
+
+/* --- Background layer -----------------------------------------------------
+   A calm, slow-moving wash behind the page: two or three very large
+   radial gradients in the style's own tones, plus a faint dot grid. The
+   opacity is low enough that no text sits on a different shade, so the
+   contrast of every word is unchanged.
+
+   The gradients only move with `transform`, which the compositor handles
+   without a repaint, and the whole layer is switched off when the reader
+   has asked for reduced motion. */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  /* The transform is what makes this the containing block for the fixed
+     glows inside it, so `overflow: hidden` actually clips them. Without it
+     a fixed child would escape the clip and widen the document. */
+  transform: translateZ(0);
+  /* The dots are the grid; the gradients are painted on top of it. */
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--bg-dot, rgba(0, 0, 0, 0.05)) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+.page-bg__glow {
+  /* Fixed rather than absolute, so a glow can never widen the document
+     when it drifts past the edge of the window. The parent clips it. */
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+/* The three glows are placed and sized per style, then drift on a slow
+   loop. Each one moves on its own axis so the pattern never repeats
+   visibly within a minute. */
+.page-bg__glow--one {
+  width: 46vw;
+  height: 46vw;
+  min-width: 320px;
+  min-height: 320px;
+  top: -12vh;
+  left: -8vw;
+  background: radial-gradient(circle, var(--bg-glow-a, rgba(28, 102, 219, 0.10)), transparent 68%);
+  animation: bg-drift-a 52s ease-in-out infinite alternate;
+}
+
+.page-bg__glow--two {
+  width: 38vw;
+  height: 38vw;
+  min-width: 280px;
+  min-height: 280px;
+  top: 34vh;
+  right: -10vw;
+  background: radial-gradient(circle, var(--bg-glow-b, rgba(28, 102, 219, 0.08)), transparent 68%);
+  animation: bg-drift-b 61s ease-in-out infinite alternate;
+}
+
+.page-bg__glow--three {
+  width: 40vw;
+  height: 40vw;
+  min-width: 300px;
+  min-height: 300px;
+  bottom: -14vh;
+  left: 26vw;
+  background: radial-gradient(circle, var(--bg-glow-c, rgba(0, 0, 0, 0.05)), transparent 70%);
+  animation: bg-drift-c 57s ease-in-out infinite alternate;
+}
+
+@keyframes bg-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(6vw, 5vh, 0) scale(1.12); }
+}
+
+@keyframes bg-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.08); }
+  to   { transform: translate3d(-7vw, 6vh, 0) scale(1); }
+}
+
+@keyframes bg-drift-c {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(4vw, -6vh, 0) scale(1.14); }
+}
+
+/* --- Glass header ---------------------------------------------------------
+   The header sits on a frosted panel. The border only appears once the
+   page has been scrolled, so the top of the page reads as open. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--bg-glass, color-mix(in srgb, var(--bg) 82%, transparent));
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+/* The class is added by theme.js once the page has moved. Without JS the
+   header simply keeps its transparent border, which still looks right. */
+.site-header--scrolled {
+  border-bottom-color: var(--line);
+}
+
+/* The toggle and the menu button are small frosted tiles. */
+.theme-toggle,
+.menu-toggle {
+  background: var(--surface-glass, color-mix(in srgb, var(--surface) 70%, transparent));
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  border: 1px solid var(--line);
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.theme-toggle:hover,
+.menu-toggle:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* The mobile menu panel gets the same treatment. */
+@media (max-width: 767px) {
+  .site-nav--open {
+    background: var(--bg-glass, color-mix(in srgb, var(--bg) 88%, transparent));
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -171,9 +307,50 @@ button { font: inherit; color: inherit; }
      the brand may shrink and wrap, and the actions never move. */
   min-width: 0;
   overflow-wrap: anywhere;
+  /* When the site has an avatar photo the name sits next to it. */
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 .site-header__brand:hover { text-decoration: none; color: var(--accent); }
+
+/* The small formal photo in the header. The theme crops it to a circle and
+   centres the face; a site with no avatar file simply has no image here. */
+.site-header__avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  /* A thin accent ring makes the small photo read as deliberate rather
+     than as a stray thumbnail. */
+  box-shadow: 0 0 0 2px var(--accent);
+  transition: box-shadow 220ms ease, transform 220ms ease;
+}
+
+/* On load the avatar settles in. It is the only thing in the header that
+   moves on its own, so it reads as a small acknowledgement rather than
+   as decoration. */
+.site-header__avatar-wrap {
+  display: inline-flex;
+  border-radius: 50%;
+  animation: avatar-in 520ms cubic-bezier(0.22, 0.8, 0.3, 1) both;
+}
+
+@keyframes avatar-in {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Hovering the brand warms the ring. The glow is soft and short-lived;
+   it never pulses on its own. */
+.site-header__brand:hover .site-header__avatar {
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 0 0 5px color-mix(in srgb, var(--accent) 22%, transparent);
+  transform: scale(1.06);
+}
 
 .site-nav__list {
   display: flex;
@@ -629,6 +806,78 @@ button { font: inherit; color: inherit; }
 
 .facts__item { position: relative; }
 
+/* --- Grades ----------------------------------------------------------------
+   Optional semester results, drawn as bars. The bar grows when the section
+   comes into view; the numbers are in the markup from the start, so the
+   information never depends on the animation. */
+.grades {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+  max-width: 34rem;
+}
+
+.grades__item {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* The focus line sits under its own bar, on the second grid row, so the
+   labels and the numbers keep their tidy columns. */
+.grades__focus {
+  grid-column: 2 / -1;
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin-top: calc(var(--space-2) * -0.5);
+}
+
+.grades__label {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.grades__bar {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.grades__fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 700ms cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+/* The bar is filled once the section is on screen. The reveal class is
+   put on the section, so the list inside it is what turns visible. */
+.section--grades.is-visible .grades__fill {
+  width: var(--grades-pct);
+}
+
+.grades__value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 0.9375rem;
+}
+
+.grades__note {
+  margin: var(--space-4) 0 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  max-width: 34rem;
+}
+
 /* --- Timeline ------------------------------------------------------------- */
 
 .timeline {
@@ -921,10 +1170,12 @@ button { font: inherit; color: inherit; }
   }
 }
 
+/* A certificate is a wide document. The frame is landscape so the text
+   reads left to right in the thumbnail, the way it does on the paper. */
 .award__thumb {
   display: block;
-  width: 96px;
-  height: 128px;
+  width: 144px;
+  height: 108px;
   border-radius: var(--radius-card);
   overflow: hidden;
   background: var(--surface);
@@ -932,7 +1183,7 @@ button { font: inherit; color: inherit; }
 }
 
 @media (min-width: 760px) {
-  .award__thumb { width: 120px; height: 160px; }
+  .award__thumb { width: 180px; height: 135px; }
 }
 
 /* object-fit: contain keeps the whole certificate visible: the text on a
@@ -1174,10 +1425,22 @@ button { font: inherit; color: inherit; }
 .post__meta {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-2);
   color: var(--muted);
   font-size: 0.9375rem;
   margin: 0;
+}
+
+/* The small formal photo beside a post's date. Optional: it only appears
+   when the site has an avatar file. */
+.post__avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  margin-right: var(--space-1);
 }
 
 /* --- About lead ----------------------------------------------------------- */
@@ -1305,6 +1568,18 @@ button { font: inherit; color: inherit; }
   gap: var(--space-3);
 }
 
+/* The small formal photo above the contact details. Optional: it only
+   appears when the site has an avatar file. */
+.contact__avatar {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin-bottom: var(--space-4);
+  border: 3px solid var(--accent);
+}
+
 .contact-list__item {
   display: flex;
   align-items: center;
@@ -1348,6 +1623,26 @@ button { font: inherit; color: inherit; }
 .social:hover { color: var(--accent); text-decoration: none; }
 
 .social__icon { width: 1.125rem; height: 1.125rem; }
+
+/* A social link that does not exist yet. It is shown so the reader knows
+   where to look for the person later, but it is not a link: there is
+   nothing to click and nothing to point at. */
+.social--soon {
+  color: var(--muted);
+  cursor: default;
+}
+
+.social--soon .social__icon { opacity: 0.5; }
+
+.social__soon {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+}
 
 /* --- Footer --------------------------------------------------------------- */
 
@@ -1430,6 +1725,72 @@ button { font: inherit; color: inherit; }
   }
 }
 
+/* --- Reveal on scroll ------------------------------------------------------
+   Sections fade up by 12px the first time they come into view. The class
+   is added by theme.js through an IntersectionObserver, so without JS the
+   content is simply there — it never depends on the animation to be
+   readable.
+
+   `.reveal` is the hook. The delay is set per item with an inline custom
+   property so a group of cards arrives in a short stagger. */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 300ms ease,
+    transform 300ms cubic-bezier(0.22, 0.8, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* Cards and buttons lift by 2px on hover. Two pixels is enough to feel
+   alive without the page appearing to wobble. */
+.project--card,
+.rows__item,
+.gallery__item,
+.timeline__item,
+.btn,
+.contact-list__item {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project--card:hover,
+  .rows__item:hover,
+  .gallery__item:hover,
+  .timeline__item:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn:hover { transform: translateY(-2px); }
+}
+
+/* The dot on a timeline entry pulses once when the entry is revealed. It
+   does not pulse on a loop — a moving dot in a list of dates would pull
+   the eye away from the text. */
+.timeline__dot {
+  transition: transform 260ms ease, box-shadow 260ms ease;
+}
+
+.timeline__item.is-visible .timeline__dot {
+  animation: dot-pulse 520ms ease-out both;
+}
+
+@keyframes dot-pulse {
+  0%   { transform: scale(0.55); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
+  60%  { transform: scale(1.12); box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 0%, transparent); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
@@ -1443,6 +1804,22 @@ button { font: inherit; color: inherit; }
 
   .hero__name,
   .hero__media { animation: none; }
+
+  /* The background layer and the reveal are removed outright, not just
+     made instant, so nothing moves at all. */
+  .page-bg { display: none; }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .site-header__avatar-wrap { animation: none; }
+
+  /* The bars are already full width, so nothing needs to grow. */
+  .section--grades.is-visible .grades__fill { width: var(--grades-pct); }
+  .grades__fill { transition: none; }
 }
 
 /* --- Print ---------------------------------------------------------------- */

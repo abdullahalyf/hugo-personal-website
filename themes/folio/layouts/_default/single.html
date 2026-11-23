@@ -5,6 +5,17 @@
     <div class="container container--narrow">
       <h1 class="page-head__title">{{ .Title }}</h1>
       <p class="post__meta">
+        {{- /* The byline avatar is optional: it only appears when the site
+               has an avatar file. It repeats the site owner, whose name is
+               already on the page, so it is decorative. */}}
+        {{- with resources.GetMatch "photos/avatar.*" }}
+          {{- $a := .Fill "40x40 Center webp q85" }}
+          <span class="post__avatar-wrap" aria-hidden="true">
+            <img class="post__avatar" src="{{ $a.RelPermalink }}"
+                 width="{{ $a.Width }}" height="{{ $a.Height }}"
+                 alt="" loading="lazy" decoding="async">
+          </span>
+        {{- end }}
         <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
         <span>{{ .ReadingTime }} min read</span>
       </p>

@@ -76,6 +76,64 @@
     });
   }
 
+  /* ---- Header border on scroll ----
+     The header is a frosted panel. A hairline border only appears once
+     the page has moved, so the top of the page reads as open and the
+     border appears where it is needed. */
+  var header = document.querySelector(".site-header");
+  if (header) {
+    var ticking = false;
+    var setScrolled = function () {
+      header.classList.toggle("site-header--scrolled", window.scrollY > 8);
+      ticking = false;
+    };
+    setScrolled();
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(setScrolled);
+      },
+      { passive: true }
+    );
+  }
+
+  /* ---- Reveal on scroll ----
+     Sections fade up 12px the first time they come into view. Elements
+     without JavaScript simply stay visible: the `reveal` class is added
+     by this script, not present in the HTML. */
+  var reduced = window.matchMedia
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
+
+  if (!reduced && typeof window.IntersectionObserver === "function") {
+    var targets = document.querySelectorAll(
+      "main section, .rows__item, .project--card, .gallery__item, .timeline__item"
+    );
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+    );
+
+    targets.forEach(function (el, i) {
+      el.classList.add("reveal");
+      /* A short stagger within a group, never more than three steps, so
+         a list arrives in a wave rather than all at once. */
+      var group = el.parentElement ? el.parentElement.children.length : 1;
+      var step = Math.min(i % 3, 2);
+      el.style.setProperty("--reveal-delay", step * 70 + "ms");
+      observer.observe(el);
+    });
+  }
+
   /* ---- Lightbox ----
      One <dialog> on the page. Any element with data-lightbox-src becomes
      a trigger: it opens the dialog and swaps in the full-size image.
