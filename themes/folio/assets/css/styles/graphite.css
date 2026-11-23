@@ -58,10 +58,17 @@
 /* In the sidebar column the photo is a résumé headshot, not a portrait:
    a fixed square that keeps the name and the buttons above the fold. */
 @media (min-width: 1024px) {
+  .hero--sidebar .hero__media {
+    width: 100%;
+    max-width: 340px;
+    margin-bottom: var(--space-4);
+  }
   .hero--sidebar .hero__media img {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
+    object-position: center 30%;
   }
 }
 
