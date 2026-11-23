@@ -6,14 +6,12 @@
 
 :root {
 
-/* The background wash behind the page: three very low-opacity
-   radial gradients in this style's own tones, plus a faint dot
-   grid. The opacities are low enough that no word ever sits on
-   a different shade, so every contrast ratio is unchanged. */
+/* The faint wash behind the page: two very low-opacity radial
+   gradients in this style's own tones. The layer moves on `transform`
+   only, and the opacities are low enough that no word ever sits on a
+   different shade, so every contrast ratio is unchanged. */
   --bg-glow-a: rgba(47, 107, 79, 0.10);
   --bg-glow-b: rgba(143, 179, 130, 0.10);
-  --bg-glow-c: rgba(90, 110, 80, 0.05);
-  --bg-dot: rgba(47, 107, 79, 0.05);
 
   --bg: #F2F5F1;
   --surface: #FFFFFF;
@@ -38,14 +36,12 @@ body {
 
 [data-theme="dark"] {
 
-/* The background wash behind the page: three very low-opacity
-   radial gradients in this style's own tones, plus a faint dot
-   grid. The opacities are low enough that no word ever sits on
-   a different shade, so every contrast ratio is unchanged. */
+/* The faint wash behind the page: two very low-opacity radial
+   gradients in this style's own tones. The layer moves on `transform`
+   only, and the opacities are low enough that no word ever sits on a
+   different shade, so every contrast ratio is unchanged. */
   --bg-glow-a: rgba(120, 186, 140, 0.12);
   --bg-glow-b: rgba(47, 107, 79, 0.13);
-  --bg-glow-c: rgba(180, 210, 170, 0.05);
-  --bg-dot: rgba(170, 200, 165, 0.06);
 
   --bg: #121A15;
   --surface: #1A241D;
