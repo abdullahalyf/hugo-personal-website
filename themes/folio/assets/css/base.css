@@ -759,6 +759,33 @@ button { font: inherit; color: inherit; }
   }
 }
 
+/* The sidebar on the right (profile.yaml: sidebar_side: right). The same
+   column, mirrored: the profile moves to the right edge and the content
+   column keeps its margin on the right instead of the left. */
+@media (min-width: 1024px) {
+  .layout--sidebar .hero__media { width: 100%; max-width: 340px; margin-bottom: var(--space-4); }
+  .layout--sidebar .hero__media img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 30%; }
+
+  .layout--sidebar .hero__media,
+  .layout--sidebar .hero__media img { border-radius: 14px !important; clip-path: none !important; }
+  .layout--sidebar main { min-height: 820px; }
+
+  .layout--sidebar-right .hero,
+  .layout--sidebar-right .page-aside { left: auto; right: 0; }
+
+  .layout--sidebar-right main > *:not(.hero):not(.page-aside) {
+    margin-left: 0;
+    padding-left: 0;
+    margin-right: 320px;
+    padding-right: var(--space-8);
+  }
+
+  .layout--sidebar-right .site-footer {
+    padding-left: 0;
+    padding-right: calc(var(--gutter) + 320px + var(--space-8));
+  }
+}
+
 /* --- Buttons & links ------------------------------------------------------ */
 
 .btn {

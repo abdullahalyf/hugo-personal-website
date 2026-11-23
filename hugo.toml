@@ -17,6 +17,7 @@ enableRobotsTXT = true
 
 [params]
   style = "orchid"
+  layout = "sidebar"
   locale = "en-US"
   # description: optional. Left unset on purpose: when it is missing the site
   # builds one from personal/profile.yaml (name, role, location), so the

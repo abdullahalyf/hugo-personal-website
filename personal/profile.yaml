@@ -161,6 +161,7 @@ contact:
   whatsapp: ''
   note: ''
 background: lines
+sidebar_side: right
 show_empty_socials: true
 socials:
 - name: GitHub

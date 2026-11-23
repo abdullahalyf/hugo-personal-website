@@ -18,7 +18,7 @@
   {{ partial "validate.html" . }}
   {{ partial "head.html" . }}
 </head>
-<body class="layout--{{ $layout }}">
+<body class="layout--{{ $layout }}{{ if and (eq $layout "sidebar") (eq hugo.Data.profile.sidebar_side "right") }} layout--sidebar-right{{ end }}">
   {{- /* The background wash. It is a fixed layer behind the page and
          carries no text, so it is hidden from screen readers. */}}
   <div class="page-bg page-bg--{{ hugo.Data.profile.background | default "dots" }}" aria-hidden="true">
