@@ -1,186 +1,131 @@
-# Fahmida Jannat Shruty - personal site. Facts from Shruty and Alif's notes; email is a placeholder until confirmed.
-name: Fahmida Jannat Shruty
-short_name: Shruty
-role: CSE student & programmer
-now: B.Sc. in Computer Science and Engineering at Daffodil International University, learning C, C++ and Java.
-photo_alt: Portrait of Fahmida Jannat Shruty
-location: Dhaka, Bangladesh
-cv_url: ''
-highlight_academics: false
-academics: []
-home_sections:
-- facts
-- brief
-- grades
-- projects
-- skills
-- moments
-- contact
-facts:
-- CSE, Daffodil International University
-- C C++ Java
-- CGPA 3.40
-- Based in Dhaka
-brief: I'm a Computer Science student at Daffodil International University. C, C++ and Java are my working languages, and my semester CGPA has gone up every term, from 3.08 to 3.40.
-moments: 6
-grades_title: Semester results
-grades:
-- label: 1st
-  value: 3.08
-  out_of: 4.0
-  focus: Programming fundamentals in C
-- label: 2nd
-  value: 3.12
-  out_of: 4.0
-  focus: Problem solving in C
-- label: 3rd
-  value: 3.29
-  out_of: 4.0
-  focus: Data structures in C++
-- label: 4th
-  value: 3.4
-  out_of: 4.0
-  focus: Algorithms in Java
-grades_note: Programming fundamentals in the first semester, problem solving in the second, data structures in the third and algorithms in the fourth.
-bio: 'I''m a Computer Science student at Daffodil International University. I work in C, C++ and Java, and I enjoy problems where the answer has to be reasoned out step by step.
+# ============================================================
+#  ALL personal content for this site lives in THIS file.
+#  Photos and CV are NOT named here. Drop files with FIXED names into this folder:
+#    personal/photos/profile.jpg        (required)
+#    personal/photos/project-1.jpg ...  (1 = first project below, 2 = second ...)
+#    personal/photos/hobby-1.jpg ...    (same order as hobbies below)
+#    personal/cv.pdf                    (optional; no file = no "Download CV" button)
+#  .jpg / .jpeg / .png / .webp all work. See personal/README.md.
+#  Optional fields/sections: leave empty ( [] or "" ) and the site hides them.
+#  Example data below is fictional — replace everything.
+# ============================================================
 
+name: "Tanvir Rahman"
+short_name: "Tanvir"               # used in greetings / header
+role: "CSE student & web developer"  # required, one line
+now: "Third-year CSE student at Daffodil International University, building small web tools for local businesses."  # required, one sentence
+photo_alt: "Portrait of Tanvir Rahman"
+location: "Savar, Dhaka, Bangladesh"
+cv_url: ""                         # optional: link to an online CV instead of personal/cv.pdf
 
-  My semester CGPA has risen every term, from 3.08 in the first semester to 3.40 in the fourth, with programming fundamentals, problem solving, data structures and algorithms along the way.
+facts:                             # 3–4 short facts for the home page
+  - "CSE, Daffodil International University"
+  - "Based in Dhaka"
+  - "Open to internships"
 
+bio: |                             # required; first paragraph is shown on Home
+  I'm a Computer Science student who likes turning messy real-world problems into simple software. Most of my work is small web apps for people I know: shops, clubs and classmates.
 
-  Most of my projects so far were built for courses, several of them together with a classmate. I want to keep learning by building, and to work on a team where the code is read as carefully as it is written.
+  I started with a lost-and-found board for my campus because things kept disappearing between the canteen and the library. It turned into a Laravel app with 300 students on it, and after that I stopped looking for big ideas and started looking for small problems that already have an audience.
 
-  '
-education:
-- degree: B.Sc. in Computer Science and Engineering
-  institution: Daffodil International University
-  start: ''
-  end: Present
-  detail: Semester CGPA has risen every semester, from 3.08 to 3.40. Coursework in programming fundamentals, problem solving, data structures and algorithms.
-- degree: Higher Secondary Certificate
-  institution: Bangabandhu Government College
-  start: ''
-  end: ''
-  detail: GPA 5.00.
-- degree: Secondary School Certificate
-  institution: Premier Ideal High School
-  start: ''
-  end: ''
-  detail: GPA 4.89.
-experience: []
-skills:
-- group: Languages
-  items:
-  - C
-  - C++
-  - Java
-- group: Problem solving
-  items:
-  - Algorithms
-  - Data structures
-  - Graph algorithms
-  - Problem solving
-- group: Tools
-  items:
-  - Git
-  - GitHub
-  - Linux
-  - VS Code
-- group: Hardware
-  items:
-  - Arduino
-  - ESP32
-  - Sensors
-- group: Strengths
-  items:
-  - Communication
-  - Teamwork
-  - Time management
-  - Presenting ideas
+  Outside class I work with our programming club, take part in the university's contest once a year, and write about what I break along the way. I want to work as a backend engineer after graduation, ideally on a team where shipping is more important than pitching.
+
+education:                         # newest first
+  - degree: "B.Sc. in Computer Science and Engineering"
+    institution: "Daffodil International University"
+    start: "2024"
+    end: "Present"                 # or a year
+    detail: "CGPA 3.70 / 4.00 so far. Coursework: data structures, databases, networking, software engineering, operating systems."
+  - degree: "Higher Secondary Certificate (Science)"
+    institution: "Savar Cantonment Public School & College"
+    start: "2021"
+    end: "2023"
+    detail: "GPA 5.00. Science group, with mathematics and computer science."
+
+experience:                        # newest first; [] hides the section
+  - title: "Web development intern"
+    org: "Nexera Solutions Ltd."
+    start: "Jun 2026"
+    end: "Aug 2026"
+    detail: "Built an internal stock dashboard with Laravel and MySQL used by 12 staff. Cut their weekly inventory count from two hours to twenty minutes by moving it from a shared spreadsheet to a form with a running total."
+  - title: "Programming club committee member"
+    org: "DIU Programming Club"
+    start: "Feb 2025"
+    end: "Present"
+    detail: "Run the weekly problem-solving session for around 40 members and maintain the club's contest problem archive, currently 180 solved problems."
+
+skills:                            # groups; first 2 groups appear on Home
+  - group: "Languages"
+    items: ["C", "C++", "Python", "JavaScript", "SQL"]
+  - group: "Web"
+    items: ["HTML", "CSS", "Laravel", "React", "Tailwind CSS"]
+  - group: "Data"
+    items: ["MySQL", "SQLite", "MongoDB", "Pandas"]
+  - group: "Tools"
+    items: ["Git", "Linux", "Docker", "Figma", "Postman"]
+
 projects:
-- title: Library Management System
-  summary: A console application in Java for a course, covering books, members, issue and return, and fines.
-  tech:
-  - Java
-  - File storage
-  live: ''
-  code: ''
-  featured: false
-- title: Clap-Controlled Light Switch
-  summary: 'An IoT project: an Arduino and a sound sensor that toggle a relay, so a clap switches the light.'
-  tech:
-  - Arduino
-  - IoT
-  - Sound sensor
-  live: ''
-  code: ''
-  featured: false
-- title: Smart Traffic Rules System
-  summary: 'A Data Structures and Algorithms project in C: vehicles, traffic violations and fines, with search, sorting, Dijkstra, BFS and DFS over a junction graph.'
-  tech:
-  - C
-  - Data structures
-  - Graph algorithms
-  alt: The Smart Traffic Rules System running in a browser, showing the dashboard totals and the vehicle management form.
-  live: https://252-15-826-sketch.github.io/smart-traffic-system/
-  code: https://github.com/252-15-826-sketch/smart-traffic-system
-  featured: true
-- title: Hospital Management System
-  summary: A console application for a course, keeping patients, doctors, appointments and billing in files on disk.
-  tech:
-  - C++
-  - File storage
-  live: ''
-  code: ''
-  featured: false
-- title: IoT Smart Energy Meter
-  summary: An Arduino/ESP32 project with a current sensor that shows how much energy the home is using.
-  tech:
-  - Arduino
-  - ESP32
-  - IoT
-  - Current sensor
-  live: ''
-  code: ''
-  featured: false
-- title: Smart Attendance Tracker
-  summary: A small console tool that marks attendance and prints a per-student percentage report.
-  tech:
-  - Java
-  - C++
-  live: ''
-  code: ''
-  featured: false
-achievements: []
-gallery:
-- file: moment-1
-  caption: A walk in the sun
-- file: moment-2
-  caption: Colour and light
-- file: gate
-  caption: The gate at the end of the path
-- file: path
-  caption: The path home
-- file: green
-  caption: Green on the way
-- file: college
-  caption: The college field
-- file: trees
-  caption: Under the trees
-languages:
-- Bangla (native)
-- English
-hobbies: []
+  - title: "Campus Lost & Found"
+    summary: "A web app where students post and claim lost items on campus. Search, image uploads and a claim thread per item."
+    tech: ["Laravel", "MySQL", "Tailwind CSS"]
+    live: "https://example.com"
+    code: "https://github.com/example/lost-found"
+    featured: true
+  - title: "Bus Time Bot"
+    summary: "A Telegram bot that tells DIU students when the next university bus leaves, so nobody has to check the notice board twice a day."
+    tech: ["Python", "Telegram API", "SQLite"]
+    live: ""
+    code: "https://github.com/example/bus-bot"
+    featured: true
+  - title: "Shop Ledger"
+    summary: "A single-page ledger for my uncle's hardware shop: daily sales, stock counts and a printable day-end summary. Runs on a cheap tablet in the shop."
+    tech: ["React", "LocalStorage", "Tailwind CSS"]
+    live: ""
+    code: ""
+    featured: false
+  - title: "Study Deck"
+    summary: "A flashcard trainer for our algorithms course. Pulls questions from a shared deck, schedules the ones I get wrong, and shows a weekly accuracy chart."
+    tech: ["Python", "Flask", "PostgreSQL"]
+    live: ""
+    code: "https://github.com/example/study-deck"
+    featured: false
+
+achievements:                      # [] hides the section
+  - year: "2025"
+    title: "Top 10, DIU Intra-University Programming Contest"
+    issuer: "DIU CPC"
+  - year: "2024"
+    title: "Winner, inter-department web design competition"
+    issuer: "DIU Faculty of CSE"
+  - year: "2023"
+    title: "National Collegiate Programming Contest, 84th place"
+    issuer: "Bangladesh Computer Society"
+
+languages: ["Bangla (native)", "English (fluent)", "Hindi (conversational)"]
+
+hobbies:                           # [] hides the section
+  - title: "Travelling"
+    text: "I try to visit one new district every semester and keep a photo journal. So far: Sajek, Srimangal and the old city of Bagerhat."
+  - title: "Street photography"
+    text: "Mostly rickshaws, tea stalls and hand-painted shop signs. I carry one camera and shoot whatever looks strange in the afternoon light."
+
 contact:
-  email: 252-15-8222@diu.edu.bd
-  phone: +880 1319-485680
-  whatsapp: +880 1319-485680
-  note: ''
-background: lines
-sidebar_side: right
-show_empty_socials: true
-socials:
-- name: GitHub
-  url: https://github.com/252-15-822-arch
-- name: LinkedIn
-  url: ''
+  email: "tanvir@example.com"      # required
+  phone: "+880 1712-345678"        # "" hides it
+  note: "I reply within a day. Happy to talk about internships and small projects."
+
+socials:                           # any of: github, linkedin, facebook, x, instagram, youtube, website, behance, dribbble, medium
+  - name: "github"
+    url: "https://github.com/example"
+  - name: "linkedin"
+    url: "https://www.linkedin.com/in/example"
+  - name: "facebook"
+    url: "https://facebook.com/example"
+  - name: "instagram"
+    url: "https://instagram.com/example"
+  - name: "medium"
+    url: "https://medium.com/@example"
+
+# ---- Optional look settings (see docs/VARIANTS.md) ----------------------
+# background: dots          # dots | lines | none  (faint animated page pattern)
+# sidebar_side: right       # only with layout "sidebar": put the photo column on the right

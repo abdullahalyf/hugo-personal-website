@@ -1,5 +1,7 @@
 # Personal website — a Hugo template with five styles
 
+> New friend? Start at [docs/LAUNCH.md](docs/LAUNCH.md) and pick a look from [docs/VARIANTS.md](docs/VARIANTS.md).
+
 A fast, accessible personal website you can fork and fill in about ten minutes.
 One YAML file holds everything about you; five styles decide how it looks.
 
