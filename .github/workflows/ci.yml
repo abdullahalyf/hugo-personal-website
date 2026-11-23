@@ -3,8 +3,9 @@ name: CI
 on:
   push:
     branches: [main]
+  # Any branch, not just main: the task branches stack on each other, so a
+  # PR against task/01-theme has to be checked as well.
   pull_request:
-    branches: [main]
 
 permissions:
   contents: read
@@ -38,6 +39,20 @@ jobs:
 
       - name: Build
         run: hugo --gc --minify --panicOnWarning
+
+      - name: Build every style
+        # The five styles share the templates but have their own CSS, so
+        # each one is built on its own. A style that breaks the build must
+        # fail CI rather than wait for somebody to try it.
+        run: |
+          set -euo pipefail
+          for style in harbor grove orchid graphite saffron; do
+            echo "::group::style $style"
+            HUGO_PARAMS_STYLE=$style hugo --gc --minify --panicOnWarning \
+              --destination "public-$style"
+            rm -rf "public-$style"
+            echo "::endgroup::"
+          done
 
       - name: Check internal links
         run: |

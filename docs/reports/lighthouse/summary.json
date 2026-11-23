@@ -1,0 +1,362 @@
+{
+  "harbor": {
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": {
+        "value": 756.6578,
+        "display": "0.8\u00a0s"
+      },
+      "largest-contentful-paint": {
+        "value": 1356.6578,
+        "display": "1.4\u00a0s"
+      },
+      "total-blocking-time": {
+        "value": 11,
+        "display": "10\u00a0ms"
+      },
+      "cumulative-layout-shift": {
+        "value": 0,
+        "display": "0"
+      },
+      "speed-index": {
+        "value": 886.043476006831,
+        "display": "0.9\u00a0s"
+      },
+      "interactive": {
+        "value": 1371.6578,
+        "display": "1.4\u00a0s"
+      }
+    },
+    "failing_audits": [
+      {
+        "category": "performance",
+        "id": "image-delivery-insight",
+        "title": "Improve image delivery",
+        "score": 0.5
+      },
+      {
+        "category": "performance",
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "bf-cache",
+        "title": "Page prevented back/forward cache restoration",
+        "score": 0
+      }
+    ]
+  },
+  "grove": {
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": {
+        "value": 1204.5091,
+        "display": "1.2\u00a0s"
+      },
+      "largest-contentful-paint": {
+        "value": 1954.5090999999998,
+        "display": "2.0\u00a0s"
+      },
+      "total-blocking-time": {
+        "value": 0,
+        "display": "0\u00a0ms"
+      },
+      "cumulative-layout-shift": {
+        "value": 0.005467593224045501,
+        "display": "0.005"
+      },
+      "speed-index": {
+        "value": 1204.5091,
+        "display": "1.2\u00a0s"
+      },
+      "interactive": {
+        "value": 1969.5090999999998,
+        "display": "2.0\u00a0s"
+      }
+    },
+    "failing_audits": [
+      {
+        "category": "performance",
+        "id": "first-contentful-paint",
+        "title": "First Contentful Paint",
+        "score": 0.99
+      },
+      {
+        "category": "performance",
+        "id": "largest-contentful-paint",
+        "title": "Largest Contentful Paint",
+        "score": 0.97
+      },
+      {
+        "category": "performance",
+        "id": "image-delivery-insight",
+        "title": "Improve image delivery",
+        "score": 0.5
+      },
+      {
+        "category": "performance",
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "interactive",
+        "title": "Time to Interactive",
+        "score": 0.99
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "score": 0
+      }
+    ]
+  },
+  "orchid": {
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": {
+        "value": 1093.6343,
+        "display": "1.1\u00a0s"
+      },
+      "largest-contentful-paint": {
+        "value": 1354.6342999999997,
+        "display": "1.4\u00a0s"
+      },
+      "total-blocking-time": {
+        "value": 70,
+        "display": "70\u00a0ms"
+      },
+      "cumulative-layout-shift": {
+        "value": 0,
+        "display": "0"
+      },
+      "speed-index": {
+        "value": 1093.6343,
+        "display": "1.1\u00a0s"
+      },
+      "interactive": {
+        "value": 1399.7842999999998,
+        "display": "1.4\u00a0s"
+      }
+    },
+    "failing_audits": [
+      {
+        "category": "performance",
+        "id": "first-contentful-paint",
+        "title": "First Contentful Paint",
+        "score": 0.99
+      },
+      {
+        "category": "performance",
+        "id": "total-blocking-time",
+        "title": "Total Blocking Time",
+        "score": 0.99
+      },
+      {
+        "category": "performance",
+        "id": "image-delivery-insight",
+        "title": "Improve image delivery",
+        "score": 0.5
+      },
+      {
+        "category": "performance",
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "max-potential-fid",
+        "title": "Max Potential First Input Delay",
+        "score": 0.92
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "score": 0.5
+      }
+    ]
+  },
+  "graphite": {
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": {
+        "value": 1204.7618,
+        "display": "1.2\u00a0s"
+      },
+      "largest-contentful-paint": {
+        "value": 1729.7617999999998,
+        "display": "1.7\u00a0s"
+      },
+      "total-blocking-time": {
+        "value": 0,
+        "display": "0\u00a0ms"
+      },
+      "cumulative-layout-shift": {
+        "value": 0,
+        "display": "0"
+      },
+      "speed-index": {
+        "value": 1204.7618,
+        "display": "1.2\u00a0s"
+      },
+      "interactive": {
+        "value": 1752.2618,
+        "display": "1.8\u00a0s"
+      }
+    },
+    "failing_audits": [
+      {
+        "category": "performance",
+        "id": "first-contentful-paint",
+        "title": "First Contentful Paint",
+        "score": 0.99
+      },
+      {
+        "category": "performance",
+        "id": "largest-contentful-paint",
+        "title": "Largest Contentful Paint",
+        "score": 0.99
+      },
+      {
+        "category": "performance",
+        "id": "image-delivery-insight",
+        "title": "Improve image delivery",
+        "score": 0.5
+      },
+      {
+        "category": "performance",
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "score": 0.5
+      },
+      {
+        "category": "performance",
+        "id": "bf-cache",
+        "title": "Page prevented back/forward cache restoration",
+        "score": 0
+      }
+    ]
+  },
+  "saffron": {
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": {
+        "value": 1055.1555,
+        "display": "1.1\u00a0s"
+      },
+      "largest-contentful-paint": {
+        "value": 1580.1555,
+        "display": "1.6\u00a0s"
+      },
+      "total-blocking-time": {
+        "value": 0,
+        "display": "0\u00a0ms"
+      },
+      "cumulative-layout-shift": {
+        "value": 0.0002642856624278629,
+        "display": "0"
+      },
+      "speed-index": {
+        "value": 1055.1555,
+        "display": "1.1\u00a0s"
+      },
+      "interactive": {
+        "value": 1602.6555,
+        "display": "1.6\u00a0s"
+      }
+    },
+    "failing_audits": [
+      {
+        "category": "performance",
+        "id": "largest-contentful-paint",
+        "title": "Largest Contentful Paint",
+        "score": 0.99
+      },
+      {
+        "category": "performance",
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "score": 0
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "score": 0
+      }
+    ]
+  }
+}

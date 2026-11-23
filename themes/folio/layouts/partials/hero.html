@@ -56,29 +56,20 @@
     </div>
 
     {{- else if eq $layout "sidebar" }}
-    <aside class="hero__aside">
-      <div class="hero__media">
+    {{ partial "profile-aside.html" (dict "context" . "heading" true) }}
+
+    {{- else if eq $layout "band" }}
+    <div class="hero__band" aria-hidden="true"></div>
+    <div class="hero__body">
+      <div class="hero__media hero__media--overlap">
         {{ $photo }}
       </div>
-      <div class="hero__text hero__text--compact">
+      <div class="hero__text">
         <h1 class="hero__name">{{ $p.name }}</h1>
         <p class="hero__role">{{ $p.role }}</p>
         <p class="hero__now">{{ $p.now }}</p>
         {{ partial "hero-actions.html" $p }}
       </div>
-    </aside>
-    <div class="hero__body"></div>
-
-    {{- else if eq $layout "band" }}
-    <div class="hero__band" aria-hidden="true"></div>
-    <div class="hero__media hero__media--overlap">
-      {{ $photo }}
-    </div>
-    <div class="hero__text">
-      <h1 class="hero__name">{{ $p.name }}</h1>
-      <p class="hero__role">{{ $p.role }}</p>
-      <p class="hero__now">{{ $p.now }}</p>
-      {{ partial "hero-actions.html" $p }}
     </div>
     {{- end }}
 
