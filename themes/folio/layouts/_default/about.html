@@ -1,0 +1,90 @@
+{{ define "main" }}
+{{- $p := hugo.Data.profile -}}
+<section class="page-head">
+  <div class="container">
+    <h1 class="page-head__title">{{ .Title }}</h1>
+    {{- with .Params.description }}<p class="page-head__lead">{{ . }}</p>{{ end }}
+  </div>
+</section>
+
+{{- /* Full bio. */}}
+{{- with $p.bio }}
+<section class="section">
+  <div class="container">
+    <div class="bio">
+      {{ . | markdownify }}
+    </div>
+  </div>
+</section>
+{{- end }}
+
+{{ partial "timeline.html" (dict "items" $p.education "kind" "education") }}
+{{ partial "timeline.html" (dict "items" $p.experience "kind" "experience") }}
+
+{{- /* Achievements: year + title + issuer rows. */}}
+{{- with $p.achievements }}
+<section class="section section--achievements">
+  <div class="container">
+    <h2 class="section__title">Achievements</h2>
+    <ul class="rows">
+      {{- range . }}
+      <li class="rows__item">
+        <span class="rows__year">{{ .year }}</span>
+        <span class="rows__title">{{ .title }}</span>
+        <span class="rows__issuer">{{ .issuer }}</span>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+</section>
+{{- end }}
+
+{{- /* Languages. */}}
+{{- with $p.languages }}
+<section class="section section--languages">
+  <div class="container">
+    <h2 class="section__title">Languages</h2>
+    <ul class="skills__items">
+      {{- range . }}<li class="pill">{{ . }}</li>{{ end }}
+    </ul>
+  </div>
+</section>
+{{- end }}
+
+{{- /* Hobbies: short paragraphs, optional square photo. The photo is looked
+     up by fixed base name: the Nth hobby uses personal/photos/hobby-N.*. */}}
+{{- with $p.hobbies }}
+<section class="section section--hobbies">
+  <div class="container">
+    <h2 class="section__title">Outside work</h2>
+    <div class="hobbies">
+      {{- range $i, $hobby := . }}
+      <div class="hobby">
+        {{- with resources.GetMatch (printf "photos/hobby-%d.*" (add $i 1)) }}
+        <div class="hobby__media">
+          {{ partial "img.html" (dict "base" (printf "hobby-%d" (add $i 1)) "alt" (printf "%s photo" $hobby.title) "class" "hobby__img" "width" 600 "sizes" "(max-width: 720px) 40vw, 180px") }}
+        </div>
+        {{- end }}
+        <div class="hobby__body">
+          <h3 class="hobby__title">{{ $hobby.title }}</h3>
+          <p class="hobby__text">{{ $hobby.text }}</p>
+        </div>
+      </div>
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}
+
+{{- $cv := partial "cv.html" $p }}
+{{- if $cv }}
+<section class="section section--cv">
+  <div class="container">
+    <a class="btn btn--primary" href="{{ $cv }}" download>
+      {{ partial "icon.html" (dict "name" "download" "class" "btn__icon") }}
+      <span>Download CV</span>
+    </a>
+  </div>
+</section>
+{{- end }}
+{{ end }}

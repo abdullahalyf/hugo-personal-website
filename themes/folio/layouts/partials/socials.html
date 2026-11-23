@@ -1,0 +1,14 @@
+{{- /* Social links as icon + text. Usage: partial "socials.html" $p.socials */ -}}
+{{- $socials := . -}}
+{{- if $socials }}
+<ul class="socials">
+  {{- range $socials }}
+  <li>
+    <a class="social" href="{{ .url }}" rel="noopener noreferrer">
+      {{ partial "icon.html" (dict "name" .name "class" "social__icon") }}
+      <span class="social__name">{{ .name }}</span>
+    </a>
+  </li>
+  {{- end }}
+</ul>
+{{- end }}

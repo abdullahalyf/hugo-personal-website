@@ -1,0 +1,87 @@
+{{ define "main" }}
+{{- $p := hugo.Data.profile -}}
+{{ partial "hero.html" $p }}
+
+{{- /* Facts row — a plain inline list, no separators. */}}
+{{- with $p.facts }}
+<section class="section section--facts">
+  <div class="container">
+    <ul class="facts">
+      {{- range . }}<li class="facts__item">{{ . }}</li>{{ end }}
+    </ul>
+  </div>
+</section>
+{{- end }}
+
+{{- /* Short about: first paragraph of the bio. */}}
+{{- $bio := $p.bio | default "" -}}
+{{- $first := index (split $bio "\n\n") 0 -}}
+{{- with $first }}
+<section class="section section--about">
+  <div class="container">
+    <div class="about-lead">
+      <p>{{ . | markdownify }}</p>
+      <p><a class="link" href="{{ "/about/" | relURL }}"><span>More about me</span></a></p>
+    </div>
+  </div>
+</section>
+{{- end }}
+
+{{- /* Featured projects: alternating image-left/right rows, max 3.
+     The image base name follows the position in the full projects list, so
+     the original index has to be carried through the filter. */}}
+{{- $featured := slice -}}
+{{- range $i, $proj := $p.projects -}}
+  {{- if and $proj.featured (lt (len $featured) 3) -}}
+    {{- $featured = $featured | append (dict "item" $proj "index" $i) -}}
+  {{- end -}}
+{{- end -}}
+{{- if $featured }}
+<section class="section section--projects">
+  <div class="container">
+    <h2 class="section__title">Selected projects</h2>
+    <div class="project-list">
+      {{- range $featured }}
+      {{ partial "project.html" (dict "item" .item "index" .index "mode" "featured") }}
+      {{- end }}
+    </div>
+    <p class="section__more"><a class="link" href="{{ "/projects/" | relURL }}"><span>All projects</span></a></p>
+  </div>
+</section>
+{{- end }}
+
+{{ partial "skills.html" (dict "groups" $p.skills "limit" 2 "title" "Skills") }}
+
+{{- /* Latest blog posts — hidden entirely when there are none. */}}
+{{- $posts := where site.RegularPages "Section" "blog" -}}
+{{- if $posts }}
+{{- $posts = first 2 $posts }}
+<section class="section section--writing">
+  <div class="container">
+    <h2 class="section__title">Writing</h2>
+    <ul class="post-list">
+      {{- range $posts }}
+      {{- $cover := .Params.cover | default "" }}
+      <li class="post-list__item post-list__item--cover">
+        {{- with $cover }}
+          {{- with resources.GetMatch (printf "blog/%s.*" .) }}
+            <a class="post-list__thumb" href="{{ $.RelPermalink }}" tabindex="-1" aria-hidden="true">
+              {{ partial "img.html" (dict "base" $cover "dir" "blog" "alt" "" "class" "post-list__thumb-img" "width" 360 "sizes" "(max-width: 760px) 100vw, 240px") }}
+            </a>
+          {{- end }}
+        {{- end }}
+        <div class="post-list__body">
+          <p class="post-list__meta">{{ .Date.Format "2 January 2006" }}</p>
+          <h3 class="post-list__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          {{- with .Params.summary }}<p class="post-list__summary">{{ . }}</p>{{ end }}
+        </div>
+      </li>
+      {{- end }}
+    </ul>
+    <p class="section__more"><a class="link" href="{{ "/blog/" | relURL }}"><span>All posts</span></a></p>
+  </div>
+</section>
+{{- end }}
+
+{{ partial "contact-block.html" (dict "profile" $p "heading" true) }}
+{{ end }}
