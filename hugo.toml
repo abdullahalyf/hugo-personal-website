@@ -4,7 +4,10 @@
 baseURL = "https://example.com/"
 relativeURLs = false
 theme = "folio"
-title = "Tanvir Rahman"
+# The site title is only a fallback for tools that read it directly. Every
+# page, the RSS feed and the metadata take the person's name from
+# personal/profile.yaml, so a fork never shows the demo person's name.
+title = "Personal site"
 defaultContentLanguage = "en"
 enableRobotsTXT = true
 
@@ -15,7 +18,9 @@ enableRobotsTXT = true
 [params]
   style = "harbor"
   locale = "en-US"
-  description = "Tanvir Rahman — CSE student and web developer in Dhaka, Bangladesh."
+  # description: optional. Left unset on purpose: when it is missing the site
+  # builds one from personal/profile.yaml (name, role, location), so the
+  # metadata can never point at the demo person. Set it here to override.
 
 [markup]
   [markup.goldmark.renderer]

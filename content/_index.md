@@ -1,5 +1,5 @@
 ---
 title: "Home"
-description: "Tanvir Rahman — CSE student and web developer in Dhaka, Bangladesh."
+description: "{name} — {role}."
 layout: "home"
 ---

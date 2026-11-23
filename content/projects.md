@@ -1,5 +1,5 @@
 ---
 title: "Projects"
-description: "Projects by Tanvir Rahman, with the tools used to build them."
+description: "Projects by {name}, with the tools used to build them."
 layout: "projects"
 ---
