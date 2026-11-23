@@ -18,9 +18,11 @@
 {{- $first := index (split $bio "\n\n") 0 -}}
 {{- with $first }}
 <section class="section section--about">
-  <div class="container prose-narrow">
-    <p class="about-lead">{{ . | markdownify }}</p>
-    <p><a class="link" href="{{ "/about/" | relURL }}"><span>More about me</span></a></p>
+  <div class="container">
+    <div class="about-lead">
+      <p>{{ . | markdownify }}</p>
+      <p><a class="link" href="{{ "/about/" | relURL }}"><span>More about me</span></a></p>
+    </div>
   </div>
 </section>
 {{- end }}

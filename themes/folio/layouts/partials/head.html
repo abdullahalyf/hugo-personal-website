@@ -40,8 +40,15 @@
 {{- /* Fonts. Self-hosted WOFF2, latin subset only. The display face is
        preloaded; the body face loads with font-display: swap. */}}
 {{- $fonts := partial "fonts.html" $style }}
-{{- range $fonts }}
-{{- if hasPrefix .url "/fonts/" }}
+{{- $local := slice -}}
+{{- range $fonts -}}
+  {{- if hasPrefix .url "/fonts/" -}}
+    {{- $local = $local | append . -}}
+  {{- end -}}
+{{- end }}
+{{- with $local }}
+<style>
+{{- range . }}
 @font-face {
   font-family: "{{ .family }}";
   font-style: normal;
@@ -50,6 +57,7 @@
   src: url("{{ .url | relURL }}") format("woff2");
 }
 {{- end }}
+</style>
 {{- end }}
 {{- range $fonts }}
 {{- if .isDisplay }}

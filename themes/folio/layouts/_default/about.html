@@ -10,8 +10,10 @@
 {{- /* Full bio. */}}
 {{- with $p.bio }}
 <section class="section">
-  <div class="container prose-narrow bio">
-    {{ . | markdownify }}
+  <div class="container">
+    <div class="bio">
+      {{ . | markdownify }}
+    </div>
   </div>
 </section>
 {{- end }}

@@ -108,11 +108,6 @@ button { font: inherit; color: inherit; }
   max-width: calc(var(--container-narrow) + var(--gutter) * 2);
 }
 
-.prose-narrow {
-  max-width: calc(var(--container-narrow) + var(--gutter) * 2);
-  margin-inline: auto;
-}
-
 .section {
   padding-block: 3rem;
 }
@@ -774,10 +769,20 @@ button { font: inherit; color: inherit; }
 
 /* --- About lead ----------------------------------------------------------- */
 
+/* The lead and the bio stay in the same container as every other section so
+   the page keeps one left edge; only the text column is narrow. */
+.about-lead,
+.bio {
+  max-width: var(--container-narrow);
+}
+
 .about-lead {
   font-size: 1.1875rem;
   color: var(--ink);
-  max-width: 60ch;
+}
+
+.about-lead p {
+  margin-bottom: var(--space-4);
 }
 
 .bio p { max-width: 68ch; }
