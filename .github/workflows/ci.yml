@@ -3,8 +3,9 @@ name: CI
 on:
   push:
     branches: [main]
+  # Any branch, not just main: the task branches stack on each other, so a
+  # PR against task/01-theme has to be checked as well.
   pull_request:
-    branches: [main]
 
 permissions:
   contents: read
