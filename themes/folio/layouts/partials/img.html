@@ -5,6 +5,7 @@
 
      Usage: partial "img.html" (dict
                 "base"    "profile"        # or "project-1", "hobby-2"
+                "dir"     "blog"           # optional folder, default "photos"
                 "alt"    "Portrait of ..."
                 "class"  "hero__photo"
                 "width"  960
@@ -14,15 +15,16 @@
               )
 */ -}}
 {{- $base := .base -}}
+{{- $dir := .dir | default "photos" -}}
 {{- $alt := .alt | default "" -}}
 {{- $class := .class | default "" -}}
 {{- $loading := .loading | default "lazy" -}}
 {{- $priority := .priority | default false -}}
 {{- $width := .width | default 960 -}}
 {{- $sizes := .sizes | default "100vw" -}}
-{{- $resource := resources.GetMatch (printf "photos/%s.*" $base) -}}
+{{- $resource := resources.GetMatch (printf "%s/%s.*" $dir $base) -}}
 {{- if not $resource -}}
-  {{- errorf "no image found in personal/photos for the base name %q. Add the file as personal/photos/%s.jpg (or .jpeg, .png, .webp)." $base $base -}}
+  {{- errorf "no image found in assets/%s for the base name %q. Add the file as personal/%s/%s.jpg (or .jpeg, .png, .webp)." $dir $base $dir $base -}}
 {{- end -}}
 {{- /* Two rendered widths; never upscale past the source width. */ -}}
 {{- $w1 := 480 -}}

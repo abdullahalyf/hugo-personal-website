@@ -26,63 +26,92 @@ facts:                             # 3–4 short facts for the home page
 bio: |                             # required; first paragraph is shown on Home
   I'm a Computer Science student who likes turning messy real-world problems into simple software. Most of my work is small web apps for people I know: shops, clubs and classmates.
 
-  Outside class I'm learning system design and contributing to our university's programming club. I want to work as a backend engineer after graduation.
+  I started with a lost-and-found board for my campus because things kept disappearing between the canteen and the library. It turned into a Laravel app with 300 students on it, and after that I stopped looking for big ideas and started looking for small problems that already have an audience.
+
+  Outside class I work with our programming club, take part in the university's contest once a year, and write about what I break along the way. I want to work as a backend engineer after graduation, ideally on a team where shipping is more important than pitching.
 
 education:                         # newest first
   - degree: "B.Sc. in Computer Science and Engineering"
     institution: "Daffodil International University"
     start: "2024"
     end: "Present"                 # or a year
-    detail: "CGPA 3.70 / 4.00 so far. Coursework: data structures, databases, networking."
+    detail: "CGPA 3.70 / 4.00 so far. Coursework: data structures, databases, networking, software engineering, operating systems."
   - degree: "Higher Secondary Certificate (Science)"
     institution: "Savar Cantonment Public School & College"
     start: "2021"
     end: "2023"
-    detail: "GPA 5.00"
+    detail: "GPA 5.00. Science group, with mathematics and computer science."
 
 experience:                        # newest first; [] hides the section
   - title: "Web development intern"
-    org: "Example Tech Ltd."
+    org: "Nexera Solutions Ltd."
     start: "Jun 2026"
     end: "Aug 2026"
-    detail: "Built an internal stock dashboard with Laravel and MySQL used by 12 staff."
+    detail: "Built an internal stock dashboard with Laravel and MySQL used by 12 staff. Cut their weekly inventory count from two hours to twenty minutes by moving it from a shared spreadsheet to a form with a running total."
+  - title: "Programming club committee member"
+    org: "DIU Programming Club"
+    start: "Feb 2025"
+    end: "Present"
+    detail: "Run the weekly problem-solving session for around 40 members and maintain the club's contest problem archive, currently 180 solved problems."
 
 skills:                            # groups; first 2 groups appear on Home
   - group: "Languages"
-    items: ["C", "C++", "Python", "JavaScript"]
+    items: ["C", "C++", "Python", "JavaScript", "SQL"]
   - group: "Web"
-    items: ["HTML", "CSS", "React", "Laravel"]
+    items: ["HTML", "CSS", "Laravel", "React", "Tailwind CSS"]
+  - group: "Data"
+    items: ["MySQL", "SQLite", "MongoDB", "Pandas"]
   - group: "Tools"
-    items: ["Git", "Linux", "Figma", "MySQL"]
+    items: ["Git", "Linux", "Docker", "Figma", "Postman"]
 
 projects:
   - title: "Campus Lost & Found"
-    summary: "A small web app where students post and claim lost items on campus."
-    tech: ["Laravel", "MySQL", "Tailwind"]
-    live: "https://example.com"      # optional
-    code: "https://github.com/example/lost-found"  # optional
+    summary: "A web app where students post and claim lost items on campus. Search, image uploads and a claim thread per item."
+    tech: ["Laravel", "MySQL", "Tailwind CSS"]
+    live: "https://example.com"
+    code: "https://github.com/example/lost-found"
     featured: true
   - title: "Bus Time Bot"
-    summary: "A Telegram bot that tells DIU students when the next university bus leaves."
-    tech: ["Python", "Telegram API"]
+    summary: "A Telegram bot that tells DIU students when the next university bus leaves, so nobody has to check the notice board twice a day."
+    tech: ["Python", "Telegram API", "SQLite"]
     live: ""
     code: "https://github.com/example/bus-bot"
     featured: true
+  - title: "Shop Ledger"
+    summary: "A single-page ledger for my uncle's hardware shop: daily sales, stock counts and a printable day-end summary. Runs on a cheap tablet in the shop."
+    tech: ["React", "LocalStorage", "Tailwind CSS"]
+    live: ""
+    code: ""
+    featured: false
+  - title: "Study Deck"
+    summary: "A flashcard trainer for our algorithms course. Pulls questions from a shared deck, schedules the ones I get wrong, and shows a weekly accuracy chart."
+    tech: ["Python", "Flask", "PostgreSQL"]
+    live: ""
+    code: "https://github.com/example/study-deck"
+    featured: false
 
 achievements:                      # [] hides the section
   - year: "2025"
     title: "Top 10, DIU Intra-University Programming Contest"
     issuer: "DIU CPC"
+  - year: "2024"
+    title: "Winner, inter-department web design competition"
+    issuer: "DIU Faculty of CSE"
+  - year: "2023"
+    title: "National Collegiate Programming Contest, 84th place"
+    issuer: "Bangladesh Computer Society"
 
-languages: ["Bangla (native)", "English (fluent)"]
+languages: ["Bangla (native)", "English (fluent)", "Hindi (conversational)"]
 
 hobbies:                           # [] hides the section
   - title: "Travelling"
-    text: "I try to visit one new district every semester and keep a photo journal."
+    text: "I try to visit one new district every semester and keep a photo journal. So far: Sajek, Srimangal and the old city of Bagerhat."
+  - title: "Street photography"
+    text: "Mostly rickshaws, tea stalls and hand-painted shop signs. I carry one camera and shoot whatever looks strange in the afternoon light."
 
 contact:
   email: "tanvir@example.com"      # required
-  phone: "+880 1XXX-XXXXXX"        # "" hides it
+  phone: "+880 1712-345678"        # "" hides it
   note: "I reply within a day. Happy to talk about internships and small projects."
 
 socials:                           # any of: github, linkedin, facebook, x, instagram, youtube, website, behance, dribbble, medium
@@ -92,3 +121,7 @@ socials:                           # any of: github, linkedin, facebook, x, inst
     url: "https://www.linkedin.com/in/example"
   - name: "facebook"
     url: "https://facebook.com/example"
+  - name: "instagram"
+    url: "https://instagram.com/example"
+  - name: "medium"
+    url: "https://medium.com/@example"

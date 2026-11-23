@@ -1,10 +1,15 @@
 {{- /* Contact block: email, phone, location, socials, CV.
-     Usage: partial "contact-block.html" $p */ -}}
-{{- $p := . -}}
+     Usage: partial "contact-block.html" (dict "profile" $p "heading" true)
+     The heading is optional: on the contact page the page title already says
+     "Contact", so repeating it would read as a mistake. */ -}}
+{{- $p := .profile -}}
+{{- $heading := .heading | default false -}}
 {{- $cv := partial "cv.html" $p -}}
 <section class="section section--contact">
   <div class="container">
+    {{- if $heading }}
     <h2 class="section__title">Contact</h2>
+    {{- end }}
     <ul class="contact-list">
       {{- with $p.contact.email }}
       <li class="contact-list__item">

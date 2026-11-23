@@ -6,5 +6,5 @@
     {{- with .Params.description }}<p class="page-head__lead">{{ . }}</p>{{ end }}
   </div>
 </section>
-{{ partial "contact-block.html" $p }}
+{{ partial "contact-block.html" (dict "profile" $p) }}
 {{ end }}

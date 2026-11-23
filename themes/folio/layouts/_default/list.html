@@ -11,10 +11,20 @@
     {{- if $pages }}
     <ul class="post-list post-list--full">
       {{- range $pages }}
-      <li class="post-list__item">
-        <p class="post-list__meta">{{ .Date.Format "2 January 2006" }} · {{ .ReadingTime }} min read</p>
-        <h2 class="post-list__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-        {{- with .Params.summary }}<p class="post-list__summary">{{ . }}</p>{{ end }}
+      {{- $cover := .Params.cover | default "" }}
+      <li class="post-list__item post-list__item--cover">
+        {{- with $cover }}
+          {{- with resources.GetMatch (printf "blog/%s.*" .) }}
+            <a class="post-list__thumb" href="{{ $.RelPermalink }}" tabindex="-1" aria-hidden="true">
+              {{ partial "img.html" (dict "base" $cover "dir" "blog" "alt" "" "class" "post-list__thumb-img" "width" 360 "sizes" "(max-width: 760px) 100vw, 240px") }}
+            </a>
+          {{- end }}
+        {{- end }}
+        <div class="post-list__body">
+          <p class="post-list__meta"><span>{{ .Date.Format "2 January 2006" }}</span> <span>{{ .ReadingTime }} min read</span></p>
+          <h2 class="post-list__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          {{- with .Params.summary }}<p class="post-list__summary">{{ . }}</p>{{ end }}
+        </div>
       </li>
       {{- end }}
     </ul>

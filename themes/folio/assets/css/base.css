@@ -454,10 +454,12 @@ button { font: inherit; color: inherit; }
 
 /* --- Facts ---------------------------------------------------------------- */
 
+/* The facts are separated by space only. A dot between them reads as
+   decoration and the design system does not use them. */
 .facts {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-5);
+  gap: var(--space-2) var(--space-6);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -465,23 +467,6 @@ button { font: inherit; color: inherit; }
 }
 
 .facts__item { position: relative; }
-
-@media (min-width: 768px) {
-  .facts__item + .facts__item {
-    padding-left: var(--space-5);
-  }
-
-  .facts__item + .facts__item::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.55em;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--line);
-  }
-}
 
 /* --- Timeline ------------------------------------------------------------- */
 
@@ -727,6 +712,9 @@ button { font: inherit; color: inherit; }
   margin: 0 0 var(--space-1);
   color: var(--muted);
   font-size: 0.875rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
 }
 
 .post-list__title { margin-bottom: var(--space-2); }
@@ -739,6 +727,49 @@ button { font: inherit; color: inherit; }
   margin: 0;
   color: var(--muted);
   max-width: 60ch;
+}
+
+/* A post with a cover shows a thumbnail beside the text. Below the breakpoint
+   the thumbnail sits on top, so the title is never pushed off-screen. */
+.post-list__item--cover {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.post-list__thumb {
+  display: block;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.post-list__thumb-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 760px) {
+  .post-list__item--cover {
+    grid-template-columns: 240px 1fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+}
+
+/* --- Post cover ----------------------------------------------------------- */
+
+.post-cover {
+  margin-top: var(--space-6);
+}
+
+.post-cover__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line);
 }
 
 /* --- Page head ------------------------------------------------------------ */
@@ -851,10 +882,18 @@ button { font: inherit; color: inherit; }
   font-size: 0.875rem;
 }
 
+/* An image on its own line becomes a paragraph in Markdown, so the paragraph
+   wrapper has to stop behaving like body copy around it. */
 .prose img {
+  display: block;
+  width: 100%;
+  height: auto;
   border-radius: var(--radius-card);
+  border: 1px solid var(--line);
   margin-block: var(--space-5);
 }
+
+.prose p:has(> img) { margin-block: var(--space-5); }
 
 .prose hr { margin-block: var(--space-6); }
 

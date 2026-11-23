@@ -6,8 +6,9 @@ Drives Chrome through the DevTools protocol so the viewport width, device
 pixel ratio, colour scheme and scrollbar are all under our control (the
 plain `--screenshot` CLI flag cannot set prefers-color-scheme).
 
-Writes task01-<page>-<device>-<theme>.png for home and about, at mobile
-(375), tablet (768) and desktop (1280), in light and dark.
+Writes task01-<page>-<device>-<theme>.png for every page of the site, at
+mobile (375) and desktop (1280), in light and dark. Blog posts are captured
+full-page so the whole post is visible in one file.
 """
 import base64
 import json
@@ -26,6 +27,12 @@ CHROME = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 PAGES = [
     ("home", "/"),
     ("about", "/about/"),
+    ("projects", "/projects/"),
+    ("blog", "/blog/"),
+    ("post-laravel", "/blog/learning-laravel-app/"),
+    ("post-study", "/blog/semester-study-system/"),
+    ("post-trip", "/blog/trip-to-sajek-valley/"),
+    ("contact", "/contact/"),
 ]
 
 # device label, width, height
@@ -37,17 +44,14 @@ DEVICES = [
 
 THEMES = ["light", "dark"]
 
-# The task asks for home + about, mobile + desktop, light + dark (8 files).
-WANTED = [
-    ("home", "/", "desktop", 1280, 900, "light"),
-    ("home", "/", "desktop", 1280, 900, "dark"),
-    ("home", "/", "mobile", 375, 780, "light"),
-    ("home", "/", "mobile", 375, 780, "dark"),
-    ("about", "/about/", "desktop", 1280, 900, "light"),
-    ("about", "/about/", "desktop", 1280, 900, "dark"),
-    ("about", "/about/", "mobile", 375, 780, "light"),
-    ("about", "/about/", "mobile", 375, 780, "dark"),
-]
+# Every page, mobile + desktop, light + dark. The trailing flag says whether
+# the shot captures the whole scrollable page instead of just the viewport.
+WANTED = []
+for _slug, _path in PAGES:
+    for _device, _w, _h in [("mobile", 375, 780), ("desktop", 1280, 900)]:
+        for _theme in THEMES:
+            _full = _slug.startswith("post-")
+            WANTED.append((_slug, _path, _device, _w, _h, _theme, _full))
 
 
 def free_port():
@@ -183,7 +187,7 @@ def wait_for_devtools(port, timeout=30):
     raise TimeoutError("chrome devtools did not come up")
 
 
-def shoot(cdp, session, base, slug, path, device, w, h, theme, outdir):
+def shoot(cdp, session, base, slug, path, device, w, h, theme, outdir, full=False):
     cdp.call(
         "Emulation.setDeviceMetricsOverride",
         {
@@ -218,9 +222,32 @@ def shoot(cdp, session, base, slug, path, device, w, h, theme, outdir):
     # Give the fonts and the no-flash theme script time to settle.
     time.sleep(2.0)
 
+    if full:
+        # captureBeyondViewport does not scroll, so lazy images below the fold
+        # never start loading and the shot shows empty boxes. Walk down the
+        # page to trigger them, then return to the top.
+        cdp.call(
+            "Runtime.evaluate",
+            {
+                "expression": (
+                    "(async()=>{"
+                    "const step=window.innerHeight;"
+                    "for(let y=0;y<document.body.scrollHeight;y+=step){"
+                    "window.scrollTo(0,y);await new Promise(r=>setTimeout(r,120));"
+                    "}"
+                    "window.scrollTo(0,0);"
+                    "await new Promise(r=>setTimeout(r,600));"
+                    "})()"
+                ),
+                "awaitPromise": True,
+            },
+            session,
+        )
+        time.sleep(1.0)
+
     shot = cdp.call(
         "Page.captureScreenshot",
-        {"format": "png", "captureBeyondViewport": False},
+        {"format": "png", "captureBeyondViewport": full},
         session,
     )
     data = base64.b64decode(shot["data"])
@@ -236,6 +263,10 @@ def shoot(cdp, session, base, slug, path, device, w, h, theme, outdir):
 def main():
     base = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:1313"
     outdir = sys.argv[2] if len(sys.argv) > 2 else "docs/reports/screens"
+    # Optional third argument: a comma-separated list of page slugs to shoot.
+    # With no list, every page in PAGES is captured.
+    only = [s.strip() for s in sys.argv[3].split(",") if s.strip()] if len(sys.argv) > 3 else []
+    wanted = [w for w in WANTED if not only or w[0] in only]
     os.makedirs(outdir, exist_ok=True)
 
     port = free_port()
@@ -252,9 +283,11 @@ def main():
         session = cdp.call("Target.attachToTarget", {"targetId": tid, "flatten": True})["sessionId"]
         cdp.call("Page.enable", {}, session)
 
-        for slug, path, device, w, h, theme in WANTED:
-            name, out, size = shoot(cdp, session, base, slug, path, device, w, h, theme, outdir)
-            print(f"OK  {name} ({w}x{h} {theme}) {size} bytes")
+        for slug, path, device, w, h, theme, full in wanted:
+            name, out, size = shoot(
+                cdp, session, base, slug, path, device, w, h, theme, outdir, full
+            )
+            print(f"OK  {name} ({w}x{h} {theme}{' full' if full else ''}) {size} bytes")
     finally:
         proc.terminate()
         try:

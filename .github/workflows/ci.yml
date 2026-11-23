@@ -54,14 +54,14 @@ jobs:
         # missing. If this ever stops failing, the check has been defeated.
         run: |
           set -euo pipefail
-          cp data/profile.yaml /tmp/profile.yaml.bak
-          sed -i 's/^name:.*/name: ""/' data/profile.yaml
+          cp personal/profile.yaml /tmp/profile.yaml.bak
+          sed -i 's/^name:.*/name: ""/' personal/profile.yaml
           if hugo --gc --minify >/tmp/hugo.log 2>&1; then
             echo "::error::Build succeeded with an empty name - validate.html is not working"
-            cp /tmp/profile.yaml.bak data/profile.yaml
+            cp /tmp/profile.yaml.bak personal/profile.yaml
             exit 1
           fi
-          cp /tmp/profile.yaml.bak data/profile.yaml
+          cp /tmp/profile.yaml.bak personal/profile.yaml
           echo "validate.html correctly failed the build"
 
       - name: Upload build output

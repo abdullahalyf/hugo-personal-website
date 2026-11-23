@@ -70,6 +70,12 @@ enableRobotsTXT = true
   source = "personal/photos"
   target = "assets/photos"
 
+# Blog covers live in their own folder so a post cover is named after the
+# post, not after the person. A post names its cover in its front matter.
+[[module.mounts]]
+  source = "personal/blog"
+  target = "assets/blog"
+
 [[module.mounts]]
   source = "personal/cv.pdf"
   target = "static/cv.pdf"
