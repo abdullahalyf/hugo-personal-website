@@ -7,10 +7,7 @@ photo_alt: Portrait of Fahmida Jannat Shruty
 location: Dhaka, Bangladesh
 cv_url: ''
 highlight_academics: false
-academics:
-- SSC GPA 4.89
-- HSC GPA 5.00
-- CGPA 3.40, up from 3.08
+academics: []
 home_sections:
 - facts
 - brief
@@ -22,7 +19,7 @@ home_sections:
 facts:
 - CSE, Daffodil International University
 - C C++ Java
-- SSC 4.89, HSC 5.00
+- CGPA 3.40
 - Based in Dhaka
 brief: I'm a Computer Science student at Daffodil International University. C, C++ and Java are my working languages, and my semester CGPA has gone up every term, from 3.08 to 3.40.
 moments: 6
@@ -77,10 +74,29 @@ skills:
   - C
   - C++
   - Java
+- group: Problem solving
+  items:
+  - Algorithms
+  - Data structures
+  - Graph algorithms
+  - Problem solving
+- group: Tools
+  items:
+  - Git
+  - GitHub
+  - Linux
+  - VS Code
+- group: Hardware
+  items:
+  - Arduino
+  - ESP32
+  - Sensors
 - group: Strengths
   items:
-  - Problem solving
   - Communication
+  - Teamwork
+  - Time management
+  - Presenting ideas
 projects:
 - title: Library Management System
   summary: A console application in Java for a course, covering books, members, issue and return, and fines.
