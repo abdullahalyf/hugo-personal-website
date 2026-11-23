@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Ratul Hasan — this site's own colours.
+
+   The style is graphite (a résumé to be read carefully). The accent is
+   changed from the stock blue to a deep green, which reads as a settled,
+   academic green rather than the demo site's engineering blue, and it is
+   the colour of the fields that are actually on this site: contests,
+   results and long practice.
+
+   Both shades clear 4.5:1 against their own background and surface:
+     light  #1F6B4A  6.44:1 on #FFFFFF, 6.00:1 on #F5F7F9
+     dark   #6FD3A3  9.76:1 on #15181D, 8.87:1 on #1D2127
+   ========================================================================== */
+
+:root {
+  --accent: #1F6B4A;
+  --accent-ink: #FFFFFF;
+  --accent-strong: #175440;
+}
+
+[data-theme="dark"] {
+  --accent: #6FD3A3;
+  --accent-ink: #10241C;
+  --accent-strong: #93E3BE;
+}

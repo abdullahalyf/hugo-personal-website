@@ -7,6 +7,7 @@ Everything that makes this site *yours* is in this folder. Nothing outside it ne
 |---|---|---|
 | `profile.yaml` | all text: name, bio, education, projects, links… | yes |
 | `photos/profile.jpg` | your portrait, square or 4:5, at least 800 px | yes |
+| `photos/avatar.jpg` | small formal photo for the round avatar spots | no |
 | `photos/project-1.jpg`, `project-2.jpg` … | screenshot for 1st, 2nd … project in `profile.yaml` | no |
 | `photos/hobby-1.jpg`, `hobby-2.jpg` … | photo for 1st, 2nd … hobby | no |
 | `photos/edu-1.jpg`, `edu-2.jpg` … | photo for 1st, 2nd … entry in `education` | no |
@@ -33,6 +34,16 @@ position in the list, newest first. The image is cropped to 4:3.
 entry in `achievements`. Certificates are usually portrait scans, so they
 are shown whole on a light panel, never cropped, and clicking one opens it
 full size.
+
+**Avatar** — `photos/avatar.jpg` is the small formal photo. It is used
+for every round avatar spot on the site: the header next to your name, the
+author byline on a blog post, the contact block, and the Open Graph
+image that link previews use. It is cropped to a square, so use a picture
+that survives a square crop — a head-and-shoulders shot works best.
+
+If you leave it out, the site falls back to `photos/profile.jpg` for all
+of these, so nothing breaks. The big portrait on the home page and the
+About page always uses `profile.*` and is never replaced by the avatar.
 
 **Gallery** — drop any number of files into `photos/gallery/`. They appear
 in a "Moments" section on the About page. To order them and give them

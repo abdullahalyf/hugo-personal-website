@@ -1,6 +1,14 @@
 # ============================================================
-#  ALL personal content for this site lives in THIS file.
-#  Photos and CV are NOT named here. Drop files with FIXED names into this folder:
+#  Ratul Hasan — personal site
+#
+#  Every fact here came from the friend or from Alif's notes on him.
+#  Nothing was invented: where a fact was missing, the field is left
+#  empty and the section hides itself. See
+#  docs/reports/FRIEND-ratul-report.md for the list of what is still
+#  missing and where each line came from.
+#
+#  Photos and CV are NOT named here. Drop files with FIXED names into
+#  this folder:
 #    personal/photos/profile.jpg        (required)
 #    personal/photos/project-1.jpg ...  (1 = first project below, 2 = second ...)
 #    personal/photos/hobby-1.jpg ...    (same order as hobbies below)
@@ -9,143 +17,182 @@
 #    personal/photos/gallery/*          (any number; the "Moments" section)
 #    personal/cv.pdf                    (optional; no file = no "Download CV" button)
 #  .jpg / .jpeg / .png / .webp all work. See personal/README.md.
-#  Optional fields/sections: leave empty ( [] or "" ) and the site hides them.
-#  Example data below is fictional — replace everything.
 # ============================================================
 
-name: "Tanvir Rahman"
-short_name: "Tanvir"               # used in greetings / header
-role: "CSE student & web developer"  # required, one line
-now: "Third-year CSE student at Daffodil International University, building small web tools for local businesses."  # required, one sentence
-photo_alt: "Portrait of Tanvir Rahman"
-location: "Savar, Dhaka, Bangladesh"
-cv_url: ""                         # optional: link to an online CV instead of personal/cv.pdf
+name: "Ratul Hasan"
+short_name: "Ratul"
+role: "CSE student & competitive programmer"
+now: "B.Sc. in Computer Science and Engineering at Daffodil International University, taking part in algorithm contests and hackathons."
+photo_alt: "Portrait of Ratul Hasan"
+location: "Dhaka, Bangladesh"
+cv_url: ""
 
-highlight_academics: false         # optional: true puts `academics:` first in the facts row
+highlight_academics: true
 
-academics: []                      # optional: short results, e.g. ["CGPA 3.70 / 4.00", "SSC GPA 5.00"]
+academics:
+  - "SSC GPA 5.00"
+  - "HSC GPA 5.00"
+  - "CGPA 3.89, up from 3.50"
 
-facts:                             # 3–4 short facts for the home page
+facts:
   - "CSE, Daffodil International University"
-  - "Based in Dhaka"
-  - "Open to internships"
+  - "SSC and HSC GPA 5.00"
+  - "Regular in algorithm contests and hackathons"
 
-bio: |                             # required; first paragraph is shown on Home
-  I'm a Computer Science student who likes turning messy real-world problems into simple software. Most of my work is small web apps for people I know: shops, clubs and classmates.
+# Optional: semester results, drawn as bars on the home page.
+grades_title: "Semester results"
+grades:
+  - label: "1st"
+    value: 3.50
+    out_of: 4.00
+    focus: "Programming fundamentals in C"
+  - label: "2nd"
+    value: 3.56
+    out_of: 4.00
+    focus: "Problem solving in C"
+  - label: "3rd"
+    value: 3.86
+    out_of: 4.00
+    focus: "Data structures in C++"
+  - label: "4th"
+    value: 3.89
+    out_of: 4.00
+    focus: "Algorithms in Java"
+grades_note: "Programming fundamentals in the first semester, problem solving in the second, data structures in the third and algorithms in the fourth."
 
-  I started with a lost-and-found board for my campus because things kept disappearing between the canteen and the library. It turned into a Laravel app with 300 students on it, and after that I stopped looking for big ideas and started looking for small problems that already have an audience.
+bio: |
+  I'm a Computer Science student at Daffodil International University, and
+  most of what I have learned so far I have learned by building things and
+  by competing. C, C++ and Java are my working languages, and I care more
+  about understanding an algorithm properly than about the number of
+  frameworks I have tried.
 
-  Outside class I work with our programming club, take part in the university's contest once a year, and write about what I break along the way. I want to work as a backend engineer after graduation, ideally on a team where shipping is more important than pitching.
+  My results have moved in one direction so far. Semester CGPA went from
+  3.50 in my first semester to 3.89 in my fourth, and each semester has
+  been better than the one before it — first programming fundamentals, then
+  problem solving, then data structures, then algorithms.
 
-education:                         # newest first
+  I keep showing up at programming contests. "Unlock the Algorithm", an
+  algorithm contest organised by DIU, and "Take Off", the university's
+  problem-solving event, are two I have taken part in, and I am a regular
+  at the hackathons that come through the department. Every one of them has
+  taught me more about reading a problem carefully than any textbook
+  chapter did.
+
+  Outside of it I ride motorcycles, and I am a firm believer in the way
+  Cristiano Ronaldo works — the same effort on an ordinary Tuesday as on
+  the day of a final. I want to go into software engineering after
+  graduation, on a team where the code is read as carefully as it is
+  written.
+
+education:                          # newest first
   # The Nth entry may have a photo: personal/photos/edu-N.jpg.
   - degree: "B.Sc. in Computer Science and Engineering"
     institution: "Daffodil International University"
-    start: "2024"
-    end: "Present"                 # or a year
-    detail: "CGPA 3.70 / 4.00 so far. Coursework: data structures, databases, networking, software engineering, operating systems."
-  - degree: "Higher Secondary Certificate (Science)"
-    institution: "Savar Cantonment Public School & College"
-    start: "2021"
-    end: "2023"
-    detail: "GPA 5.00. Science group, with mathematics and computer science."
-
-experience:                        # newest first; [] hides the section
-  - title: "Web development intern"
-    org: "Nexera Solutions Ltd."
-    start: "Jun 2026"
-    end: "Aug 2026"
-    detail: "Built an internal stock dashboard with Laravel and MySQL used by 12 staff. Cut their weekly inventory count from two hours to twenty minutes by moving it from a shared spreadsheet to a form with a running total."
-  - title: "Programming club committee member"
-    org: "DIU Programming Club"
-    start: "Feb 2025"
+    start: ""
     end: "Present"
-    detail: "Run the weekly problem-solving session for around 40 members and maintain the club's contest problem archive, currently 180 solved problems."
+    detail: "Semester CGPA has risen every semester, from 3.50 to 3.89. Coursework in programming fundamentals, problem solving, data structures and algorithms."
+  - degree: "Higher Secondary Certificate (Science)"
+    institution: "Milestone College"
+    start: ""
+    end: ""
+    detail: "GPA 5.00, with mathematics and computer science."
+  - degree: "Secondary School Certificate"
+    institution: "Liaquat Ali Memorial High School"
+    start: ""
+    end: ""
+    detail: "GPA 5.00."
+
+experience: []                     # [] hides the section
 
 skills:                            # groups; first 2 groups appear on Home
   - group: "Languages"
-    items: ["C", "C++", "Python", "JavaScript", "SQL"]
-  - group: "Web"
-    items: ["HTML", "CSS", "Laravel", "React", "Tailwind CSS"]
-  - group: "Data"
-    items: ["MySQL", "SQLite", "MongoDB", "Pandas"]
+    items: ["C", "C++", "Java"]
+  - group: "Problem solving"
+    items: ["Algorithms", "Data structures", "Competitive programming"]
   - group: "Tools"
-    items: ["Git", "Linux", "Docker", "Figma", "Postman"]
+    items: ["Git", "Linux"]
 
-projects:
-  - title: "Campus Lost & Found"
-    summary: "A web app where students post and claim lost items on campus. Search, image uploads and a claim thread per item."
-    tech: ["Laravel", "MySQL", "Tailwind CSS"]
-    live: "https://example.com"
-    code: "https://github.com/example/lost-found"
-    featured: true
-  - title: "Bus Time Bot"
-    summary: "A Telegram bot that tells DIU students when the next university bus leaves, so nobody has to check the notice board twice a day."
-    tech: ["Python", "Telegram API", "SQLite"]
-    live: ""
-    code: "https://github.com/example/bus-bot"
-    featured: true
-  - title: "Shop Ledger"
-    summary: "A single-page ledger for my uncle's hardware shop: daily sales, stock counts and a printable day-end summary. Runs on a cheap tablet in the shop."
-    tech: ["React", "LocalStorage", "Tailwind CSS"]
-    live: ""
-    code: ""
-    featured: false
-  - title: "Study Deck"
-    summary: "A flashcard trainer for our algorithms course. Pulls questions from a shared deck, schedules the ones I get wrong, and shows a weekly accuracy chart."
-    tech: ["Python", "Flask", "PostgreSQL"]
-    live: ""
-    code: "https://github.com/example/study-deck"
-    featured: false
+# No projects yet — the real list is still to be confirmed. Add a block
+# below and the home page switches from "Achievements" to "Selected
+# projects" as soon as there are two.
+projects: []
+  # - title: "Library management system"
+  #   summary: "A console-based management system built for a university course."
+  #   tech: ["C++"]
+  #   live: ""
+  #   code: ""
+  #   featured: true
 
-achievements:                      # [] hides the section
-  - year: "2025"
-    title: "Top 10, DIU Intra-University Programming Contest"
-    issuer: "DIU CPC"
-  - year: "2024"
-    title: "Winner, inter-department web design competition"
-    issuer: "DIU Faculty of CSE"
-  - year: "2023"
-    title: "National Collegiate Programming Contest, 84th place"
-    issuer: "Bangladesh Computer Society"
+achievements:
+  - year: "2026"
+    title: "Certificate of Appreciation, Unlock the Algorithm"
+    issuer: "Daffodil International University"
+  - year: ""
+    title: "Participant, Take Off problem-solving contest"
+    issuer: "Daffodil International University"
+  - year: ""
+    title: "Regular participant in departmental hackathons"
+    issuer: "Faculty of CSE, DIU"
+  - year: ""
+    title: "CGPA improved every semester, from 3.50 to 3.89"
+    issuer: "Daffodil International University"
 
 # The Nth achievement above may have a picture: personal/photos/award-N.jpg.
 # Certificates are portrait scans, so they are shown whole (never cropped)
 # and open full size in a lightbox.
 
-gallery:                            # optional; the "Moments" section on About
-  - file: "ride"
-    caption: "On the way to the hills"
-  - file: "market"
-    caption: "Saturday at the market"
-  - file: "evening"
-    caption: ""
-  - file: "road"
-    caption: "The long road home"
+gallery:                            # the "Moments" section on About
+  - file: "campus-congregation"
+    caption: "Convocation morning at Daffodil International University"
+  - file: "campus-pool"
+    caption: "The campus from above"
+  - file: "campus-aerial"
+    caption: "DIU from the air"
+  - file: "cow"
+    caption: "A detour on the way to somewhere"
+  - file: "bridge"
+    caption: "Crossing the river on the way home"
+  - file: "dusk"
+    caption: "Last light over the field"
+  - file: "trees"
+    caption: "Somewhere under the trees"
+  - file: "river"
+    caption: "A boat on the water"
+  - file: "birds"
+    caption: "Birds over the water"
+  - file: "night-ride"
+    caption: "One more ride before the light goes"
 # Every image in personal/photos/gallery/ is shown, whether it is listed
 # here or not. The list only sets the order and the captions.
 
-languages: ["Bangla (native)", "English (fluent)", "Hindi (conversational)"]
+languages: ["Bangla (native)", "English"]   # the level of English is still to be confirmed
 
-hobbies:                           # [] hides the section
-  - title: "Travelling"
-    text: "I try to visit one new district every semester and keep a photo journal. So far: Sajek, Srimangal and the old city of Bagerhat."
-  - title: "Street photography"
-    text: "Mostly rickshaws, tea stalls and hand-painted shop signs. I carry one camera and shoot whatever looks strange in the afternoon light."
+hobbies:
+  - title: "Motorcycles"
+    text: "I ride for the hour it takes to get somewhere, not to get there. Most weekends start with a route I have not driven before."
+  - title: "Football"
+    text: "A lifelong Cristiano Ronaldo fan. What I take from it is not the goals but the consistency — the same work on a day when nobody is watching."
+  - title: "Travel"
+    text: "Any weekend with a train ticket and no plan is a good one. I would rather see one place properly than five places quickly."
 
 contact:
-  email: "tanvir@example.com"      # required
-  phone: "+880 1712-345678"        # "" hides it
-  note: "I reply within a day. Happy to talk about internships and small projects."
+  email: "ratul.hasan@example.com"  # required — the real address is still to be confirmed
+  phone: "+880 1888-526475"         # shown on the site
+  whatsapp: "+880 1888-526475"      # a WhatsApp link, if it is a different number put it here
+  note: "Open to internships and junior software engineering roles."
 
-socials:                           # any of: github, linkedin, facebook, x, instagram, youtube, website, behance, dribbble, medium
-  - name: "github"
-    url: "https://github.com/example"
-  - name: "linkedin"
-    url: "https://www.linkedin.com/in/example"
-  - name: "facebook"
-    url: "https://facebook.com/example"
-  - name: "instagram"
-    url: "https://instagram.com/example"
-  - name: "medium"
-    url: "https://medium.com/@example"
+# Show the social slots that have no link yet, as muted "soon" entries, so
+# a visitor can see where they will be. Off by default for other friends.
+show_empty_socials: true
+
+socials:
+  - name: "GitHub"
+    url: "https://github.com/252-15-826-sketch"
+  - name: "LinkedIn"
+    url: ""                          # the link is still to be confirmed
+  - name: "Facebook"
+    url: ""                          # the link is still to be confirmed
+# An entry with no `url` is shown as a muted placeholder marked "soon",
+# so the reader knows where to look later without a link going nowhere.
+# Add more entries above; the site only shows the ones that are here.
