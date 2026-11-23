@@ -117,26 +117,6 @@ body {
   to   { transform: translate3d(4vw, -6vh, 0) scale(1.14); }
 }
 
-/* --- Glass header ---------------------------------------------------------
-   The header sits on a frosted panel. The border only appears once the
-   page has been scrolled, so the top of the page reads as open. */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background: var(--bg-glass, color-mix(in srgb, var(--bg) 82%, transparent));
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  border-bottom: 1px solid transparent;
-  transition: border-color 200ms ease, background-color 200ms ease;
-}
-
-/* The class is added by theme.js once the page has moved. Without JS the
-   header simply keeps its transparent border, which still looks right. */
-.site-header--scrolled {
-  border-bottom-color: var(--line);
-}
-
 /* The toggle and the menu button are small frosted tiles. */
 .theme-toggle,
 .menu-toggle {
@@ -280,13 +260,24 @@ button { font: inherit; color: inherit; }
 
 /* --- Header --------------------------------------------------------------- */
 
+/* --- Glass header ---------------------------------------------------------
+   The header sits on a frosted panel. The border only appears once the
+   page has been scrolled, so the top of the page reads as open. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  background: var(--bg-glass, color-mix(in srgb, var(--bg) 82%, transparent));
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+/* The class is added by theme.js once the page has moved. Without JS the
+   header simply keeps its transparent border, which still looks right. */
+.site-header--scrolled {
+  border-bottom-color: var(--line);
 }
 
 .site-header__inner {
