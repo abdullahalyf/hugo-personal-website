@@ -172,15 +172,15 @@ languages:
 - English
 hobbies: []
 contact:
-  email: shruty@example.com
-  phone: ''
-  whatsapp: ''
+  email: 252-15-8222@diu.edu.bd
+  phone: +880 1319-485680
+  whatsapp: +880 1319-485680
   note: ''
 background: lines
 sidebar_side: right
 show_empty_socials: true
 socials:
 - name: GitHub
-  url: ''
+  url: https://github.com/252-15-822-arch
 - name: LinkedIn
   url: ''
