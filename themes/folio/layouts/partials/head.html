@@ -3,8 +3,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ $p.name }} — {{ $p.role }}{{ else }}{{ .Title }} — {{ $p.name }}{{ end }}</title>
-{{- $desc := "" -}}
-{{- with .Description }}{{ $desc = . }}{{ else }}{{ $desc = site.Params.description }}{{ end -}}
+{{- /* The description comes from the page, then from params.description,
+       and otherwise is built from the person's own profile: name, role and
+       where they are. It is never left pointing at somebody else. */}}
+{{- $desc := partial "description.html" . -}}
 {{- with $desc }}
 <meta name="description" content="{{ . }}">
 {{- end }}

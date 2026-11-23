@@ -3,7 +3,7 @@
 <section class="page-head">
   <div class="container">
     <h1 class="page-head__title">{{ .Title }}</h1>
-    {{- with .Params.description }}<p class="page-head__lead">{{ . }}</p>{{ end }}
+    {{ partial "page-lead.html" . }}
   </div>
 </section>
 {{ partial "contact-block.html" (dict "profile" $p) }}

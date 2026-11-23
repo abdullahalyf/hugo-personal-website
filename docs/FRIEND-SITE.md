@@ -153,6 +153,61 @@ WebP itself, so leave them as they are.
 A missing file is not an error. If they have no photo for a project, that
 project is simply shown without one.
 
+### Delete the demo leftovers
+
+The template ships with a demo person in it: Tanvir Rahman, four projects,
+two hobbies and a CV. **Delete the files that do not belong to your friend**,
+or the site will show Tanvir's photos on a page about somebody else.
+
+The names are positional, so the rule is simple: **keep exactly as many
+`project-N.jpg` files as the friend has projects, and as many `hobby-N.jpg`
+files as they have hobbies.** Any file beyond that is a leftover.
+
+```bash
+# How many projects and hobbies does the friend have?
+grep -c "^  - title:" personal/profile.yaml
+
+# What is there now?
+ls personal/photos/ personal/blog/
+```
+
+Delete, for the demo person replaced by somebody with 2 projects and 1 hobby:
+
+```
+personal/photos/project-3.jpg
+personal/photos/project-4.jpg
+personal/photos/hobby-2.jpg
+personal/cv.pdf          ← only if the friend has no CV
+```
+
+`personal/cv.pdf` is the only one that is also a "remove it" case: the
+template ships a demo CV, and a friend who did not bring one must not get a
+"Download CV" button that opens somebody else's CV.
+
+### The demo blog
+
+The blog is the one part of the site that is **not** in `personal/`. The
+posts live in `content/blog/`, and the template ships three of them, written
+about Tanvir's own life ("my first Laravel app", "my semester study system",
+"a trip to Sajek Valley").
+
+If the friend did not write any posts, delete them:
+
+```bash
+rm content/blog/learning-laravel-app.md
+rm content/blog/semester-study-system.md
+rm content/blog/trip-to-sajek-valley.md
+rm personal/blog/*.jpg        # the cover images for those posts
+```
+
+Keep `content/blog/_index.md` and `content/blog/README.md` — they are the
+blog's index page and its instructions, not posts.
+
+With no posts left the site hides the Blog link in the navigation and builds
+no feed, so nothing points at an empty page. If the friend *did* write posts,
+put them in `content/blog/` and their cover images in `personal/blog/`;
+`content/blog/README.md` explains the front matter.
+
 ## Step 5 — choose the style
 
 The friend may have named one on the form (Q23). If they did, use it. If
@@ -193,6 +248,25 @@ If it fails, read the error: it names the file and the field.
 ```
 ERROR personal/profile.yaml: "name" is required but empty (or missing).
 ```
+
+### Check that no demo name is left anywhere
+
+The template ships with a demo person in it. Their name must not survive
+anywhere on the friend's site — not in a page title, not in a meta
+description, not in the RSS feed. After the build, look for it:
+
+```bash
+grep -ril "tanvir" public/ | head
+```
+
+Any file listed is a leftover. The usual causes:
+
+- a `description:` in `content/*.md` that still names the demo person —
+  the page descriptions take `{name}` and `{role}` instead, and the theme
+  fills them in from `profile.yaml`;
+- `params.description` in `hugo.toml` — left unset on purpose; when it is
+  missing the site builds one from the profile;
+- the demo blog posts, which are still in `content/blog/`.
 
 Then look at the site before you push:
 
@@ -238,17 +312,31 @@ At `docs/reports/FRIEND-<name>-report.md`, in their fork. It should say:
 
 ## A worked example
 
+This is the **dry run** that was done when this recipe was written: a
+fictional friend, "Nusrat Jahan", taken from her filled intake form through
+to a built site. It took 14 minutes, most of it spent finding out what the
+template does with leftover demo files.
+
 The friend answered:
 
 > 1. নাম: নুসরাত জাহান
+> 2. ছোট নাম: নুসরাত
 > 3. এক লাইনে: Graphic designer & illustration student
 > 4. এখন: Third-year graphic design student at Shanto-Bangla Institute, working on a visual identity for a local tea brand.
+> 5. ঠিকানা: ঢাকা, বনানী
 > 6. নিজের সম্পর্কে: আমি ভালোবাসি রং আর টাইপোগ্রাফি নিয়ে কাজ করতে। মানুষের গল্প বলার জন্য ডিজাইন শিখেছি। ভবিষ্যতে ব্র্যান্ড ডিজাইনার হতে চাই।
-> 12. প্রোগ্রামিং ভাষা: একটুই না, ডিজাইনে ফোটোশপ আর ইলাস্ট্রেটর
-> 15. প্রজেক্ট: ১. "Chai Campaign" — local tea brand poster series, made in Illustrator; ২. "Book Cover" — cover for a local poetry collection, Photoshop; live links নেই
+> 12. প্রোগ্রামিং ভাষা: একটুই না
+> 13. টুল/ফ্রেমওয়ার্ক: Adobe Illustrator, Adobe Photoshop, Figma
+> 14. অন্যান্য স্কিল: Typography, Branding, Color theory
+> 15. প্রজেক্ট: ১. "Chai Campaign" — local tea brand poster series, made in Illustrator; live লিংক নেই; featured ২. "Book Cover" — cover for a local poetry collection, Photoshop; live লিংক নেই; featured
+> 17. ভাষা: বাংলা (মাতৃভাষা), English (good)
+> 18. শখ: Typography — type specimens দিয়ে খালি পাতার ডিজাইন খুঁজে বের করা।
 > 19. ইমেইল: nusrat@example.com
+> 20. ফোন: না
+> 21. লিংক: GitHub — nusratj, Behance — nusratj
+> 22. যোগাযোগ পেজে এক লাইন: ইন্টার্নশিপ ও ফ্রিল্যান্স ডিজাইন কাজের জন্য খোলা আছি।
 > 23. স্টাইল: যেকোনো একটা
-> 24. GitHub: nusratj
+> 24. GitHub username: nusratj
 
 What goes into `profile.yaml`:
 
@@ -258,29 +346,33 @@ short_name: "Nusrat"
 role: "Graphic designer & illustration student"
 now: "Third-year graphic design student at Shanto-Bangla Institute, working on a visual identity for a local tea brand."
 photo_alt: "Portrait of Nusrat Jahan"
-location: ""
+location: "Dhaka, Bangladesh"
 
 facts:
   - "Graphic Design, Shanto-Bangla Institute"
   - "Based in Dhaka"
-  - "Available for internships"
+  - "Open to internships"
 
 bio: |
-  I love working with colour and type. My focus is visual identity — the
-  kind of work where a poster has to do one thing and do it well.
+  I love working with colour and type. My focus is visual identity — the kind
+  of work where a poster has to do one thing and do it well.
 
-  I taught myself design by rebuilding brands I liked and studying why
-  they worked. Most of my projects are for small local businesses that
-  need good design and cannot pay a studio's prices.
+  I taught myself design by rebuilding brands I liked and studying why they
+  worked. Most of my projects are for small local businesses that need good
+  design and cannot pay a studio's prices.
 
   I want to work in brand design, ideally somewhere where the work ships
   often and the people making it care about the details.
+
+education: []                      # not answered — the section hides itself
+
+experience: []                     # not answered — the section hides itself
 
 skills:
   - group: "Design"
     items: ["Adobe Illustrator", "Adobe Photoshop", "Typography", "Branding"]
   - group: "Tools"
-    items: ["Figma", "After Effects"]
+    items: ["Figma", "Color theory"]
 
 projects:
   - title: "Chai Campaign"
@@ -296,27 +388,98 @@ projects:
     code: ""
     featured: true
 
+achievements: []                   # not answered — the section hides itself
+
+languages: ["Bangla (native)", "English (good)"]
+
+hobbies:
+  - title: "Typography"
+    text: "Finding the design of an empty page in type specimens — setting the same word in a dozen faces and seeing which one survives."
+
 contact:
   email: "nusrat@example.com"
   phone: ""
-  note: "Open to internships and freelance work."
+  note: "Open to internships and freelance design work."
 
-socials: []
+socials:
+  - name: "github"
+    url: "https://github.com/nusratj"
+  - name: "behance"
+    url: "https://www.behance.net/nusratj"
 ```
 
 Note what is **not** there:
 
-- `location` — she did not answer Q5, so it is empty.
-- `languages` — Q17 was not answered.
-- `hobbies` — Q18 was not answered.
 - `education` — Q10 was not answered, so the section is hidden. **Ask her
   for it**; it is the one a visitor will look for first.
-- `phone` — Q20 was not answered.
+- `experience` — Q11 was not answered.
+- `achievements` — Q16 was not answered.
+- `phone` — Q20 was not answered, so the phone row hides itself.
 - `live` and `code` on both projects — she said there are no live links, so
   the buttons are not shown.
-- `experience` and `achievements` — not answered.
+- `cv_url` and `personal/cv.pdf` — she has no CV, so the "Download CV"
+  button does not appear.
 
-The report says all of that, so she can add anything she wants to.
+Note the two fields that **are** there because she answered them, even
+though the form asked for something else: `languages` (Q17) and `hobbies`
+(Q18).
+
+### The files that were deleted
+
+She has 2 projects, 1 hobby and no CV, so the demo's leftovers went:
+
+```
+personal/photos/project-3.jpg
+personal/photos/project-4.jpg
+personal/photos/hobby-2.jpg
+personal/cv.pdf
+personal/blog/*.jpg
+content/blog/learning-laravel-app.md
+content/blog/semester-study-system.md
+content/blog/trip-to-sajek-valley.md
+```
+
+Her own files: `personal/photos/profile.jpg` and
+`personal/photos/project-1.jpg` (the Chai Campaign poster).
+
+### The style
+
+She said "any". The demo site is `harbor`, so this one took **`orchid`** —
+the magenta, creative style, which suits a graphic design student whose work
+is the poster.
+
+```toml
+[params]
+  style = "orchid"
+```
+
+### The build
+
+```
+$ hugo --gc --minify --panicOnWarning
+
+ Pages            │  8    Processed images │ 10    Total in 158 ms
+```
+
+Zero warnings, zero errors. Eight pages, because the three demo blog posts
+were deleted and the blog section is gone with them.
+
+### The report
+
+`docs/reports/FRIEND-nusrat-report.md` in her fork:
+
+> 1. **Filled in:** name, role, now, location, facts, bio, skills (2 groups),
+>    2 projects, languages, 1 hobby, email, contact note, GitHub + Behance.
+> 2. **Left out:** education (Q10), experience (Q11), achievements (Q16),
+>    phone (Q20), CV (Q8), live/code links on both projects, the blog.
+> 3. **Rewritten:** Q6 (the Bangla answer became three English paragraphs),
+>    Q12/Q13/Q14 (merged into two skill groups, "Programming languages" left
+>    out because she said she does not know any), Q15 (the two project
+>    descriptions became one line each), Q18 (one line became one sentence).
+> 4. **Style:** orchid — she said "any" and it suits the work.
+> 5. **Build:** `hugo --gc --minify --panicOnWarning` → 8 pages, no warnings.
+> 6. **Look at this yourself:** the wording of the bio, the crop of the
+>    portrait, and whether the two projects are in the right order.
 
 ---
 
@@ -326,8 +489,11 @@ The report says all of that, so she can add anything she wants to.
 - [ ] `name`, `role`, `now`, `bio`, `contact.email` are all filled in
 - [ ] `personal/photos/profile.jpg` exists
 - [ ] Project and hobby photos are named by their position in the YAML
+- [ ] The demo's leftover files are deleted: extra `project-N.jpg`, extra
+      `hobby-N.jpg`, the demo `cv.pdf`, and the demo blog posts
 - [ ] The style is set in `hugo.toml`
 - [ ] `hugo --gc --minify --panicOnWarning` passes with no warnings
+- [ ] `grep -ril "tanvir" public/` returns nothing — no demo name is left
 - [ ] The site was looked at in the browser, in light and dark, wide and narrow
 - [ ] Pushed to their fork
 - [ ] `docs/reports/FRIEND-<name>-report.md` written, listing what was left out
