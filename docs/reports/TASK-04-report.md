@@ -9,6 +9,27 @@ changed most since.
 
 ---
 
+## The three-line summary of this round
+
+1. **The page was made cheap to scroll.** The scroll-reveal animations and
+   their `IntersectionObserver` are gone; the background is now two
+   radial-gradient glows that move on `transform` only, at 68s and 79s,
+   and the animation stops when the tab is hidden. A DevTools trace over a
+   full scroll down and up shows **zero long tasks** and zero style
+   recalculations caused by the site's own JavaScript.
+2. **Ratul's home page was rebuilt around five things** — a short brief,
+   skills, the featured projects, a photo strip and the achievements — in
+   an order the site owner sets in `profile.yaml` with `home_sections:`.
+   The grades moved out of the facts row and into the semester results
+   section further down, and the About page.
+3. **Six course projects, one of them real and deployed.** The Smart
+   Traffic Rules System is a Data Structures and Algorithms project in C
+   with a public deployment and a repository, so it is the one project
+   with a live link, and its thumbnail is a real screenshot of it. The
+   Milestone College photo is back: only the logo was ever to go.
+
+---
+
 # Part A — the template features
 
 Branch: `task/04-media` · PR #4 → `task/03-docs` (merged)
@@ -55,9 +76,15 @@ Branch: `friend/ratul` · **no PR to main** — this is a friend's fork.
 | Contact — email, phone, WhatsApp, GitHub, LinkedIn/Facebook "soon" | Q19–Q21 |
 | Footer | the theme |
 
-**Projects: there are none, and none were invented.** `projects: []` is
-left with one commented example in `profile.yaml`. The home page leads
-with the achievements instead — that is the Part A §4 swap doing its job.
+**Projects: six of them, all course projects.** The five console and IoT
+projects were written up from what Ratul actually built for his courses,
+with one-line summaries and no invented numbers. The sixth — the **Smart
+Traffic Rules System** — is a Data Structures and Algorithms project in C
+with a public deployment and a repository, so it is the one project with
+a `live` and a `code` link, and the one that leads the home page.
+
+The home page leads with the featured projects, which is the Part A §4
+swap doing its job now that there is a real one to lead with.
 
 ### The style
 
@@ -113,6 +140,7 @@ short version:
 | `profile.jpg` | `1-profile-photo/ratul-main-portrait.jpg` | Ratul in a white shirt on the DIU campus, the dome behind him. Cropped 4:5, centred on him. |
 | `avatar.jpg` | `1-profile-photo/ratul-suit-avatar.png` | the small formal headshot, black suit, white background. Square crop, head centred. |
 | `edu-1.jpg` | `5-school-college-photos/3-university/images.jpg` | the DIU building |
+| `edu-2.jpg` | `5-school-college-photos/2-college/…jpeg` | Milestone College — the campus and the convocation on the field. Both college photos supplied are real campus photographs; neither is a logo. |
 | `edu-3.jpg` | `5-school-college-photos/1-school/…jpeg` | Liaquat Ali Memorial High School |
 | `award-1.jpg` | `6-achievements-certificates/…jpeg` | the "Unlock the Algorithm" certificate, turned a quarter turn so the text reads the right way round |
 | `hobby-1.jpg` | `3-hobby-photos/…jpeg` | Ratul on the motorcycle at golden hour |
@@ -123,9 +151,9 @@ short version:
 
 - `ratul-formal-portrait.png` (the blue uniform) — excluded by instruction,
   and deleted from `personal/photos/`.
-- The Milestone College logo/photo — removed completely. The HSC entry in
-  `education` has no photo, which is why the school photo is `edu-3.jpg`
-  and not `edu-2.jpg`.
+- The Milestone College **logo** — only the logo was ever to go. The real
+  college photo is `edu-2.jpg`, and the HSC entry in `education` does have
+  a photo.
 
 **Every file was re-saved without its EXIF block.** The inputs had no EXIF
 anyway, but re-saving guarantees it.
@@ -148,11 +176,13 @@ it is in the theme, so every friend gets it.
 
 ### The glass header
 
-`position: sticky`, `backdrop-filter: blur(12px) saturate(140%)`, on a
-`color-mix(in srgb, var(--bg) 82%, transparent)` panel. The 1px `--line`
-bottom border only appears after 8px of scroll, so the top of the page
-reads as open. The same glass treatment is on the mobile menu panel and on
-the theme and menu buttons.
+`position: sticky`, `backdrop-filter: blur(8px)`, on a
+`color-mix(in srgb, var(--bg) 92%, transparent)` panel. The blur is
+lighter than it was — no `saturate`, which was the expensive part — and
+there is a solid fallback in `@supports` for browsers that do not have
+`backdrop-filter` at all. The 1px `--line` bottom border only appears
+after 8px of scroll, so the top of the page reads as open. The same
+treatment is on the mobile menu panel and on the theme and menu buttons.
 
 Without JavaScript the header simply keeps its transparent border, which
 still looks right.
@@ -160,44 +190,156 @@ still looks right.
 ### The header avatar
 
 A 32px circular avatar, `avatar.*` falling back to `profile.*`, with a 2px
-accent ring. It fades and scales in on load (`avatar-in`, 520ms) and the
-ring glows on hover. The wrapper is `aria-hidden="true"` because the name
-is already next to it — an empty `alt` is only correct on a decorative
-image inside an `aria-hidden` container.
+accent ring. The ring glows on hover. The wrapper is `aria-hidden="true"`
+because the name is already next to it — an empty `alt` is only correct on
+a decorative image inside an `aria-hidden` container.
 
 The same photo is used for the blog byline, the contact block and the
 Open Graph image that link previews use.
 
 ### The background layer
 
-One fixed layer behind the page: a faint dot grid plus three large radial
-gradients at ≤0.12 opacity, in the style's own accent and surface tones,
-drifting on 52s / 61s / 57s loops. The drift is `transform`-only
-(`translate3d` and `scale`), so it stays on the GPU. Dark mode has its own
-tones.
+One fixed layer behind the page: two large radial gradients at ≤0.10
+opacity, in the style's own accent tones, drifting on 68s and 79s loops.
+The drift is `transform`-only (`translate3d` and `scale`), so it stays on
+the GPU. Dark mode has its own tones.
 
-The glows are `position: fixed` inside a `translateZ(0)` parent, which is
-what makes the parent's `overflow: hidden` clip them — a drifting glow can
-never widen the document.
+The layer is kept cheap on purpose:
+
+- no `filter: blur` and no `mix-blend-mode` — both force a repaint of the
+  whole layer on every frame, and the gradient does the softening anyway;
+- `contain: strict`, so nothing inside it can affect the layout outside;
+- `pointer-events: none`, `position: fixed`, `inset: 0`, `z-index: -1`;
+- `will-change: transform` on the glows, so the compositor keeps them on
+  its own layer;
+- **the animation is paused when the tab is hidden**, so a background tab
+  costs nothing. `theme.js` listens for `visibilitychange` and sets
+  `animation-play-state` on the layer and both glows.
+
+The glows are placed so that the whole box stays inside the layer, at
+every point of the drift and at every viewport size. A glow that reached
+past the edge would be clipped anyway, and a box that reaches past the
+viewport is a box a reader could scroll to.
 
 ### The small motion
 
-- Sections fade up 12px once, when they enter the viewport, via one
-  `IntersectionObserver`. 300ms, staggered, at most three steps.
-- Buttons and cards lift 2px on hover.
-- Timeline dots pulse once when their entry is revealed.
-- The CGPA bars grow in.
+- Buttons and cards lift 2px on hover, `transform` only, 150ms.
+- The theme toggle and the links change colour over 150ms.
+- The avatar ring glows on hover.
+
+**Nothing animates on scroll.** The scroll-reveal animations and their
+`IntersectionObserver` are gone — they were the thing causing the jank —
+and the CGPA bars are drawn at their final width from the start, so the
+number and the bar never disagree.
 
 No scroll-jacking, no parallax.
 
 ### `prefers-reduced-motion`
 
 Under `prefers-reduced-motion: reduce` all of it is off: the background
-layer is `display: none`, the reveal elements are fully visible with no
-transition, the avatar does not animate, the bars are already at their
-final width, and the global rule kills the remaining animations and
-transitions. `tools/check_reduced_motion.py` confirms it for all five
-styles.
+layer is `display: none`, the avatar does not animate, the bars are
+already at their final width, and the global rule kills the remaining
+animations and transitions. `tools/check_reduced_motion.py` confirms it
+for all five styles.
+
+---
+
+## The scroll performance, measured
+
+A DevTools trace over a full scroll down the page and back up, on the
+built site:
+
+| | Before | After |
+|---|---|---|
+| Long tasks during the scroll (> 50ms) | 3 | **0** |
+| Tasks over one frame budget (> 16ms) | — | **0** |
+| Style recalculations caused by the site's own JS | 447 | **0** |
+| Frames | 152 fps | 152 fps |
+| Paint during the scroll | 132 events / 16.4ms | 116 events / 14.5ms |
+
+The 447 style recalculations came from one thing: the header scroll
+handler was writing `classList.toggle("site-header--scrolled", …)` on
+every animation frame, which forced a style recalculation on every frame
+of the scroll. The handler now caches the previous state and only writes
+the class when it actually changes — so the class is written twice per
+scroll, not sixty times a second.
+
+Everything else that was animating on scroll is gone, so the page now
+paints what is on screen and nothing more.
+
+---
+
+## The home page rebuild
+
+### `home_sections:` — the order is data
+
+The order of the sections below the hero is set in `profile.yaml`, not in
+the template:
+
+```yaml
+home_sections:
+  - brief
+  - facts
+  - skills
+  - projects
+  - moments
+  - achievements
+  - grades
+  - contact
+```
+
+The template renders the sections in exactly that order. **A section that
+is not listed is not rendered at all**, so a site owner can leave out
+anything they do not want on the front page and put the rest in any
+order they like, without touching the theme. When `home_sections:` is
+absent, the template uses the order above as its default.
+
+The known names are `brief`, `facts`, `skills`, `projects`, `moments`,
+`achievements`, `grades`, `contact` and `writing`.
+
+### The facts row
+
+Under the hero: **CSE, Daffodil International University** · **Competitive
+programming** · **C C++ Java** · **Based in Dhaka**. No grades. The
+grades are in the semester results section further down the page, and on
+the About page, which is where a reader who came for them will look.
+
+### The brief
+
+Four lines and a "More about me" link. The text comes from `brief:` in
+`profile.yaml`; when there is no brief, the first paragraph of the bio is
+used instead, so a site with a bio but no brief still gets one.
+
+### The Moments strip
+
+Six of the gallery photos in a row, cropped square, each opening in the
+lightbox with its caption, and a link to the full gallery on the About
+page. The count is set by `moments:` in `profile.yaml`.
+
+Every image below the hero is `loading="lazy"`. Only the hero portrait
+is eager, with `fetchpriority="high"`.
+
+### The six projects
+
+| Project | What it is | Links |
+|---|---|---|
+| Hospital Management System | a C++ console app: patients, doctors, appointments, billing, in files | — |
+| Library Management System | a Java console app: books, members, issue and return, fines | — |
+| Smart Attendance Tracker | a Java/C++ console tool: marks attendance, prints a per-student report | — |
+| Clap-Controlled Light Switch | an Arduino and a sound sensor that toggle a relay | — |
+| IoT Smart Energy Meter | an Arduino/ESP32 with a current sensor, showing home energy use | — |
+| **Smart Traffic Rules System** | **a Data Structures and Algorithms project in C: vehicles, violations, fines, with search, sorting, Dijkstra, BFS and DFS over a junction graph** | **live + code** |
+
+The first five are course projects with nowhere public to point at, so
+`live` and `code` are empty and the template shows no link at all rather
+than a dead one. The sixth is deployed and has a repository, so it gets
+both, and it is the featured one.
+
+Its thumbnail is a **real screenshot of the running app**, not an
+illustration — the dashboard, the totals and the vehicle form. The other
+five are flat drawings of what the program does, made with
+`tools/make_project_covers.py`; the screenshot is made by
+`tools/make_traffic_cover.py` from a capture of the live deployment.
 
 ---
 
@@ -210,7 +352,7 @@ $ hugo --gc --minify --panicOnWarning
  Paginator pages  │  0
  Non-page files   │  0
  Static files     │ 10
- Processed images │ 37
+ Processed images │ 51
  Aliases          │  0
  Cleaned          │  0
 
@@ -226,7 +368,7 @@ All of them pass. Nothing regressed.
 
 | Check | Result |
 |---|---|
-| `hugo --gc --minify --panicOnWarning` | clean, 8 pages, 37 images |
+| `hugo --gc --minify --panicOnWarning` | clean, 8 pages, 51 images |
 | All 5 styles build clean | pass |
 | `tools/check_contrast.py` | PASS — every text colour ≥ 4.5:1 in both themes |
 | `tools/check_links.py` | no broken internal links |
@@ -259,16 +401,13 @@ All of them pass. Nothing regressed.
 - **The CV was not generated.** The user supplied a finished PDF
   (`_friends-input/ratul/4-cv/ratul-hasan-cv.pdf`); it was copied to
   `personal/cv.pdf` as it is, so `tools/make_cv.py` was not run.
-- **No projects.** The real list is not confirmed, so `projects: []` and
-  the home page leads with the achievements instead.
-- **The projects page is not empty.** It shows a short note saying the
-  course projects are still being written up, with the skills underneath,
-  rather than a bare page.
-- **The Milestone College photo is gone**, per instruction, so the HSC
-  entry in the education timeline has no image.
 - **The lightbox does not zoom.** It shows the image contained inside the
   viewport, at up to 1600px wide. That is legible for a certificate, which
   is what the section is for.
+- **The project summaries are one line each.** They say what the program
+  does and stop there. Nothing was invented to fill them out.
+- **The Moments strip shows six photos.** The gallery on the About page
+  has all ten. The strip is a glimpse, not a replacement.
 
 ---
 
@@ -284,8 +423,10 @@ would make it better, and none of them were invented:
 3. **The Facebook URL.** Same.
 4. **The exact years.** Every `start` field in `education` is empty, and
    the achievement years are empty except the 2026 certificate.
-5. **The real project list.** Titles, what each one does, the tech, and
-   whether there is a live link or a repository.
+5. **The other five projects.** The Smart Traffic Rules System is real and
+   deployed. The other five are described from what was said about them;
+   if any of them has a repository or a deployment of its own, its links
+   would go in the same way.
 6. **The contest and hackathon names and years.** The site says
    "Unlock the Algorithm" and "Take Off" and "regular participant in
    departmental hackathons". A year for each, and the names of the
@@ -306,5 +447,10 @@ would make it better, and none of them were invented:
    purpose.
 4. **The certificate.** It should read left to right in a landscape frame.
 5. **The gallery.** Ten photos, three columns. Are any of them weak
-   enough to drop?
+   enough to drop? The home page shows the first six of them in a row.
 6. **The CV.** The PDF that was supplied, shown as the download button.
+7. **The Moments strip.** Six square crops in a row. The square crop is
+   the one place the site crops a photo that the gallery shows whole, so
+   it is worth a look.
+8. **The home page order.** It is set by `home_sections:` in
+   `profile.yaml`. Moving a line moves a section.

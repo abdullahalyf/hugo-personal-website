@@ -42,9 +42,17 @@ PHOTOS = {
     # The small formal photo: black suit, used for the avatar spots.
     "avatar.jpg": ("1-profile-photo/ratul-suit-avatar.png", AVATAR_CROP, 0),
     # Education, newest first. The list in profile.yaml is DIU, Milestone
-    # College, then the school, so the school photo is edu-3: Milestone
-    # College has no picture of its own.
+    # College, then the school, so the photos are numbered the same way.
+    #
+    #   edu-1  Daffodil International University — the main building.
+    #   edu-2  Milestone College — the campus with the academic block and
+    #          the convocation on the field. Both of the college photos
+    #          supplied are real campus photographs; neither is a logo.
+    #   edu-3  Liaquat Ali Memorial High School — the school building
+    #          under its trees.
     "edu-1.jpg": ("5-school-college-photos/3-university/images.jpg", None, 0),
+    "edu-2.jpg": ("5-school-college-photos/2-college/WhatsApp Image 2026-11-23 at 21.29.43.jpeg",
+                   None, 0),
     "edu-3.jpg": ("5-school-college-photos/1-school/WhatsApp Image 2026-11-23 at 21.29.40.jpeg",
                    None, 0),
     # Achievement: the "Unlock the Algorithm" certificate. It was
@@ -59,6 +67,9 @@ PHOTOS = {
 }
 
 # The gallery: the rest of the pictures that look good on their own.
+#
+# The university appears twice, as the education entry photo and as a
+# gallery picture: the cover is the whole campus from the air.
 GALLERY = {
     "campus-congregation.jpg": ("5-school-college-photos/2-college/WhatsApp Image 2026-11-23 at 21.29.43.jpeg", 0),
     "campus-pool.jpg": ("5-school-college-photos/2-college/WhatsApp Image 2026-11-23 at 21.29.44.jpeg", 0),

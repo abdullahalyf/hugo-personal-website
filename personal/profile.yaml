@@ -27,17 +27,54 @@ photo_alt: "Portrait of Ratul Hasan"
 location: "Dhaka, Bangladesh"
 cv_url: ""
 
-highlight_academics: true
+highlight_academics: false
 
 academics:
   - "SSC GPA 5.00"
   - "HSC GPA 5.00"
   - "CGPA 3.89, up from 3.50"
 
+# The order of the sections on the home page, below the hero.
+#
+# The template renders them in exactly this order. A section that is not
+# listed is not rendered at all, so anything can be left out or moved.
+#
+#   brief        a short paragraph and a link to the full bio
+#   facts        the one-line facts under the hero
+#   skills       the skill groups
+#   projects     the featured projects
+#   moments      a row of photos that opens in the lightbox
+#   achievements the certificates and contest results
+#   grades       the semester results, as bars
+#   contact      the contact block
+#   writing      the latest blog posts
+home_sections:
+  - brief
+  - facts
+  - skills
+  - projects
+  - moments
+  - achievements
+  - grades
+  - contact
+
+# The facts under the hero. The grades are not here: they are in the
+# semester results section further down, and on the About page.
 facts:
   - "CSE, Daffodil International University"
-  - "SSC and HSC GPA 5.00"
-  - "Regular in algorithm contests and hackathons"
+  - "Competitive programming"
+  - "C C++ Java"
+  - "Based in Dhaka"
+
+# A short version of the bio, for the top of the home page.
+brief: |
+  I'm a Computer Science student at Daffodil International University, and
+  most of what I know I learned by building things and by competing. C, C++
+  and Java are my working languages, and my semester results have gone up
+  every term, from 3.50 to 3.89.
+
+# How many photos the Moments strip on the home page shows.
+moments: 6
 
 # Optional: semester results, drawn as bars on the home page.
 grades_title: "Semester results"
@@ -113,16 +150,58 @@ skills:                            # groups; first 2 groups appear on Home
   - group: "Tools"
     items: ["Git", "Linux"]
 
-# No projects yet — the real list is still to be confirmed. Add a block
-# below and the home page switches from "Achievements" to "Selected
-# projects" as soon as there are two.
-projects: []
-  # - title: "Library management system"
-  #   summary: "A console-based management system built for a university course."
-  #   tech: ["C++"]
-  #   live: ""
-  #   code: ""
-  #   featured: true
+# Course and learning projects. Each one was built to practise something,
+# not as a product. The thumbnail for the Nth project is
+# personal/photos/project-N.jpg.
+#
+# `live` and `code` are empty for the ones that have nowhere public to
+# point at; the template then shows no link at all rather than a dead one.
+projects:
+  - title: "Hospital Management System"
+    summary: "A console application for a course, keeping patients, doctors, appointments and billing in files on disk."
+    tech: ["C++", "File storage"]
+    live: ""
+    code: ""
+    featured: false
+
+  - title: "Library Management System"
+    summary: "A console application in Java for a course, covering books, members, issue and return, and fines."
+    tech: ["Java", "File storage"]
+    live: ""
+    code: ""
+    featured: false
+
+  - title: "Smart Attendance Tracker"
+    summary: "A small console tool that marks attendance and prints a per-student percentage report."
+    tech: ["Java", "C++"]
+    live: ""
+    code: ""
+    featured: false
+
+  - title: "Clap-Controlled Light Switch"
+    summary: "An IoT project: an Arduino and a sound sensor that toggle a relay, so a clap switches the light."
+    tech: ["Arduino", "IoT", "Sound sensor"]
+    live: ""
+    code: ""
+    featured: false
+
+  - title: "IoT Smart Energy Meter"
+    summary: "An Arduino/ESP32 project with a current sensor that shows how much energy the home is using."
+    tech: ["Arduino", "ESP32", "IoT", "Current sensor"]
+    live: ""
+    code: ""
+    featured: false
+
+  # This one is a course project with a public deployment, so it is the one
+  # with a live link and a repository. It is the strongest of the six, so it
+  # is the one that leads the home page.
+  - title: "Smart Traffic Rules System"
+    summary: "A Data Structures and Algorithms project in C: vehicles, traffic violations and fines, with search, sorting, Dijkstra, BFS and DFS over a junction graph."
+    tech: ["C", "Data structures", "Graph algorithms"]
+    alt: "The Smart Traffic Rules System running in a browser, showing the dashboard totals and the vehicle management form."
+    live: "https://252-15-826-sketch.github.io/smart-traffic-system/"
+    code: "https://github.com/252-15-826-sketch/smart-traffic-system"
+    featured: true
 
 achievements:
   - year: "2026"
@@ -144,11 +223,11 @@ achievements:
 
 gallery:                            # the "Moments" section on About
   - file: "campus-congregation"
-    caption: "Convocation morning at Daffodil International University"
+    caption: "Convocation morning at Milestone College"
   - file: "campus-pool"
-    caption: "The campus from above"
+    caption: "The college campus and the swimming pool"
   - file: "campus-aerial"
-    caption: "DIU from the air"
+    caption: "Daffodil International University from the air"
   - file: "cow"
     caption: "A detour on the way to somewhere"
   - file: "bridge"
