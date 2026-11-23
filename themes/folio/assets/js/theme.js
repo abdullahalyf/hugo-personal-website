@@ -79,13 +79,21 @@
   /* ---- Header border on scroll ----
      The header is a solid bar. A hairline border only appears once the
      page has moved, so the top of the page reads as open and the border
-     appears where it is needed. The listener is passive and the work is
-     done once per frame at most. */
+     appears where it is needed.
+
+     The class is only written when it actually changes. Writing it on
+     every frame would force a style recalculation on every scroll frame,
+     which is the thing this whole pass was about removing. */
   var header = document.querySelector(".site-header");
   if (header) {
     var ticking = false;
+    var scrolled = null;
     var setScrolled = function () {
-      header.classList.toggle("site-header--scrolled", window.scrollY > 8);
+      var now = window.scrollY > 8;
+      if (now !== scrolled) {
+        scrolled = now;
+        header.classList.toggle("site-header--scrolled", now);
+      }
       ticking = false;
     };
     setScrolled();

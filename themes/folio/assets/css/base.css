@@ -69,37 +69,45 @@ body {
 }
 
 /* Two glows, each on its own slow axis, so the pattern does not visibly
-   repeat within a minute. */
+   repeat within a minute.
+
+   Everything here is in viewport units, with no pixel minimum, because the
+   box has to stay inside the layer at every size. A glow that reached past
+   the edge would be clipped anyway, and a box that reaches past the
+   viewport is a box a reader could scroll to.
+
+   The scale in the keyframes is around the centre, so it adds half the
+   width to each side. The numbers below leave room for that:
+     one — right edge at -4 + 44 + 5 + 2.2 = 47.2vw
+     two — right edge at 100 - 4 + 1.6 = 97.6vw at its widest */
 .page-bg__glow--one {
-  width: 52vw;
-  height: 52vw;
-  min-width: 320px;
-  min-height: 320px;
+  width: 44vw;
+  height: 44vw;
   top: -14vh;
-  left: -8vw;
+  left: -4vw;
   background: radial-gradient(circle, var(--bg-glow-a, rgba(28, 102, 219, 0.10)), transparent 68%);
   animation: bg-drift-a 68s ease-in-out infinite alternate;
 }
 
 .page-bg__glow--two {
-  width: 44vw;
-  height: 44vw;
-  min-width: 280px;
-  min-height: 280px;
+  width: 38vw;
+  height: 38vw;
   bottom: -16vh;
-  right: -10vw;
+  right: 4vw;
   background: radial-gradient(circle, var(--bg-glow-b, rgba(28, 102, 219, 0.08)), transparent 68%);
   animation: bg-drift-b 79s ease-in-out infinite alternate;
 }
 
+/* Glow one drifts right and grows to 1.12. */
 @keyframes bg-drift-a {
   from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(6vw, 5vh, 0) scale(1.12); }
+  to   { transform: translate3d(5vw, 5vh, 0) scale(1.1); }
 }
 
+/* Glow two drifts left and shrinks from 1.08 to 1. */
 @keyframes bg-drift-b {
-  from { transform: translate3d(0, 0, 0) scale(1.08); }
-  to   { transform: translate3d(-7vw, 6vh, 0) scale(1); }
+  from { transform: translate3d(0, 0, 0) scale(1.04); }
+  to   { transform: translate3d(-6vw, 6vh, 0) scale(1); }
 }
 
 /* The toggle and the menu button are small frosted tiles. */
@@ -1228,6 +1236,63 @@ button { font: inherit; color: inherit; }
   display: block;
   margin-top: var(--space-2);
   font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* --- Moments strip --------------------------------------------------------
+   The same photos as the gallery, but a short row on the home page. The
+   images keep their own aspect ratio and are cropped to the same height,
+   so the row reads as one band rather than a ragged edge. */
+
+.moments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+@media (min-width: 700px) {
+  .moments { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1000px) {
+  .moments { grid-template-columns: repeat(6, 1fr); gap: var(--space-3); }
+}
+
+.moments__item {
+  margin: 0;
+}
+
+.moments__button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.moments__img {
+  display: block;
+  width: 100%;
+  /* One band of equal-height photos. The gallery shows every picture
+     whole; the strip is a glimpse, so a consistent crop reads better
+     than six different shapes. */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.moments__caption {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: 0.8125rem;
+  line-height: 1.4;
   color: var(--muted);
 }
 

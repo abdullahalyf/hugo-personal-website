@@ -18,6 +18,27 @@
 </section>
 {{- end }}
 
+{{- /* The quick facts, and the academics list when there is one. On the
+     home page these sit under the hero; here they belong with the rest of
+     the detail, so the grades stay on this page even when the home page
+     leaves them out. */}}
+{{- $aboutFacts := slice -}}
+{{- range $p.academics -}}
+  {{- $aboutFacts = $aboutFacts | append . -}}
+{{- end -}}
+{{- range $p.facts -}}
+  {{- $aboutFacts = $aboutFacts | append . -}}
+{{- end -}}
+{{- with $aboutFacts }}
+<section class="section section--facts">
+  <div class="container">
+    <ul class="facts">
+      {{- range . }}<li class="facts__item">{{ . }}</li>{{ end }}
+    </ul>
+  </div>
+</section>
+{{- end }}
+
 {{- /* Optional semester results, as bars. The same block the home page
      uses; here it sits under the bio, where a reader who wants the
      detail will be looking. */}}
