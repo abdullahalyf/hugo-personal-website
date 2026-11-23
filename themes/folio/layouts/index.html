@@ -65,7 +65,7 @@
       <li class="post-list__item post-list__item--cover">
         {{- with $cover }}
           {{- with resources.GetMatch (printf "blog/%s.*" .) }}
-            <a class="post-list__thumb" href="{{ $.RelPermalink }}" tabindex="-1" aria-hidden="true">
+            <a class="post-list__thumb" href="{{ .RelPermalink }}" tabindex="-1" aria-hidden="true">
               {{ partial "img.html" (dict "base" $cover "dir" "blog" "alt" "" "class" "post-list__thumb-img" "width" 360 "sizes" "(max-width: 760px) 100vw, 240px") }}
             </a>
           {{- end }}

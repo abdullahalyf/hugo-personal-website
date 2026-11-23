@@ -167,7 +167,10 @@ button { font: inherit; color: inherit; }
   color: var(--ink);
   font-size: 1rem;
   letter-spacing: -0.01em;
-  white-space: nowrap;
+  /* A long name has to give way rather than push the buttons off screen:
+     the brand may shrink and wrap, and the actions never move. */
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .site-header__brand:hover { text-decoration: none; color: var(--accent); }
@@ -199,6 +202,7 @@ button { font: inherit; color: inherit; }
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  flex: 0 0 auto;
 }
 
 .theme-toggle,
@@ -279,9 +283,15 @@ button { font: inherit; color: inherit; }
   align-items: center;
 }
 
+/* The name is an <h1> on the home page and a <p> in the profile column of
+   the other pages, so the type is set here and not left to the default
+   heading styles. */
 .hero__name {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight, 700);
   font-size: clamp(2.6rem, 8vw, 5.5rem);
-  margin-bottom: var(--space-3);
+  line-height: 1.1;
+  margin: 0 0 var(--space-3);
 }
 
 .hero__role {
@@ -329,7 +339,7 @@ button { font: inherit; color: inherit; }
   }
 }
 
-/* Centered (grove). */
+/* Centered (grove) — photo, name, role, now line, actions, all centred. */
 .hero--centered .hero__inner {
   justify-items: center;
   text-align: center;
@@ -339,7 +349,7 @@ button { font: inherit; color: inherit; }
 .hero--centered .hero__now { margin-inline: auto; }
 .hero--centered .hero__actions { justify-content: center; }
 
-/* Typographic (orchid). */
+/* Typographic (orchid) — the name carries the hero. */
 .hero--typographic .hero__name {
   font-size: clamp(3rem, 10vw, 8rem);
 }
@@ -348,48 +358,199 @@ button { font: inherit; color: inherit; }
   display: inline-block;
 }
 
-/* Sidebar (graphite). */
+/* Sidebar (graphite) — the profile column is sticky for the whole page.
+   The layout itself is handled by the `.layout--sidebar` rules further
+   down, which turn <main> into a two-column page. */
 .hero--sidebar .hero__inner {
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 900px) {
-  .hero--sidebar .hero__inner {
-    grid-template-columns: 320px minmax(0, 1fr);
-    align-items: start;
-  }
-
-  .hero--sidebar .hero__aside {
-    position: sticky;
-    top: 5.5rem;
-  }
-}
-
 .hero--sidebar .hero__media img { border-radius: 12px; }
-.hero--sidebar .hero__name { font-size: clamp(2rem, 5vw, 3rem); }
 
-/* Band (saffron). */
-.hero--band .hero__inner {
-  position: relative;
-}
-
-.hero--band .hero__band {
-  position: absolute;
-  inset: 0 0 auto;
-  height: 160px;
-  background: var(--accent);
-  z-index: 0;
-}
-
+/* Band (saffron) — a coloured band with the photo overlapping it. The
+   band itself is drawn by the style file, which owns that layout. */
 .hero--band .hero__text,
 .hero--band .hero__media { position: relative; z-index: 1; }
 
-.hero--band .hero__media--overlap {
-  width: 140px;
-  margin-bottom: calc(-1 * var(--space-4));
+/* --- Sidebar layout (the whole page, not just the hero) ------------------ */
+
+/* Below 1024px the sidebar is a plain block at the top of the page: the photo
+   and the name side by side, so the page does not start with a full-width
+   portrait on a phone. */
+.layout--sidebar .hero__body { display: none; }
+
+@media (max-width: 1023px) {
+  .layout--sidebar .hero,
+  .layout--sidebar .page-aside {
+    padding-block: var(--space-6) var(--space-7);
+  }
+
+  .layout--sidebar .hero__inner {
+    display: block;
+  }
+
+  /* Photo and text sit next to each other on a narrow screen. The photo is
+     aligned to the top so it lines up with the name. */
+  .layout--sidebar .hero__aside {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: start;
+  }
+
+  .layout--sidebar .hero__media {
+    width: 96px;
+  }
+
+  .layout--sidebar .hero__media img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .layout--sidebar .hero__name {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    margin-bottom: var(--space-1);
+  }
+
+  .layout--sidebar .hero__role {
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .layout--sidebar .hero__now {
+    font-size: 0.875rem;
+  }
+
+  .layout--sidebar .hero__actions {
+    margin-top: var(--space-3);
+  }
+
+  .layout--sidebar .hero__actions .btn {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+  }
 }
 
-.hero--band .hero__media--overlap img { border-radius: 50%; }
+@media (min-width: 1024px) {
+  /* The sidebar layout: a sticky profile column beside the content.
+
+     The profile column is taken out of the flow with `position: absolute`
+     and the content is shifted to the right with a margin. A grid would not
+     work here: grid rows are shared between the columns, so the tall hero
+     would stretch the first row and push the content down.
+
+     `main` is the positioning context, so the profile sits inside the
+     container's padding box. */
+  .layout--sidebar main {
+    position: relative;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .layout--sidebar .hero {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 320px;
+    padding-block: var(--space-7) var(--space-8);
+  }
+
+  /* On the pages that have no hero, the profile column stands on its own
+     in the same place. */
+  .layout--sidebar .page-aside {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 320px;
+    padding-block: var(--space-7) var(--space-8);
+  }
+
+  /* The container inside the hero must not centre itself again — the hero
+     is already the 320px profile column. */
+  .layout--sidebar .hero__inner {
+    display: block;
+    width: 100%;
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* Sticky inside the column: the profile stays in view while the content
+     scrolls past it. `top` leaves room for the sticky header. */
+  .layout--sidebar .hero__aside {
+    position: sticky;
+    top: 5.5rem;
+  }
+
+  /* The column is narrow, so the name and the copy in it are set smaller
+     than they are in the other layouts. This is a property of the layout,
+     not of a style, so it applies to every style paired with it. */
+  .layout--sidebar .hero__name {
+    font-size: clamp(1.5rem, 2.6vw, 1.875rem);
+    line-height: 1.2;
+    margin-bottom: var(--space-2);
+  }
+
+  .layout--sidebar .hero__role {
+    font-size: 1rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .layout--sidebar .hero__now {
+    font-size: 0.9375rem;
+    max-width: 40ch;
+  }
+
+  .layout--sidebar .hero__actions {
+    margin-top: var(--space-4);
+  }
+
+  .layout--sidebar .hero__actions .btn {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  /* Every part of the page after the hero is shifted into the content
+     column. The hero is itself a <section>, so it is excluded here — it is
+     positioned absolutely instead. */
+  .layout--sidebar main > *:not(.hero):not(.page-aside) {
+    margin-left: 320px;
+    padding-left: var(--space-8);
+  }
+
+  .layout--sidebar main > *:not(.hero):not(.page-aside) .container {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* The first part starts at the same height as the profile column, and the
+     parts that follow are spaced by their own bottom padding only —
+     otherwise two stacked paddings double the gap between them. */
+  .layout--sidebar main > *:not(.hero):not(.page-aside):first-of-type {
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-5);
+  }
+
+  .layout--sidebar main > *:not(.hero):not(.page-aside) ~ *:not(.hero):not(.page-aside) {
+    padding-top: 0;
+    padding-bottom: var(--space-6);
+  }
+
+  /* The footer sits in the content column too. The footer is outside
+     <main>, so it cannot borrow the content column's margin: instead the
+     footer itself is padded on the left and its container is allowed to use
+     the full width. */
+  .layout--sidebar .site-footer {
+    padding-left: calc(var(--gutter) + 320px + var(--space-8));
+  }
+
+  .layout--sidebar .site-footer .container {
+    max-width: none;
+    padding-inline: 0;
+  }
+}
 
 /* --- Buttons & links ------------------------------------------------------ */
 

@@ -1,6 +1,16 @@
+{{- $style := site.Params.style | default "harbor" -}}
+{{- $defaults := dict
+      "harbor"   "split"
+      "grove"    "centered"
+      "orchid"   "typographic"
+      "graphite" "sidebar"
+      "saffron"  "band"
+-}}
+{{- $layout := site.Params.layout | default (index $defaults $style | default "split") -}}
 <!DOCTYPE html>
 <html lang="{{ site.Params.locale | default "en" }}"
-      data-style="{{ .Site.Params.style | default "harbor" }}"
+      data-style="{{ $style }}"
+      data-layout="{{ $layout }}"
       data-theme="light">
 <head>
   {{- /* Validate first: a missing photo or required field must fail the
@@ -8,10 +18,18 @@
   {{ partial "validate.html" . }}
   {{ partial "head.html" . }}
 </head>
-<body>
+<body class="layout--{{ $layout }}">
   <a class="skip-link" href="#main">Skip to content</a>
   {{ partial "header.html" . }}
   <main id="main">
+    {{- /* The sidebar layout shows the profile column on every page. The
+           home page already has it inside its hero, so it is only added
+           here on the other pages. */}}
+    {{- if and (eq $layout "sidebar") (not .IsHome) }}
+    <div class="page-aside">
+      {{ partial "profile-aside.html" (dict "context" . "heading" false) }}
+    </div>
+    {{- end }}
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
