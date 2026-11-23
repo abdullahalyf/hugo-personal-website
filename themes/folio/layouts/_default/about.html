@@ -18,26 +18,38 @@
 </section>
 {{- end }}
 
-{{ partial "timeline.html" (dict "items" $p.education "kind" "education") }}
-{{ partial "timeline.html" (dict "items" $p.experience "kind" "experience") }}
-
-{{- /* Achievements: year + title + issuer rows. */}}
-{{- with $p.achievements }}
-<section class="section section--achievements">
+{{- /* The quick facts, and the academics list when there is one. On the
+     home page these sit under the hero; here they belong with the rest of
+     the detail, so the grades stay on this page even when the home page
+     leaves them out. */}}
+{{- $aboutFacts := slice -}}
+{{- range $p.academics -}}
+  {{- $aboutFacts = $aboutFacts | append . -}}
+{{- end -}}
+{{- range $p.facts -}}
+  {{- $aboutFacts = $aboutFacts | append . -}}
+{{- end -}}
+{{- with $aboutFacts }}
+<section class="section section--facts">
   <div class="container">
-    <h2 class="section__title">Achievements</h2>
-    <ul class="rows">
-      {{- range . }}
-      <li class="rows__item">
-        <span class="rows__year">{{ .year }}</span>
-        <span class="rows__title">{{ .title }}</span>
-        <span class="rows__issuer">{{ .issuer }}</span>
-      </li>
-      {{- end }}
+    <ul class="facts">
+      {{- range . }}<li class="facts__item">{{ . }}</li>{{ end }}
     </ul>
   </div>
 </section>
 {{- end }}
+
+{{- /* Optional semester results, as bars. The same block the home page
+     uses; here it sits under the bio, where a reader who wants the
+     detail will be looking. */}}
+{{ partial "grades.html" $p }}
+
+{{ partial "timeline.html" (dict "items" $p.education "kind" "education") }}
+{{ partial "timeline.html" (dict "items" $p.experience "kind" "experience") }}
+
+{{- /* Achievements: year + title + issuer rows, with an optional
+     certificate image that opens in the lightbox. */}}
+{{ partial "achievements.html" (dict "items" $p.achievements) }}
 
 {{- /* Languages. */}}
 {{- with $p.languages }}
@@ -75,6 +87,9 @@
   </div>
 </section>
 {{- end }}
+
+{{- /* Moments: the photo gallery. Hidden when the folder is empty. */}}
+{{ partial "gallery.html" (dict "profile" $p) }}
 
 {{- $cv := partial "cv.html" $p }}
 {{- if $cv }}

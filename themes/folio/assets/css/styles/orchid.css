@@ -6,6 +6,14 @@
    ========================================================================== */
 
 :root {
+
+/* The faint wash behind the page: two very low-opacity radial
+   gradients in this style's own tones. The layer moves on `transform`
+   only, and the opacities are low enough that no word ever sits on a
+   different shade, so every contrast ratio is unchanged. */
+  --bg-glow-a: rgba(180, 35, 107, 0.09);
+  --bg-glow-b: rgba(242, 122, 176, 0.10);
+
   --bg: #FAF7FB;
   --surface: #FFFFFF;
   --ink: #2A1733;
@@ -21,6 +29,14 @@
 }
 
 [data-theme="dark"] {
+
+/* The faint wash behind the page: two very low-opacity radial
+   gradients in this style's own tones. The layer moves on `transform`
+   only, and the opacities are low enough that no word ever sits on a
+   different shade, so every contrast ratio is unchanged. */
+  --bg-glow-a: rgba(242, 122, 176, 0.13);
+  --bg-glow-b: rgba(180, 35, 107, 0.12);
+
   --bg: #170F1B;
   --surface: #221827;
   --ink: #F1E8F4;
