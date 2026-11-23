@@ -21,23 +21,9 @@
 {{ partial "timeline.html" (dict "items" $p.education "kind" "education") }}
 {{ partial "timeline.html" (dict "items" $p.experience "kind" "experience") }}
 
-{{- /* Achievements: year + title + issuer rows. */}}
-{{- with $p.achievements }}
-<section class="section section--achievements">
-  <div class="container">
-    <h2 class="section__title">Achievements</h2>
-    <ul class="rows">
-      {{- range . }}
-      <li class="rows__item">
-        <span class="rows__year">{{ .year }}</span>
-        <span class="rows__title">{{ .title }}</span>
-        <span class="rows__issuer">{{ .issuer }}</span>
-      </li>
-      {{- end }}
-    </ul>
-  </div>
-</section>
-{{- end }}
+{{- /* Achievements: year + title + issuer rows, with an optional
+     certificate image that opens in the lightbox. */}}
+{{ partial "achievements.html" (dict "items" $p.achievements) }}
 
 {{- /* Languages. */}}
 {{- with $p.languages }}
@@ -75,6 +61,9 @@
   </div>
 </section>
 {{- end }}
+
+{{- /* Moments: the photo gallery. Hidden when the folder is empty. */}}
+{{ partial "gallery.html" (dict "profile" $p) }}
 
 {{- $cv := partial "cv.html" $p }}
 {{- if $cv }}

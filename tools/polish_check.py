@@ -177,6 +177,27 @@ NO_IMAGE_PROJECT = _replace_block(
     "    featured: true\n",
 )
 
+# The gallery section hides itself when there is no `gallery:` list and no
+# images in personal/photos/gallery/. The folder is hidden for this case.
+EMPTY_GALLERY = _replace_block("gallery:", "gallery: []\n")
+
+# A gallery with images but no list: the images are still shown, in name
+# order, and simply have no captions.
+NO_GALLERY_LIST = _replace_block("gallery:", "gallery: []\n")
+
+# The achievements stay, but none of them has a certificate image.
+ACHIEVEMENTS_NO_IMAGES = BASE
+
+# `highlight_academics: true` puts the results first in the facts row, and
+# with fewer than two projects the home page leads with the achievements.
+ACADEMICS_HIGHLIGHT = (
+    BASE.replace("highlight_academics: false", "highlight_academics: true")
+    .replace(
+        "academics: []",
+        'academics: ["CGPA 3.70 / 4.00", "SSC GPA 5.00", "HSC GPA 5.00"]',
+    )
+)
+
 CASES = {
     "long-name": LONG_NAME,
     "long-project-titles": LONG_PROJECT,
@@ -186,12 +207,25 @@ CASES = {
     "long-bio": LONG_BIO,
     "no-phone": NO_PHONE,
     "project-no-image": NO_IMAGE_PROJECT,
+    "empty-gallery": EMPTY_GALLERY,
+    "no-gallery-list": NO_GALLERY_LIST,
+    "achievements-no-images": ACHIEVEMENTS_NO_IMAGES,
+    "academics-highlight": ACADEMICS_HIGHLIGHT,
 }
 
 # Files that a case hides, so the "no image" case really has no image.
 HIDE_FILES = {
     "project-no-image": ["project-2.jpg", "project-2.jpeg", "project-2.png",
                          "project-2.webp"],
+    "achievements-no-images": ["award-1.jpg", "award-1.jpeg", "award-1.png",
+                               "award-1.webp", "award-2.jpg", "award-2.jpeg",
+                               "award-2.png", "award-2.webp", "award-3.jpg",
+                               "award-3.jpeg", "award-3.png", "award-3.webp"],
+}
+
+# Whole folders a case hides, so the section really has nothing in it.
+HIDE_DIRS = {
+    "empty-gallery": ["gallery"],
 }
 
 AUDIT_JS = r"""
@@ -341,6 +375,14 @@ def main():
                 src = os.path.join(photos, fname)
                 if os.path.exists(src):
                     dst = os.path.join(stash, fname)
+                    shutil.move(src, dst)
+                    hidden.append((dst, src))
+            # A whole folder can be hidden too, so a section really has
+            # nothing in it.
+            for dname in HIDE_DIRS.get(name, []):
+                src = os.path.join(photos, dname)
+                if os.path.isdir(src):
+                    dst = os.path.join(stash, dname)
                     shutil.move(src, dst)
                     hidden.append((dst, src))
             print(f"\n=== {name} (style={style}) ===", flush=True)

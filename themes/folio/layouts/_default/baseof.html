@@ -33,6 +33,9 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
+  {{- /* The lightbox is on every page; it stays hidden until a trigger
+         opens it. */}}
+  {{ partial "lightbox.html" (dict "id" "lightbox") }}
   {{ partial "scripts.html" . }}
 </body>
 </html>

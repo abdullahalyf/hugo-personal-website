@@ -75,4 +75,51 @@
       if (e.key === "Escape") closeMenu();
     });
   }
+
+  /* ---- Lightbox ----
+     One <dialog> on the page. Any element with data-lightbox-src becomes
+     a trigger: it opens the dialog and swaps in the full-size image.
+     Escape closes it (the browser does that for a <dialog>), and the
+     focus goes back to the button that opened it. */
+  var dialog = document.getElementById("lightbox");
+  if (dialog && typeof dialog.showModal === "function") {
+    var img = dialog.querySelector(".lightbox__img");
+    var caption = dialog.querySelector(".lightbox__caption");
+    var opener = null;
+
+    document.addEventListener("click", function (e) {
+      var trigger = e.target.closest("[data-lightbox-src]");
+      if (!trigger || dialog.open) return;
+      opener = trigger;
+      if (img) {
+        img.setAttribute("src", trigger.getAttribute("data-lightbox-src"));
+        img.setAttribute("alt", trigger.getAttribute("data-lightbox-alt") || "");
+        /* The image is hidden from the accessibility tree while the
+           dialog is closed, because it has no source yet. */
+        img.removeAttribute("aria-hidden");
+      }
+      if (caption) {
+        var text = trigger.getAttribute("data-lightbox-caption") || "";
+        caption.textContent = text;
+        if (text) {
+          caption.removeAttribute("hidden");
+        } else {
+          caption.setAttribute("hidden", "");
+        }
+      }
+      dialog.showModal();
+    });
+
+    /* Clicking the backdrop (the dialog element itself, not the image)
+       closes it. */
+    dialog.addEventListener("click", function (e) {
+      if (e.target === dialog) dialog.close();
+    });
+
+    dialog.addEventListener("close", function () {
+      if (img) img.setAttribute("aria-hidden", "true");
+      if (opener && typeof opener.focus === "function") opener.focus();
+      opener = null;
+    });
+  }
 })();

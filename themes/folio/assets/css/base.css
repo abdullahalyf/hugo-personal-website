@@ -848,6 +848,227 @@ button { font: inherit; color: inherit; }
 .hobby__title { margin-bottom: var(--space-1); font-size: 1.125rem; }
 .hobby__text { color: var(--muted); margin: 0; }
 
+/* --- Timeline photo ------------------------------------------------------- */
+
+/* An education entry with a photo gets a small 4:3 image beside the text.
+   On a narrow screen the image sits under the text instead of beside it. */
+.timeline__item--with-photo {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (min-width: 720px) {
+  .timeline__item--with-photo {
+    grid-template-columns: minmax(0, 1fr) 200px;
+    gap: var(--space-4);
+    align-items: start;
+  }
+
+  .timeline__item--with-photo .timeline__media { order: 2; }
+  .timeline__item--with-photo .timeline__date,
+  .timeline__item--with-photo .timeline__title,
+  .timeline__item--with-photo .timeline__org,
+  .timeline__item--with-photo .timeline__detail { grid-column: 1; }
+  .timeline__item--with-photo .timeline__media { grid-column: 2; grid-row: 1 / span 4; }
+}
+
+.timeline__media {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+/* The photo is cropped to 4:3, so the crop is centred on the subject. */
+.timeline__img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* --- Award image ---------------------------------------------------------- */
+
+/* A certificate scan is usually a portrait document, so it is shown whole
+   on a --surface panel: object-fit: contain, never cropped. */
+.rows__item--with-image {
+  grid-template-columns: 5rem 1fr auto;
+  align-items: center;
+}
+
+@media (min-width: 760px) {
+  .rows__item--with-image {
+    grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 0.6fr) auto;
+  }
+}
+
+.award {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+@media (min-width: 760px) {
+  .award {
+    grid-column: auto;
+    justify-self: end;
+  }
+}
+
+.award__thumb {
+  display: block;
+  width: 96px;
+  height: 128px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+@media (min-width: 760px) {
+  .award__thumb { width: 120px; height: 160px; }
+}
+
+/* object-fit: contain keeps the whole certificate visible: the text on a
+   scan is never cropped. */
+.award__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.award__hint {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.award:hover .award__hint,
+.award:focus-visible .award__hint { color: var(--accent); }
+
+/* --- Gallery -------------------------------------------------------------- */
+
+/* A justified-feel masonry: CSS columns, two on a phone and three on a
+   wide screen. The columns are filled top to bottom, so the reading order
+   is column by column. */
+.gallery {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: var(--space-3);
+}
+
+@media (min-width: 900px) {
+  .gallery { columns: 3; column-gap: var(--space-4); }
+}
+
+.gallery__item {
+  break-inside: avoid;
+  margin-bottom: var(--space-3);
+}
+
+@media (min-width: 900px) {
+  .gallery__item { margin-bottom: var(--space-4); }
+}
+
+.gallery__button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.gallery__button .gallery__img {
+  width: 100%;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.gallery__caption {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* --- Lightbox ------------------------------------------------------------- */
+
+.lightbox {
+  position: relative;
+  width: min(100vw - 2rem, 1100px);
+  max-width: none;
+  max-height: 100vh;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  color: var(--ink);
+  overflow: visible;
+}
+
+.lightbox::backdrop {
+  background: rgb(0 0 0 / .82);
+}
+
+.lightbox__inner {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: center;
+}
+
+/* contain, so a portrait certificate is shown whole rather than cropped. */
+.lightbox__img {
+  max-width: 100%;
+  max-height: calc(100vh - 8rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-card);
+}
+
+.lightbox__caption {
+  margin: 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.lightbox__close-form {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+}
+
+.lightbox__close {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.lightbox__close:hover { color: var(--accent); }
+
 /* --- Post list ------------------------------------------------------------ */
 
 .post-list {

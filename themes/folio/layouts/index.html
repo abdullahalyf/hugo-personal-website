@@ -2,8 +2,19 @@
 {{- $p := hugo.Data.profile -}}
 {{ partial "hero.html" $p }}
 
-{{- /* Facts row — a plain inline list, no separators. */}}
-{{- with $p.facts }}
+{{- /* Facts row — a plain inline list, no separators.
+     `highlight_academics: true` puts the optional `academics:` list first,
+     so a CGPA or GPA is the first thing a visitor reads. */}}
+{{- $facts := slice -}}
+{{- if $p.highlight_academics -}}
+  {{- range $p.academics -}}
+    {{- $facts = $facts | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- range $p.facts -}}
+  {{- $facts = $facts | append . -}}
+{{- end -}}
+{{- with $facts }}
 <section class="section section--facts">
   <div class="container">
     <ul class="facts">
@@ -36,7 +47,11 @@
     {{- $featured = $featured | append (dict "item" $proj "index" $i) -}}
   {{- end -}}
 {{- end -}}
-{{- if $featured }}
+{{- /* A student whose strength is contests and academics should not lead
+     with a thin project list. When there are at least two achievements and
+     fewer than two projects, the achievements lead the home page instead. */ -}}
+{{- $leadWithAchievements := and (ge (len $p.achievements) 2) (lt (len $p.projects) 2) -}}
+{{- if and $featured (not $leadWithAchievements) }}
 <section class="section section--projects">
   <div class="container">
     <h2 class="section__title">Selected projects</h2>
@@ -48,6 +63,9 @@
     <p class="section__more"><a class="link" href="{{ "/projects/" | relURL }}"><span>All projects</span></a></p>
   </div>
 </section>
+{{- end }}
+{{- if $leadWithAchievements }}
+{{ partial "achievements.html" (dict "items" $p.achievements) }}
 {{- end }}
 
 {{ partial "skills.html" (dict "groups" $p.skills "limit" 2 "title" "Skills") }}
