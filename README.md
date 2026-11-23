@@ -1,7 +1,7 @@
 # Hugo personal website
 
 A fast, accessible personal-website template built with Hugo and its own lightweight
-theme. Everything personal lives in `data/profile.yaml`; pick one of 5 styles in `hugo.toml`.
+theme. Everything personal lives in `personal/profile.yaml`; pick one of 5 styles in `hugo.toml`.
 
 > Work in progress. Full setup guide comes in TASK-03.
 

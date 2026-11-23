@@ -1,6 +1,11 @@
 # ============================================================
 #  ALL personal content for this site lives in THIS file.
-#  Images: put files in assets/images/ and write only the file name here.
+#  Photos and CV are NOT named here. Drop files with FIXED names into this folder:
+#    personal/photos/profile.jpg        (required)
+#    personal/photos/project-1.jpg ...  (1 = first project below, 2 = second ...)
+#    personal/photos/hobby-1.jpg ...    (same order as hobbies below)
+#    personal/cv.pdf                    (optional; no file = no "Download CV" button)
+#  .jpg / .jpeg / .png / .webp all work. See personal/README.md.
 #  Optional fields/sections: leave empty ( [] or "" ) and the site hides them.
 #  Example data below is fictional — replace everything.
 # ============================================================
@@ -9,10 +14,9 @@ name: "Tanvir Rahman"              # required
 short_name: "Tanvir"               # used in greetings / header
 role: "CSE student & web developer"  # required, one line
 now: "Third-year CSE student at Daffodil International University, building small web tools for local businesses."  # required, one sentence
-photo: "profile.jpg"               # required, file in assets/images/ (square or 4:5, min 800px)
 photo_alt: "Portrait of Tanvir Rahman"
 location: "Savar, Dhaka, Bangladesh"
-cv: "/files/cv.pdf"                # PDF in static/files/ or a full URL; "" hides the button
+cv_url: ""                         # optional: link to an online CV instead of personal/cv.pdf
 
 facts:                             # 3–4 short facts for the home page
   - "CSE, Daffodil International University"
@@ -54,14 +58,12 @@ skills:                            # groups; first 2 groups appear on Home
 projects:
   - title: "Campus Lost & Found"
     summary: "A small web app where students post and claim lost items on campus."
-    image: "project-lostfound.jpg"   # optional, file in assets/images/
     tech: ["Laravel", "MySQL", "Tailwind"]
     live: "https://example.com"      # optional
     code: "https://github.com/example/lost-found"  # optional
     featured: true
   - title: "Bus Time Bot"
     summary: "A Telegram bot that tells DIU students when the next university bus leaves."
-    image: ""
     tech: ["Python", "Telegram API"]
     live: ""
     code: "https://github.com/example/bus-bot"
@@ -77,7 +79,6 @@ languages: ["Bangla (native)", "English (fluent)"]
 hobbies:                           # [] hides the section
   - title: "Travelling"
     text: "I try to visit one new district every semester and keep a photo journal."
-    image: ""                       # optional
 
 contact:
   email: "tanvir@example.com"      # required
