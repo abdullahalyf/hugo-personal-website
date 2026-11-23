@@ -62,14 +62,14 @@
   font-style: normal;
   font-weight: {{ .weights }};
   font-display: swap;
-  src: url("{{ .url | relURL }}") format("woff2");
+  src: url("{{ strings.TrimPrefix "/" .url | relURL }}") format("woff2");
 }
 {{- end }}
 </style>
 {{- end }}
 {{- range $fonts }}
 {{- if .isDisplay }}
-<link rel="preload" href="{{ .url | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ strings.TrimPrefix "/" .url | relURL }}" as="font" type="font/woff2" crossorigin>
 {{- end }}
 {{- end }}
 

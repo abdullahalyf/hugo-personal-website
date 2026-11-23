@@ -4,7 +4,7 @@
     {{- /* The brand avatar is optional: a site with no avatar file just shows
            the name, with no empty space left behind. It sits next to the
            name, so it is decorative and is hidden from screen readers. */}}
-    <a class="site-header__brand" href="{{ "/" | relURL }}">
+    <a class="site-header__brand" href="{{ "" | relURL }}">
       {{- with resources.GetMatch "photos/avatar.*" }}
         {{- $a := .Resize "96x webp q85" }}
         <span class="site-header__avatar-wrap" aria-hidden="true">

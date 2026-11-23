@@ -13,7 +13,7 @@
 {{- if not $url -}}
   {{- /* The PDF is mounted into static/, so it is served from /cv.pdf. */ -}}
   {{- if fileExists "personal/cv.pdf" -}}
-    {{- $url = "/cv.pdf" | relURL -}}
+    {{- $url = "cv.pdf" | relURL -}}
   {{- end -}}
 {{- end -}}
 {{- return $url -}}
