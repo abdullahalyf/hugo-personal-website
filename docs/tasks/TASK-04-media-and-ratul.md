@@ -40,3 +40,24 @@ Input: `_friends-input/ratul/` (local only, not in git) incl. `info-from-alif.md
 5. Build with `--panicOnWarning`, take screenshots (home/about desktop light + mobile dark)
    → `docs/reports/screens/ratul-*.png`.
 6. Push `friend/ratul`. Report: what was used where, "Need from Alif" list.
+
+## Part C — added 22:39 (do with Part B, same branch `friend/ratul`)
+1. Read the "Update" section of `_friends-input/ratul/info-from-alif.md`.
+2. Portrait: `1-profile-photo/ratul-formal-portrait.png` is THE profile photo. Crop head-and-
+   shoulders 4:5 (shirt collar + tie visible, shoulder epaulettes mostly out of frame). Do not
+   alter his face or clothes.
+3. Academic progress: show semester CGPAs as a small, honest progression (e.g. a compact
+   4-step list or mini bar/line drawn in CSS/SVG, values labelled) on About + one line on
+   Home facts ("CGPA rising every semester: 3.50 → 3.89"). Each semester gets its focus
+   (fundamentals/C, problem solving/C, data structures/C++, algorithms/Java).
+4. Contact: phone + WhatsApp link (`https://wa.me/8801888526475`), GitHub link.
+   **Visible empty slots** for LinkedIn and Facebook: show the icon + name in muted style,
+   not a link, with `aria-disabled="true"` and text "Coming soon". Implement as a template
+   feature: a social with `url: ""` renders as a "coming soon" slot only when
+   `show_empty_socials: true` in profile.yaml (default false, so other friends are unaffected).
+5. **CV** (`personal/cv.pdf`, 1 page, A4): reuse `tools/cv/`. Clean simple layout, with the
+   portrait, contact, education (DIU with semester CGPAs, Milestone College HSC 5.00,
+   Liaquat Ali Memorial High School SSC 5.00), skills (C, C++, Java + data structures,
+   algorithms, problem solving), contests/hackathons (Take Off, Unlock the Algorithm —
+   only facts given), interests (motorcycling, travel, football). No invented facts.
+   Also export `docs/reports/screens/ratul-cv.png` preview.

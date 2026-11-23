@@ -158,6 +158,7 @@ The site finds files by name, so the names have to match exactly.
 
 ```
 personal/photos/profile.jpg     ← their portrait          (required)
+personal/photos/avatar.jpg      ← small formal photo      (optional)
 personal/photos/project-1.jpg   ← screenshot of project 1
 personal/photos/project-2.jpg   ← screenshot of project 2
 personal/photos/hobby-1.jpg     ← photo of hobby 1
@@ -183,10 +184,24 @@ WebP itself, so leave them as they are.
 A missing file is not an error. If they have no photo for a project, that
 project is simply shown without one.
 
-### The four photo sections
+### The five photo sections
 
 Every one of these is optional, and every one of them hides itself when the
 file is missing. Add only the ones the friend has photos for.
+
+**Portrait** — `photos/profile.jpg` is the big one: the hero on the home
+page and the portrait on the About page. Crop it 4:5, with the person
+centred.
+
+**Avatar** — `photos/avatar.jpg` is the small formal photo. It is used
+for every round avatar spot on the site: the header next to the name, the
+author byline on a blog post, the contact block, and the Open Graph image
+that link previews use. It is cropped to a square, so pick a picture that
+survives a square crop — head and shoulders works best.
+
+If `avatar.jpg` is missing, the site falls back to `profile.jpg` for all
+of those, so nothing breaks and nothing needs to be done. The big portrait
+always uses `profile.*`; the avatar never replaces it.
 
 **Education photos** — `photos/edu-1.jpg` belongs to the first entry in
 `education`, `edu-2.jpg` to the second, and so on. The image sits beside
@@ -597,6 +612,8 @@ were deleted and the blog section is gone with them.
 - [ ] Fork cloned, and it has `themes/`, `hugo.toml` and `.hugo-version`
 - [ ] `name`, `role`, `now`, `bio`, `contact.email` are all filled in
 - [ ] `personal/photos/profile.jpg` exists
+- [ ] `personal/photos/avatar.jpg` added if the friend has a good formal
+      headshot (optional — the site falls back to the portrait)
 - [ ] Project and hobby photos are named by their position in the YAML
 - [ ] Education (`edu-N`) and achievement (`award-N`) photos are named by
       their position in the YAML, and only as many as there are entries
