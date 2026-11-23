@@ -100,7 +100,7 @@ body {
 
 /* Faint dot grid. One tile is 28px and the layer moves exactly one tile
    per loop, so the loop is seamless. Only transform animates. */
-.page-bg::before {
+.page-bg--dots::before {
   content: "";
   position: absolute;
   inset: -28px;
@@ -111,6 +111,24 @@ body {
   mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 75%);
   will-change: transform;
   animation: bg-dots 90s linear infinite;
+}
+
+/* Alternative: faint diagonal lines, drifting one tile per loop. */
+.page-bg--lines::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background-image: repeating-linear-gradient(135deg, var(--ink) 0 1px, transparent 1px 40px);
+  opacity: 0.05;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 75%);
+  will-change: transform;
+  animation: bg-lines 110s linear infinite;
+}
+
+@keyframes bg-lines {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(56.57px, 0, 0); }
 }
 
 @keyframes bg-dots {

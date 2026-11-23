@@ -1,6 +1,6 @@
 ---
 title: "Arrays or linked lists: how I choose"
-date: 2026-09-03
+date: 2026-10-02
 summary: "Both store a sequence. The difference shows up when you insert, search or ask for the tenth element."
 tags: ["data structures", "c"]
 cover: "arrays-or-linked-lists"

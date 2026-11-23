@@ -1,12 +1,12 @@
 ---
 title: "BFS and DFS: the same graph, two ways of walking it"
-date: 2026-09-10
+date: 2026-10-03
 summary: "Breadth-first and depth-first search visit the same nodes in a different order, and the order decides what each is good for."
 tags: ["graphs", "algorithms"]
 cover: "bfs-and-dfs-on-a-graph"
 ---
 
-In my traffic rules project, the roads between junctions are a graph. Junctions are nodes and roads are edges. Two basic ways of walking that graph are breadth-first search (BFS) and depth-first search (DFS).
+In a group traffic rules project, the roads between junctions are a graph. Junctions are nodes and roads are edges. Two basic ways of walking that graph are breadth-first search (BFS) and depth-first search (DFS).
 
 ## BFS: ring by ring
 

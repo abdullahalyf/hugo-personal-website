@@ -21,7 +21,7 @@
 <body class="layout--{{ $layout }}">
   {{- /* The background wash. It is a fixed layer behind the page and
          carries no text, so it is hidden from screen readers. */}}
-  <div class="page-bg" aria-hidden="true">
+  <div class="page-bg page-bg--{{ hugo.Data.profile.background | default "dots" }}" aria-hidden="true">
     <span class="page-bg__glow page-bg__glow--one"></span>
     <span class="page-bg__glow page-bg__glow--two"></span>
   </div>

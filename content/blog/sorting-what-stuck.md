@@ -1,6 +1,6 @@
 ---
 title: "Sorting: what stuck after writing it by hand"
-date: 2026-09-25
+date: 2026-10-05
 summary: "Bubble sort, merge sort and quick sort taught me different things, mostly about how cost grows with input size."
 tags: ["algorithms", "c"]
 cover: "sorting-what-stuck"

@@ -1,6 +1,6 @@
 ---
 title: "Why C was a good first language for me"
-date: 2026-08-26
+date: 2026-10-01
 summary: "C is small enough to hold in your head, and it makes you see what the computer is doing."
 tags: ["c", "learning"]
 cover: "why-i-started-with-c"

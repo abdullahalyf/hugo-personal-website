@@ -1,12 +1,12 @@
 ---
 title: "Storing data in files for a console application"
-date: 2026-11-10
+date: 2026-10-06
 summary: "The Hospital Management System kept everything in files. Here is what that taught me about why databases exist."
 tags: ["c++", "projects"]
 cover: "storing-data-in-files"
 ---
 
-The Hospital Management System is a C++ console program that keeps patients, doctors, appointments and billing. It has no database. Every record lives in a file on disk.
+A hospital management system, built with a classmate, is a C++ console program that keeps patients, doctors, appointments and billing. It has no database. Every record lives in a file on disk.
 
 ## How it works
 

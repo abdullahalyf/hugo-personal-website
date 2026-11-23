@@ -1,6 +1,6 @@
 ---
 title: "Dijkstra's algorithm in plain words"
-date: 2026-09-18
+date: 2026-10-04
 summary: "How I explain shortest paths on a weighted graph to myself, without the proof."
 tags: ["graphs", "algorithms"]
 cover: "dijkstra-in-plain-words"

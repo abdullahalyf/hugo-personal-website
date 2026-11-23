@@ -1,277 +1,169 @@
-# ============================================================
-#  Ratul Hasan — personal site
-#
-#  Every fact here came from the friend or from Alif's notes on him.
-#  Nothing was invented: where a fact was missing, the field is left
-#  empty and the section hides itself. See
-#  docs/reports/FRIEND-ratul-report.md for the list of what is still
-#  missing and where each line came from.
-#
-#  Photos and CV are NOT named here. Drop files with FIXED names into
-#  this folder:
-#    personal/photos/profile.jpg        (required)
-#    personal/photos/project-1.jpg ...  (1 = first project below, 2 = second ...)
-#    personal/photos/hobby-1.jpg ...    (same order as hobbies below)
-#    personal/photos/edu-1.jpg ...      (1 = first education below, 2 = second ...)
-#    personal/photos/award-1.jpg ...    (1 = first achievement below, 2 = second ...)
-#    personal/photos/gallery/*          (any number; the "Moments" section)
-#    personal/cv.pdf                    (optional; no file = no "Download CV" button)
-#  .jpg / .jpeg / .png / .webp all work. See personal/README.md.
-# ============================================================
-
-name: "Ratul Hasan"
-short_name: "Ratul"
-role: "CSE student & competitive programmer"
-now: "B.Sc. in Computer Science and Engineering at Daffodil International University, taking part in algorithm contests and hackathons."
-photo_alt: "Portrait of Ratul Hasan"
-location: "Dhaka, Bangladesh"
-cv_url: ""
-
+# Fahmida Jannat Shruty - personal site. Facts from Shruty and Alif's notes; email is a placeholder until confirmed.
+name: Fahmida Jannat Shruty
+short_name: Shruty
+role: CSE student & programmer
+now: B.Sc. in Computer Science and Engineering at Daffodil International University, learning C, C++ and Java.
+photo_alt: Portrait of Fahmida Jannat Shruty
+location: Dhaka, Bangladesh
+cv_url: ''
 highlight_academics: false
-
 academics:
-  - "SSC GPA 5.00"
-  - "HSC GPA 5.00"
-  - "CGPA 3.89, up from 3.50"
-
-# The order of the sections on the home page, below the hero.
-#
-# The template renders them in exactly this order. A section that is not
-# listed is not rendered at all, so anything can be left out or moved.
-#
-#   brief        a short paragraph and a link to the full bio
-#   facts        the one-line facts under the hero
-#   skills       the skill groups
-#   projects     the featured projects
-#   moments      a row of photos that opens in the lightbox
-#   achievements the certificates and contest results
-#   grades       the semester results, as bars
-#   contact      the contact block
-#   writing      the latest blog posts
+- SSC GPA 4.89
+- HSC GPA 5.00
+- CGPA 3.40, up from 3.08
 home_sections:
-  - brief
-  - facts
-  - skills
-  - projects
-  - moments
-  - achievements
-  - grades
-  - contact
-
-# The facts under the hero. The grades are not here: they are in the
-# semester results section further down, and on the About page.
+- facts
+- brief
+- grades
+- projects
+- skills
+- moments
+- contact
 facts:
-  - "CSE, Daffodil International University"
-  - "Competitive programming"
-  - "C C++ Java"
-  - "Based in Dhaka"
-
-# A short version of the bio, for the top of the home page.
-brief: |
-  I'm a Computer Science student at Daffodil International University, and
-  most of what I know I learned by building things and by competing. C, C++
-  and Java are my working languages, and my semester results have gone up
-  every term, from 3.50 to 3.89.
-
-# How many photos the Moments strip on the home page shows.
+- CSE, Daffodil International University
+- C C++ Java
+- SSC 4.89, HSC 5.00
+- Based in Dhaka
+brief: I'm a Computer Science student at Daffodil International University. C, C++ and Java are my working languages, and my semester CGPA has gone up every term, from 3.08 to 3.40.
 moments: 6
-
-# Optional: semester results, drawn as bars on the home page.
-grades_title: "Semester results"
+grades_title: Semester results
 grades:
-  - label: "1st"
-    value: 3.50
-    out_of: 4.00
-    focus: "Programming fundamentals in C"
-  - label: "2nd"
-    value: 3.56
-    out_of: 4.00
-    focus: "Problem solving in C"
-  - label: "3rd"
-    value: 3.86
-    out_of: 4.00
-    focus: "Data structures in C++"
-  - label: "4th"
-    value: 3.89
-    out_of: 4.00
-    focus: "Algorithms in Java"
-grades_note: "Programming fundamentals in the first semester, problem solving in the second, data structures in the third and algorithms in the fourth."
+- label: 1st
+  value: 3.08
+  out_of: 4.0
+  focus: Programming fundamentals in C
+- label: 2nd
+  value: 3.12
+  out_of: 4.0
+  focus: Problem solving in C
+- label: 3rd
+  value: 3.29
+  out_of: 4.0
+  focus: Data structures in C++
+- label: 4th
+  value: 3.4
+  out_of: 4.0
+  focus: Algorithms in Java
+grades_note: Programming fundamentals in the first semester, problem solving in the second, data structures in the third and algorithms in the fourth.
+bio: 'I''m a Computer Science student at Daffodil International University. I work in C, C++ and Java, and I enjoy problems where the answer has to be reasoned out step by step.
 
-bio: |
-  I'm a Computer Science student at Daffodil International University, and
-  most of what I have learned so far I have learned by building things and
-  by competing. C, C++ and Java are my working languages, and I care more
-  about understanding an algorithm properly than about the number of
-  frameworks I have tried.
 
-  My results have moved in one direction so far. Semester CGPA went from
-  3.50 in my first semester to 3.89 in my fourth, and each semester has
-  been better than the one before it — first programming fundamentals, then
-  problem solving, then data structures, then algorithms.
+  My semester CGPA has risen every term, from 3.08 in the first semester to 3.40 in the fourth, with programming fundamentals, problem solving, data structures and algorithms along the way.
 
-  I keep showing up at programming contests. "Unlock the Algorithm", an
-  algorithm contest organised by DIU, and "Take Off", the university's
-  problem-solving event, are two I have taken part in, and I am a regular
-  at the hackathons that come through the department. Every one of them has
-  taught me more about reading a problem carefully than any textbook
-  chapter did.
 
-  Outside of it I ride motorcycles, and I am a firm believer in the way
-  Cristiano Ronaldo works — the same effort on an ordinary Tuesday as on
-  the day of a final. I want to go into software engineering after
-  graduation, on a team where the code is read as carefully as it is
-  written.
+  Most of my projects so far were built for courses, several of them together with a classmate. I want to keep learning by building, and to work on a team where the code is read as carefully as it is written.
 
-education:                          # newest first
-  # The Nth entry may have a photo: personal/photos/edu-N.jpg.
-  - degree: "B.Sc. in Computer Science and Engineering"
-    institution: "Daffodil International University"
-    start: ""
-    end: "Present"
-    detail: "Semester CGPA has risen every semester, from 3.50 to 3.89. Coursework in programming fundamentals, problem solving, data structures and algorithms."
-  - degree: "Higher Secondary Certificate (Science)"
-    institution: "Milestone College"
-    start: ""
-    end: ""
-    detail: "GPA 5.00, with mathematics and computer science."
-  - degree: "Secondary School Certificate"
-    institution: "Liaquat Ali Memorial High School"
-    start: ""
-    end: ""
-    detail: "GPA 5.00."
-
-experience: []                     # [] hides the section
-
-skills:                            # groups; first 2 groups appear on Home
-  - group: "Languages"
-    items: ["C", "C++", "Java"]
-  - group: "Problem solving"
-    items: ["Algorithms", "Data structures", "Competitive programming"]
-  - group: "Tools"
-    items: ["Git", "Linux"]
-
-# Course and learning projects. Each one was built to practise something,
-# not as a product. The thumbnail for the Nth project is
-# personal/photos/project-N.jpg.
-#
-# `live` and `code` are empty for the ones that have nowhere public to
-# point at; the template then shows no link at all rather than a dead one.
+  '
+education:
+- degree: B.Sc. in Computer Science and Engineering
+  institution: Daffodil International University
+  start: ''
+  end: Present
+  detail: Semester CGPA has risen every semester, from 3.08 to 3.40. Coursework in programming fundamentals, problem solving, data structures and algorithms.
+- degree: Higher Secondary Certificate
+  institution: Bangabandhu Government College
+  start: ''
+  end: ''
+  detail: GPA 5.00.
+- degree: Secondary School Certificate
+  institution: Premier Ideal High School
+  start: ''
+  end: ''
+  detail: GPA 4.89.
+experience: []
+skills:
+- group: Languages
+  items:
+  - C
+  - C++
+  - Java
+- group: Strengths
+  items:
+  - Problem solving
+  - Communication
 projects:
-  - title: "Hospital Management System"
-    summary: "A console application for a course, keeping patients, doctors, appointments and billing in files on disk."
-    tech: ["C++", "File storage"]
-    live: ""
-    code: ""
-    featured: false
-
-  - title: "Library Management System"
-    summary: "A console application in Java for a course, covering books, members, issue and return, and fines."
-    tech: ["Java", "File storage"]
-    live: ""
-    code: ""
-    featured: false
-
-  - title: "Smart Attendance Tracker"
-    summary: "A small console tool that marks attendance and prints a per-student percentage report."
-    tech: ["Java", "C++"]
-    live: ""
-    code: ""
-    featured: false
-
-  - title: "Clap-Controlled Light Switch"
-    summary: "An IoT project: an Arduino and a sound sensor that toggle a relay, so a clap switches the light."
-    tech: ["Arduino", "IoT", "Sound sensor"]
-    live: ""
-    code: ""
-    featured: false
-
-  - title: "IoT Smart Energy Meter"
-    summary: "An Arduino/ESP32 project with a current sensor that shows how much energy the home is using."
-    tech: ["Arduino", "ESP32", "IoT", "Current sensor"]
-    live: ""
-    code: ""
-    featured: false
-
-  # This one is a course project with a public deployment, so it is the one
-  # with a live link and a repository. It is the strongest of the six, so it
-  # is the one that leads the home page.
-  - title: "Smart Traffic Rules System"
-    summary: "A Data Structures and Algorithms project in C: vehicles, traffic violations and fines, with search, sorting, Dijkstra, BFS and DFS over a junction graph."
-    tech: ["C", "Data structures", "Graph algorithms"]
-    alt: "The Smart Traffic Rules System running in a browser, showing the dashboard totals and the vehicle management form."
-    live: "https://252-15-826-sketch.github.io/smart-traffic-system/"
-    code: "https://github.com/252-15-826-sketch/smart-traffic-system"
-    featured: true
-
-achievements:
-  - year: "2026"
-    title: "Certificate of Appreciation, Unlock the Algorithm"
-    issuer: "Daffodil International University"
-  - year: ""
-    title: "Participant, Take Off problem-solving contest"
-    issuer: "Daffodil International University"
-  - year: ""
-    title: "Regular participant in departmental hackathons"
-    issuer: "Faculty of CSE, DIU"
-  - year: ""
-    title: "CGPA improved every semester, from 3.50 to 3.89"
-    issuer: "Daffodil International University"
-
-# The Nth achievement above may have a picture: personal/photos/award-N.jpg.
-# Certificates are portrait scans, so they are shown whole (never cropped)
-# and open full size in a lightbox.
-
-gallery:                            # the "Moments" section on About
-  - file: "campus-congregation"
-    caption: "Convocation morning at Milestone College"
-  - file: "campus-pool"
-    caption: "The college campus and the swimming pool"
-  - file: "campus-aerial"
-    caption: "Daffodil International University from the air"
-  - file: "cow"
-    caption: "A detour on the way to somewhere"
-  - file: "bridge"
-    caption: "Crossing the river on the way home"
-  - file: "dusk"
-    caption: "Last light over the field"
-  - file: "trees"
-    caption: "Somewhere under the trees"
-  - file: "river"
-    caption: "A boat on the water"
-  - file: "birds"
-    caption: "Birds over the water"
-  - file: "night-ride"
-    caption: "One more ride before the light goes"
-# Every image in personal/photos/gallery/ is shown, whether it is listed
-# here or not. The list only sets the order and the captions.
-
-languages: ["Bangla (native)", "English"]   # the level of English is still to be confirmed
-
-hobbies:
-  - title: "Motorcycles"
-    text: "I ride for the hour it takes to get somewhere, not to get there. Most weekends start with a route I have not driven before."
-  - title: "Football"
-    text: "A lifelong Cristiano Ronaldo fan. What I take from it is not the goals but the consistency — the same work on a day when nobody is watching."
-  - title: "Travel"
-    text: "Any weekend with a train ticket and no plan is a good one. I would rather see one place properly than five places quickly."
-
+- title: Library Management System
+  summary: A console application in Java for a course, covering books, members, issue and return, and fines.
+  tech:
+  - Java
+  - File storage
+  live: ''
+  code: ''
+  featured: false
+- title: Clap-Controlled Light Switch
+  summary: 'An IoT project: an Arduino and a sound sensor that toggle a relay, so a clap switches the light.'
+  tech:
+  - Arduino
+  - IoT
+  - Sound sensor
+  live: ''
+  code: ''
+  featured: false
+- title: Smart Traffic Rules System
+  summary: 'A Data Structures and Algorithms project in C: vehicles, traffic violations and fines, with search, sorting, Dijkstra, BFS and DFS over a junction graph.'
+  tech:
+  - C
+  - Data structures
+  - Graph algorithms
+  alt: The Smart Traffic Rules System running in a browser, showing the dashboard totals and the vehicle management form.
+  live: https://252-15-826-sketch.github.io/smart-traffic-system/
+  code: https://github.com/252-15-826-sketch/smart-traffic-system
+  featured: true
+- title: Hospital Management System
+  summary: A console application for a course, keeping patients, doctors, appointments and billing in files on disk.
+  tech:
+  - C++
+  - File storage
+  live: ''
+  code: ''
+  featured: false
+- title: IoT Smart Energy Meter
+  summary: An Arduino/ESP32 project with a current sensor that shows how much energy the home is using.
+  tech:
+  - Arduino
+  - ESP32
+  - IoT
+  - Current sensor
+  live: ''
+  code: ''
+  featured: false
+- title: Smart Attendance Tracker
+  summary: A small console tool that marks attendance and prints a per-student percentage report.
+  tech:
+  - Java
+  - C++
+  live: ''
+  code: ''
+  featured: false
+achievements: []
+gallery:
+- file: moment-1
+  caption: A walk in the sun
+- file: moment-2
+  caption: Colour and light
+- file: gate
+  caption: The gate at the end of the path
+- file: path
+  caption: The path home
+- file: green
+  caption: Green on the way
+- file: college
+  caption: The college field
+- file: trees
+  caption: Under the trees
+languages:
+- Bangla (native)
+- English
+hobbies: []
 contact:
-  email: "ratul.hasan@example.com"  # required — the real address is still to be confirmed
-  phone: "+880 1888-526475"         # shown on the site
-  whatsapp: "+880 1888-526475"      # a WhatsApp link, if it is a different number put it here
-  note: "Open to internships and junior software engineering roles."
-
-# Show the social slots that have no link yet, as muted "soon" entries, so
-# a visitor can see where they will be. Off by default for other friends.
+  email: shruty@example.com
+  phone: ''
+  whatsapp: ''
+  note: ''
+background: lines
 show_empty_socials: true
-
 socials:
-  - name: "GitHub"
-    url: "https://github.com/252-15-826-sketch"
-  - name: "LinkedIn"
-    url: ""                          # the link is still to be confirmed
-  - name: "Facebook"
-    url: ""                          # the link is still to be confirmed
-# An entry with no `url` is shown as a muted placeholder marked "soon",
-# so the reader knows where to look later without a link going nowhere.
-# Add more entries above; the site only shows the ones that are here.
+- name: GitHub
+  url: ''
+- name: LinkedIn
+  url: ''
