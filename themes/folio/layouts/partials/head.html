@@ -13,10 +13,8 @@
 {{- /* Open Graph. Social crawlers do not reliably support WebP, so the OG
        image is a JPEG derived from the processed photo. */}}
 {{- $ogImage := "" -}}
-{{- with $p.photo -}}
-  {{- with resources.Get (printf "images/%s" .) -}}
-    {{- $ogImage = (.Fill "1200x630 Center jpg q85").Permalink -}}
-  {{- end -}}
+{{- with resources.GetMatch "photos/profile.*" -}}
+  {{- $ogImage = (.Fill "1200x630 Center jpg q85").Permalink -}}
 {{- end -}}
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:site_name" content="{{ $p.name }}">
@@ -39,11 +37,24 @@
 {{- $favicon := partial "favicon.html" $p | resources.FromString "favicon.svg" -}}
 <link rel="icon" type="image/svg+xml" href="{{ $favicon.RelPermalink }}">
 
-{{- /* Fonts. Bunny CDN serves the CSS; the woff2 files are preloaded by the
-       browser once the stylesheet is parsed, so only the stylesheet is linked
-       here. */}}
-{{- range (partial "fonts.html" $style) }}
-<link rel="stylesheet" href="{{ .url }}">
+{{- /* Fonts. Self-hosted WOFF2, latin subset only. The display face is
+       preloaded; the body face loads with font-display: swap. */}}
+{{- $fonts := partial "fonts.html" $style }}
+{{- range $fonts }}
+{{- if hasPrefix .url "/fonts/" }}
+@font-face {
+  font-family: "{{ .family }}";
+  font-style: normal;
+  font-weight: {{ .weights }};
+  font-display: swap;
+  src: url("{{ .url | relURL }}") format("woff2");
+}
+{{- end }}
+{{- end }}
+{{- range $fonts }}
+{{- if .isDisplay }}
+<link rel="preload" href="{{ .url | relURL }}" as="font" type="font/woff2" crossorigin>
+{{- end }}
 {{- end }}
 
 {{- /* CSS: base + chosen style, minified and fingerprinted. */}}

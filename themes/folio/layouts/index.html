@@ -25,16 +25,22 @@
 </section>
 {{- end }}
 
-{{- /* Featured projects: alternating image-left/right rows, max 3. */}}
-{{- $featured := where $p.projects "featured" true -}}
+{{- /* Featured projects: alternating image-left/right rows, max 3.
+     The image base name follows the position in the full projects list, so
+     the original index has to be carried through the filter. */}}
+{{- $featured := slice -}}
+{{- range $i, $proj := $p.projects -}}
+  {{- if and $proj.featured (lt (len $featured) 3) -}}
+    {{- $featured = $featured | append (dict "item" $proj "index" $i) -}}
+  {{- end -}}
+{{- end -}}
 {{- if $featured }}
-{{- $featured = first 3 $featured }}
 <section class="section section--projects">
   <div class="container">
     <h2 class="section__title">Selected projects</h2>
     <div class="project-list">
-      {{- range $i, $proj := $featured }}
-      {{ partial "project.html" (dict "item" $proj "index" $i "mode" "featured") }}
+      {{- range $featured }}
+      {{ partial "project.html" (dict "item" .item "index" .index "mode" "featured") }}
       {{- end }}
     </div>
     <p class="section__more"><a class="link" href="{{ "/projects/" | relURL }}"><span>All projects</span></a></p>

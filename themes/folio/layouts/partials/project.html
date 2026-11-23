@@ -1,16 +1,20 @@
-{{- /* Project item. Usage: partial "project.html" (dict "item" $proj "index" $i "mode" "featured"|"grid") */ -}}
+{{- /* Project item. The image is looked up by fixed base name: the Nth project
+     in profile.yaml uses personal/photos/project-N.*.
+     Usage: partial "project.html" (dict "item" $proj "index" $i "mode" "featured"|"grid")
+*/ -}}
 {{- $item := .item -}}
+{{- $index := .index | default 0 -}}
 {{- $mode := .mode | default "grid" -}}
-{{- $reverse := and (eq $mode "featured") (eq (mod (.index | default 0) 2) 1) -}}
+{{- $reverse := and (eq $mode "featured") (eq (mod $index 2) 1) -}}
+{{- $image := resources.GetMatch (printf "photos/project-%d.*" (add $index 1)) -}}
 <article class="project {{ if eq $mode "featured" }}project--featured{{ if $reverse }} project--reverse{{ end }}{{ else }}project--card{{ end }}">
-  {{- with $item.image }}
+  {{- with $image }}
   <div class="project__media">
     {{ partial "img.html" (dict
-        "src" .
-        "alt" (printf "%s preview" $item.title)
+        "base" (printf "project-%d" (add $index 1))
+        "alt" (printf "Screenshot of %s" $item.title)
         "class" "project__img"
         "width" 1600
-        "height" 1000
         "sizes" "(max-width: 720px) 100vw, 560px"
       ) }}
   </div>

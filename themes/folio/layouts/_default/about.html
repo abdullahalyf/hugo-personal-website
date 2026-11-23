@@ -49,22 +49,23 @@
 </section>
 {{- end }}
 
-{{- /* Hobbies: short paragraphs, optional square photo. */}}
+{{- /* Hobbies: short paragraphs, optional square photo. The photo is looked
+     up by fixed base name: the Nth hobby uses personal/photos/hobby-N.*. */}}
 {{- with $p.hobbies }}
 <section class="section section--hobbies">
   <div class="container">
     <h2 class="section__title">Outside work</h2>
     <div class="hobbies">
-      {{- range . }}
+      {{- range $i, $hobby := . }}
       <div class="hobby">
-        {{- with .image }}
+        {{- with resources.GetMatch (printf "photos/hobby-%d.*" (add $i 1)) }}
         <div class="hobby__media">
-          {{ partial "img.html" (dict "src" . "alt" (printf "%s photo" $.Title) "class" "hobby__img" "width" 600 "height" 600 "sizes" "(max-width: 720px) 40vw, 180px") }}
+          {{ partial "img.html" (dict "base" (printf "hobby-%d" (add $i 1)) "alt" (printf "%s photo" $hobby.title) "class" "hobby__img" "width" 600 "sizes" "(max-width: 720px) 40vw, 180px") }}
         </div>
         {{- end }}
         <div class="hobby__body">
-          <h3 class="hobby__title">{{ .title }}</h3>
-          <p class="hobby__text">{{ .text }}</p>
+          <h3 class="hobby__title">{{ $hobby.title }}</h3>
+          <p class="hobby__text">{{ $hobby.text }}</p>
         </div>
       </div>
       {{- end }}
@@ -73,10 +74,11 @@
 </section>
 {{- end }}
 
-{{- if $p.cv }}
+{{- $cv := partial "cv.html" $p }}
+{{- if $cv }}
 <section class="section section--cv">
   <div class="container">
-    <a class="btn btn--primary" href="{{ $p.cv }}" download>
+    <a class="btn btn--primary" href="{{ $cv }}" download>
       {{ partial "icon.html" (dict "name" "download" "class" "btn__icon") }}
       <span>Download CV</span>
     </a>

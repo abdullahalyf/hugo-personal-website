@@ -59,3 +59,41 @@ enableRobotsTXT = true
 [taxonomies]
   tag = ""
   category = ""
+
+# The personal/ folder is the only thing a site owner replaces. Hugo mounts it
+# into the standard locations so the theme never has to know it exists.
+[[module.mounts]]
+  source = "personal/profile.yaml"
+  target = "data/profile.yaml"
+
+[[module.mounts]]
+  source = "personal/photos"
+  target = "assets/photos"
+
+[[module.mounts]]
+  source = "personal/cv.pdf"
+  target = "static/cv.pdf"
+
+[[module.mounts]]
+  source = "content"
+  target = "content"
+
+[[module.mounts]]
+  source = "static"
+  target = "static"
+
+[[module.mounts]]
+  source = "assets"
+  target = "assets"
+
+[[module.mounts]]
+  source = "themes/folio/layouts"
+  target = "layouts"
+
+[[module.mounts]]
+  source = "themes/folio/assets"
+  target = "assets"
+
+[[module.mounts]]
+  source = "themes/folio/static"
+  target = "static"

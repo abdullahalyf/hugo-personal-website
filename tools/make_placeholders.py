@@ -1,12 +1,18 @@
-"""Generate neutral placeholder images for assets/images/.
+"""Generate neutral placeholder images for personal/photos/.
 
 Design constraints (docs/DESIGN.md): no stock photos of people. Placeholders are
 solid tone + initials / simple geometric shapes only.
+
+File names are fixed (personal/README.md):
+    profile.jpg     the portrait
+    project-1.jpg   1st project in profile.yaml
+    project-2.jpg   2nd project in profile.yaml
+    hobby-1.jpg     1st hobby in profile.yaml
 """
 import os
 from PIL import Image, ImageDraw, ImageFont
 
-OUT = os.path.join(os.path.dirname(__file__), "..", "assets", "images")
+OUT = os.path.join(os.path.dirname(__file__), "..", "personal", "photos")
 os.makedirs(OUT, exist_ok=True)
 
 HARBOR_BG = (246, 248, 251)      # #F6F8FB
@@ -122,4 +128,6 @@ def project_image(path, size=(1600, 1000)):
 
 if __name__ == "__main__":
     initials_image(os.path.join(OUT, "profile.jpg"))
-    project_image(os.path.join(OUT, "project-lostfound.jpg"))
+    project_image(os.path.join(OUT, "project-1.jpg"))
+    project_image(os.path.join(OUT, "project-2.jpg"))
+    initials_image(os.path.join(OUT, "hobby-1.jpg"), size=(900, 900))

@@ -1,44 +1,28 @@
 {{- /* Called once per build (from the base template) to fail loudly when the
-     profile data is incomplete. Optional sections may be empty — only the
-     required fields below are enforced.
+     personal data is incomplete. Optional sections may be empty — only the
+     required fields below are enforced. Messages name the file to edit or
+     the file to add, so a site owner can fix them without reading the theme.
 */ -}}
 {{- $p := hugo.Data.profile -}}
 {{- $required := slice
-      (dict "key" "name"     "label" "name")
-      (dict "key" "role"     "label" "role")
-      (dict "key" "now"      "label" "now")
-      (dict "key" "photo"    "label" "photo")
-      (dict "key" "bio"      "label" "bio")
+      (dict "key" "name" "label" "name")
+      (dict "key" "role" "label" "role")
+      (dict "key" "now"  "label" "now")
+      (dict "key" "bio"  "label" "bio")
 -}}
 {{- range $required -}}
   {{- $value := index $p .key -}}
   {{- if not $value -}}
-    {{- errorf "profile.yaml: %q is required but empty (or missing). Add it under the top level of data/profile.yaml." .label -}}
+    {{- errorf "personal/profile.yaml: %q is required but empty (or missing). Add it under the top level of personal/profile.yaml." .label -}}
   {{- end -}}
 {{- end -}}
 {{- if not $p.contact -}}
-  {{- errorf "profile.yaml: %q section is required but missing. Add a contact block with at least an email." "contact" -}}
+  {{- errorf "personal/profile.yaml: the %q section is required but missing. Add a contact block with at least an email." "contact" -}}
 {{- end -}}
 {{- if not $p.contact.email -}}
-  {{- errorf "profile.yaml: %q is required but empty. Add an email address under contact." "contact.email" -}}
+  {{- errorf "personal/profile.yaml: %q is required but empty. Add an email address under contact." "contact.email" -}}
 {{- end -}}
-{{- /* Every referenced image must exist in assets/images/. */ -}}
-{{- if $p.photo -}}
-  {{- if not (resources.Get (printf "images/%s" $p.photo)) -}}
-    {{- errorf "profile.yaml: photo %q was not found in assets/images/. Add the file or fix the name." $p.photo -}}
-  {{- end -}}
-{{- end -}}
-{{- range $p.projects -}}
-  {{- with .image -}}
-    {{- if not (resources.Get (printf "images/%s" .)) -}}
-      {{- errorf "profile.yaml: project %q references image %q which was not found in assets/images/." $.Title . -}}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}
-{{- range $p.hobbies -}}
-  {{- with .image -}}
-    {{- if not (resources.Get (printf "images/%s" .)) -}}
-      {{- errorf "profile.yaml: hobby %q references image %q which was not found in assets/images/." $.Title . -}}
-    {{- end -}}
-  {{- end -}}
+{{- /* The portrait is a file, not a key in profile.yaml. */ -}}
+{{- if not (resources.GetMatch "photos/profile.*") -}}
+  {{- errorf "personal/photos/profile.jpg is missing. Add your photo as personal/photos/profile.jpg (a .jpg, .jpeg, .png or .webp file with that base name)." -}}
 {{- end -}}

@@ -1,6 +1,7 @@
 {{- /* Contact block: email, phone, location, socials, CV.
      Usage: partial "contact-block.html" $p */ -}}
 {{- $p := . -}}
+{{- $cv := partial "cv.html" $p -}}
 <section class="section section--contact">
   <div class="container">
     <h2 class="section__title">Contact</h2>
@@ -28,9 +29,9 @@
     <p class="contact-note">{{ . }}</p>
     {{- end }}
     {{ partial "socials.html" $p.socials }}
-    {{- if $p.cv }}
+    {{- if $cv }}
     <p class="contact-actions">
-      <a class="btn btn--primary" href="{{ $p.cv }}" download>
+      <a class="btn btn--primary" href="{{ $cv }}" download>
         {{ partial "icon.html" (dict "name" "download" "class" "btn__icon") }}
         <span>Download CV</span>
       </a>

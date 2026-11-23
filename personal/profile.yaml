@@ -10,7 +10,7 @@
 #  Example data below is fictional — replace everything.
 # ============================================================
 
-name: "Tanvir Rahman"              # required
+name: "Tanvir Rahman"
 short_name: "Tanvir"               # used in greetings / header
 role: "CSE student & web developer"  # required, one line
 now: "Third-year CSE student at Daffodil International University, building small web tools for local businesses."  # required, one sentence

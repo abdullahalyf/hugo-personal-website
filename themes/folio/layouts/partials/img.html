@@ -1,28 +1,28 @@
 {{- /* Image helper.
+     Looks a file up by its FIXED base name in assets/photos/, trying the
+     extensions a site owner is allowed to use. A missing file is not an
+     error here — the caller checks first and simply omits the image.
+
      Usage: partial "img.html" (dict
-                "src"    "profile.jpg"
+                "base"    "profile"        # or "project-1", "hobby-2"
                 "alt"    "Portrait of ..."
                 "class"  "hero__photo"
-                "width"  1200
-                "height" 1500
-                "sizes"  "(max-width: 720px) 100vw, 480px"
-                "loading" "lazy"
+                "width"  960
+                "height" 1200
+                "sizes"  "(max-width: 720px) 100vw, 420px"
                 "priority" false
               )
-     Returns a rendered <img> with WebP sources, a srcset of two widths and
-     explicit width/height so the browser reserves the right box.
 */ -}}
-{{- $src := .src -}}
+{{- $base := .base -}}
 {{- $alt := .alt | default "" -}}
 {{- $class := .class | default "" -}}
 {{- $loading := .loading | default "lazy" -}}
 {{- $priority := .priority | default false -}}
-{{- $width := .width | default 1200 -}}
-{{- $height := .height | default 1500 -}}
+{{- $width := .width | default 960 -}}
 {{- $sizes := .sizes | default "100vw" -}}
-{{- $resource := resources.Get (printf "images/%s" $src) -}}
+{{- $resource := resources.GetMatch (printf "photos/%s.*" $base) -}}
 {{- if not $resource -}}
-  {{- errorf "image not found in assets/images: %s" $src -}}
+  {{- errorf "no image found in personal/photos for the base name %q. Add the file as personal/photos/%s.jpg (or .jpeg, .png, .webp)." $base $base -}}
 {{- end -}}
 {{- /* Two rendered widths; never upscale past the source width. */ -}}
 {{- $w1 := 480 -}}
@@ -44,4 +44,5 @@
      alt="{{ $alt }}"
      class="{{ $class }}"
      loading="{{ if $priority }}eager{{ else }}lazy{{ end }}"
-     {{ if $priority }}fetchpriority="high" decoding="async"{{ else }}decoding="async"{{ end }}>
+     {{ if $priority }}fetchpriority="high"{{ end }}
+     decoding="async">

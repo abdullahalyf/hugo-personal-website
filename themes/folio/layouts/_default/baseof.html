@@ -3,8 +3,10 @@
       data-style="{{ .Site.Params.style | default "harbor" }}"
       data-theme="light">
 <head>
-  {{ partial "head.html" . }}
+  {{- /* Validate first: a missing photo or required field must fail the
+         build with a clear message, before any template tries to use it. */}}
   {{ partial "validate.html" . }}
+  {{ partial "head.html" . }}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
