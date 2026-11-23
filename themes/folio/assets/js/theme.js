@@ -77,9 +77,10 @@
   }
 
   /* ---- Header border on scroll ----
-     The header is a frosted panel. A hairline border only appears once
-     the page has moved, so the top of the page reads as open and the
-     border appears where it is needed. */
+     The header is a solid bar. A hairline border only appears once the
+     page has moved, so the top of the page reads as open and the border
+     appears where it is needed. The listener is passive and the work is
+     done once per frame at most. */
   var header = document.querySelector(".site-header");
   if (header) {
     var ticking = false;
@@ -99,38 +100,22 @@
     );
   }
 
-  /* ---- Reveal on scroll ----
-     Sections fade up 12px the first time they come into view. Elements
-     without JavaScript simply stay visible: the `reveal` class is added
-     by this script, not present in the HTML. */
-  var reduced = window.matchMedia
-    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    : false;
+  /* ---- Pause the background when the tab is hidden ----
+     The drifting background keeps the compositor awake. While nobody is
+     looking at the tab there is no reason to spend frames on it, so the
+     animation is paused and resumed with the page. */
+  var bg = document.querySelector(".page-bg");
+  if (bg) {
+    var setRunning = function (running) {
+      bg.style.animationPlayState = running ? "running" : "paused";
+      var glows = bg.querySelectorAll(".page-bg__glow");
+      for (var i = 0; i < glows.length; i++) {
+        glows[i].style.animationPlayState = running ? "running" : "paused";
+      }
+    };
 
-  if (!reduced && typeof window.IntersectionObserver === "function") {
-    var targets = document.querySelectorAll(
-      "main section, .rows__item, .project--card, .gallery__item, .timeline__item"
-    );
-
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
-    );
-
-    targets.forEach(function (el, i) {
-      el.classList.add("reveal");
-      /* A short stagger within a group, never more than three steps, so
-         a list arrives in a wave rather than all at once. */
-      var group = el.parentElement ? el.parentElement.children.length : 1;
-      var step = Math.min(i % 3, 2);
-      el.style.setProperty("--reveal-delay", step * 70 + "ms");
-      observer.observe(el);
+    document.addEventListener("visibilitychange", function () {
+      setRunning(!document.hidden);
     });
   }
 
